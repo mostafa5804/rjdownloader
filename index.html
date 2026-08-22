@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#ebf0f7">
+<meta name="color-scheme" content="light">
+<title>مصی دانلودر | دانلود از رادیوجوان</title>
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoi2YXYtduMINiv2KfZhtmE2YjYr9ixIiwic2hvcnRfbmFtZSI6ItmF2LXZjCDYr9in2YhtmE2YjYr9ixIiwic3RhcnRfdXJsIjoiLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiNlYmYwZjciLCJ0aGVtZV9jb2xvciI6IiNlYmYwZjciLCJkaXIiOiJydGwiLCJsYW5nIjoiZmEifQ==">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/vazirmatn@latest/arabic-400-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/vazirmatn@latest/arabic-500-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/vazirmatn@latest/arabic-700-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/vazirmatn@latest/arabic-800-normal.css">
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<style>
+:root {
+  --bg: #ebf0f7;
+  --surface: #ffffff;
+  --surface-tonal: #f1f5f9;
+  --surface-tonal-hover: #e2e8f0;
+  --surface-variant: #eef2f7;
+  --line: #e2e8f0;
+  --line-bright: #cbd5e1;
+  --text: #1e293b;
+  --muted: #64748b;
+  --title-slate: #5c6b89;
+  
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --primary-container: #eff6ff;
+  --on-primary-container: #1d4ed8;
+  
+  --secondary: #4f46e5;
+  --secondary-container: #eef2ff;
+  
+  --danger: #ef4444;
+  --danger-container: #fef2f2;
+  --warn: #f59e0b;
+  
+  --shadow-sm: 0 4px 12px rgba(148, 163, 184, 0.12);
+  --shadow-md: 0 16px 32px rgba(163, 177, 198, 0.22), -6px -6px 20px rgba(255, 255, 255, 0.85);
+  --shadow-player: 0 -10px 30px rgba(148, 163, 184, 0.25);
+  --radius-card: 24px;
+  --radius-pill: 9999px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { font-size: 16px; }
+body {
+  font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, Tahoma, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding-bottom: 160px;
+}
+
+button, input { font: inherit; color: inherit; border: none; background: none; }
+button { cursor: pointer; }
+img { display: block; }
+a { color: var(--on-primary-container); text-decoration: none; }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 8px; }
+
+.wrap { max-width: 640px; margin: auto; padding: 20px 16px 40px; }
+
+/* PWA Banner */
+.pwa-banner {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 18px;
+  padding: 10px 14px; margin-bottom: 18px; box-shadow: var(--shadow-sm);
+}
+.pwa-banner .pb-text { font-size: 0.8rem; font-weight: 700; color: var(--text); }
+.pwa-banner .pb-actions { display: flex; align-items: center; gap: 8px; }
+
+header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+.logo {
+  width: 48px; height: 48px; border-radius: 16px; display: grid; place-items: center; flex: none;
+  background: var(--surface); color: var(--primary); box-shadow: var(--shadow-md);
+}
+.logo svg { width: 26px; height: 26px; }
+header h1 { font-size: 1.25rem; font-weight: 800; color: var(--text); }
+header small { display: block; color: var(--muted); font-size: 0.76rem; margin-top: 2px; font-weight: 500; }
+
+.section-label {
+  font-size: 0.8rem; font-weight: 800; letter-spacing: 0.5px; color: var(--title-slate);
+  margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;
+}
+
+.card {
+  background: var(--surface); border-radius: var(--radius-card); box-shadow: var(--shadow-md);
+  padding: 20px; border: 1px solid rgba(255, 255, 255, 0.7);
+}
+.card + .card { margin-top: 18px; }
+
+.tab-page { display: none; }
+.tab-page.active { display: block; }
+
+.field label { display: block; font-size: 0.8rem; color: var(--title-slate); margin-bottom: 8px; font-weight: 700; }
+.field-input-wrap { position: relative; width: 100%; }
+.field input {
+  width: 100%; padding: 13px 16px 13px 40px; background: var(--surface-tonal); border: 1.5px solid var(--line);
+  border-radius: 16px; color: var(--text); direction: rtl; text-align: right; font-size: 0.9rem;
+  transition: all .2s ease;
+}
+.field input:focus { border-color: var(--primary); background: #ffffff; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12); }
+.field input::placeholder { color: var(--muted); opacity: .75; }
+.field .clear-btn {
+  position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+  color: var(--muted); padding: 4px; border-radius: 50%; display: none;
+}
+.field .clear-btn.show { display: grid; place-items: center; }
+.field .clear-btn svg { width: 16px; height: 16px; }
+
+/* History Chips */
+.history-wrap { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.history-chip {
+  background: var(--surface-tonal); border: 1px solid var(--line); border-radius: var(--radius-pill);
+  padding: 4px 10px; font-size: 0.74rem; font-weight: 600; color: var(--muted); cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px; transition: all .15s;
+}
+.history-chip:hover { background: var(--surface-tonal-hover); color: var(--text); }
+
+/* Quality Switch */
+.quality-box {
+  margin-top: 14px; display: flex; align-items: center; justify-content: space-between;
+  background: var(--surface-tonal); padding: 8px 12px; border-radius: 16px; border: 1px solid var(--line);
+}
+.quality-box .q-title { font-size: 0.8rem; font-weight: 700; color: var(--title-slate); }
+.quality-switch { display: flex; background: #ffffff; padding: 3px; border-radius: var(--radius-pill); border: 1px solid var(--line); }
+.quality-btn {
+  padding: 5px 12px; border-radius: var(--radius-pill); font-size: 0.76rem; font-weight: 700; color: var(--muted);
+  transition: all .2s ease;
+}
+.quality-btn.active {
+  background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #ffffff;
+  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.25);
+}
+
+.btn {
+  padding: 12px 20px; border-radius: var(--radius-pill); font-weight: 700; font-size: 0.86rem;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  transition: all .2s ease; white-space: nowrap;
+}
+.btn.primary {
+  background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #ffffff;
+  box-shadow: 0 6px 18px rgba(59, 130, 246, 0.26);
+}
+.btn.primary:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.btn.ghost { background: var(--surface-tonal); color: var(--text); border: 1px solid var(--line); }
+.btn.ghost:hover { background: var(--surface-tonal-hover); }
+.btn.sm { padding: 7px 12px; font-size: 0.76rem; border-radius: var(--radius-pill); }
+.btn.block { width: 100%; margin-top: 14px; }
+.btn[disabled] { opacity: .55; pointer-events: none; }
+.btn svg { width: 16px; height: 16px; }
+
+.btn-play-sm {
+  width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; flex: none;
+  background: var(--surface-tonal); color: var(--primary); transition: all .2s ease; border: 1px solid var(--line);
+  box-shadow: 0 3px 10px rgba(163, 177, 198, 0.16);
+}
+.btn-play-sm:hover { transform: scale(1.05); background: var(--primary); color: #ffffff; }
+.btn-play-sm.playing { background: var(--secondary); color: #ffffff; animation: pulse 1.5s infinite; }
+.btn-play-sm svg { width: 18px; height: 18px; fill: currentColor; }
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4); }
+  70% { box-shadow: 0 0 0 8px rgba(79, 70, 229, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+}
+
+.spin { display: inline-block; width: 16px; height: 16px; border: 2px solid currentColor; border-inline-end-color: transparent; border-radius: 50%; animation: sp .8s linear infinite; }
+@keyframes sp { to { transform: rotate(360deg); } }
+
+.hint { font-size: 0.78rem; color: var(--muted); margin-top: 12px; line-height: 1.6; font-weight: 500; }
+.hint b { color: var(--text); }
+
+#result { display: none; }
+#result.show { display: block; }
+#status { font-size: 0.82rem; color: var(--muted); margin-top: 10px; display: none; font-weight: 600; }
+#status.show { display: block; }
+#status.err { color: var(--danger); }
+#status.warn { color: var(--warn); }
+
+/* Two-Line Track Card Design */
+.tracks { margin-top: 14px; max-height: 500px; overflow-y: auto; border: 1px solid var(--line); border-radius: 20px; background: var(--surface-tonal); }
+.trow { display: flex; flex-direction: column; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--line); transition: background .15s; }
+.trow:last-child { border-bottom: none; }
+.trow:hover { background: var(--surface-tonal-hover); }
+
+.trow-top { display: flex; align-items: center; gap: 12px; }
+.trow-top img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex: none; background: var(--surface-variant); border: 2px solid #ffffff; box-shadow: 0 4px 10px rgba(163, 177, 198, 0.2); }
+.trow-top .tmeta { flex: 1; min-width: 0; }
+.trow-top .tt { font-size: 0.88rem; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; color: var(--text); }
+.trow-top .ta { font-size: 0.76rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; margin-top: 2px; font-weight: 500; }
+
+.trow-bottom { display: flex; align-items: center; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
+.btn-action {
+  display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; border-radius: var(--radius-pill);
+  font-size: 0.74rem; font-weight: 700; color: var(--text); background: #ffffff; border: 1px solid var(--line);
+  box-shadow: 0 2px 6px rgba(163, 177, 198, 0.12); transition: all .15s;
+}
+.btn-action:hover { background: var(--primary-container); color: var(--primary); border-color: var(--primary); }
+.btn-action svg { width: 14px; height: 14px; }
+.btn-action.fav.active { color: var(--danger); }
+
+/* Single View */
+.single { display: flex; gap: 16px; align-items: center; }
+.single img { width: 86px; height: 86px; border-radius: 50%; object-fit: cover; flex: none; box-shadow: 0 8px 20px rgba(163, 177, 198, 0.3); border: 3px solid #ffffff; }
+.single .meta { min-width: 0; flex: 1; }
+.badge { display: inline-block; font-size: 0.7rem; font-weight: 800; color: var(--on-primary-container); background: var(--primary-container); padding: 3px 10px; border-radius: var(--radius-pill); margin-bottom: 5px; }
+.single .title { font-size: 1.05rem; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.single .artist { font-size: 0.84rem; color: var(--muted); margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.single .dur { font-size: 0.74rem; color: var(--title-slate); margin-top: 3px; font-weight: 600; }
+.single-actions { display: flex; align-items: center; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+
+/* Modal Drawer for Lyrics */
+.modal-backdrop {
+  position: fixed; inset: 0; z-index: 200; background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(4px); display: none; align-items: flex-end; justify-content: center;
+}
+.modal-backdrop.show { display: flex; }
+.modal-sheet {
+  background: var(--surface); border-radius: 28px 28px 0 0; width: 100%; max-width: 640px;
+  max-height: 80vh; display: flex; flex-direction: column; padding: 22px; box-shadow: var(--shadow-player);
+  animation: slideUp .3s ease-out;
+}
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.modal-header h3 { font-size: 1.1rem; font-weight: 800; }
+.lyrics-body {
+  flex: 1; overflow-y: auto; font-size: 0.92rem; line-height: 2; white-space: pre-line;
+  text-align: center; color: var(--text); padding: 12px; background: var(--surface-tonal);
+  border-radius: 18px; margin-bottom: 14px;
+}
+
+/* Sticky Bottom Player */
+.bottom-player {
+  position: fixed; bottom: 64px; left: 0; right: 0; z-index: 95;
+  background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px);
+  border-top: 1px solid var(--line); box-shadow: var(--shadow-player);
+  padding: 10px 16px 12px; transform: translateY(150%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.bottom-player.active { transform: translateY(0); }
+.bp-content { max-width: 640px; margin: auto; display: flex; flex-direction: column; gap: 6px; }
+.bp-main { display: flex; align-items: center; gap: 10px; }
+.bp-cover { width: 42px; height: 42px; border-radius: 12px; object-fit: cover; flex: none; }
+.bp-meta { flex: 1; min-width: 0; }
+.bp-title { font-size: 0.84rem; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bp-artist { font-size: 0.74rem; color: var(--muted); margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bp-controls { display: flex; align-items: center; gap: 6px; flex: none; }
+.bp-slider-wrap { display: flex; align-items: center; gap: 8px; font-size: 0.7rem; font-weight: 700; color: var(--muted); }
+.bp-slider-wrap input[type=range] { flex: 1; height: 5px; accent-color: var(--primary); cursor: pointer; }
+
+/* Bottom Nav */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+  background: var(--surface); border-top: 1px solid var(--line);
+  box-shadow: 0 -4px 16px rgba(148, 163, 184, 0.1);
+  display: flex; justify-content: space-around; align-items: center;
+  height: 64px; max-width: 640px; margin: 0 auto;
+}
+.nav-item {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  color: var(--muted); font-size: 0.72rem; font-weight: 700; width: 33.33%; padding: 6px 0;
+  transition: all .2s ease;
+}
+.nav-item svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; }
+.nav-item.active { color: var(--primary); }
+
+#toasts { position: fixed; bottom: 74px; inset-inline-end: 18px; z-index: 250; display: flex; flex-direction: column; gap: 8px; max-width: 320px; }
+.toast {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 10px 14px;
+  font-size: 0.82rem; font-weight: 600; box-shadow: var(--shadow-md); animation: tin .25s ease-out; color: var(--text);
+}
+.toast.err { border-color: rgba(239, 68, 68, 0.4); background: var(--danger-container); color: var(--danger); }
+.toast.warn { border-color: rgba(245, 158, 11, 0.4); color: #b45309; }
+.toast.out { opacity: 0; transform: translateX(-16px); transition: all .25s; }
+@keyframes tin { from { opacity: 0; transform: translateX(-16px); } to { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <!-- PWA Install Banner -->
+  <div class="pwa-banner" id="pwaBanner" style="display:none;">
+    <div class="pb-text">📲 نصب اپلیکیشن مصی دانلودر روی دستگاه</div>
+    <div class="pb-actions">
+      <button type="button" class="btn primary sm" id="pwaInstallBtn">نصب</button>
+      <button type="button" class="btn ghost sm" id="pwaClose">✕</button>
+    </div>
+  </div>
+
+  <header>
+    <div class="logo">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" fill="currentColor"/></svg>
+    </div>
+    <div>
+      <h1>مصی دانلودر</h1>
+      <small>دانلود و پخش مستقیم موزیک، پادکست و پلی‌لیست از رادیوجوان</small>
+    </div>
+  </header>
+
+  <!-- TAB 1: Search & Download -->
+  <div class="tab-page active" id="tabSearch">
+    <div class="card">
+      <span class="section-label">جستجو و دانلود</span>
+      <div class="field">
+        <label for="rjUrl">لینک یا اسم آهنگ / خواننده</label>
+        <div class="field-input-wrap">
+          <input type="text" id="rjUrl" placeholder="مثلاً: شادمهر عقیلی یا لینک آهنگ...">
+          <button class="clear-btn" id="clearBtn" title="پاک کردن">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="history-wrap" id="historyChips"></div>
+
+      <div class="quality-box">
+        <span class="q-title">کیفیت دانلود:</span>
+        <div class="quality-switch" id="qualitySwitch">
+          <button type="button" class="quality-btn active" data-quality="320">۳۲۰ (عالی)</button>
+          <button type="button" class="quality-btn" data-quality="128">۱۲۸ (معمولی)</button>
+        </div>
+      </div>
+
+      <button class="btn primary block" id="fetchBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        دریافت اطلاعات / جستجو
+      </button>
+      <div id="status"></div>
+      <div class="hint">پشتیبانی از <b>نام فارسی/انگلیسی</b>، <b>لینک‌های کوتاه (rj.app)</b> و <b>پلی‌لیست‌ها</b>.</div>
+    </div>
+
+    <div id="result">
+      <!-- Single Item -->
+      <div class="card" id="singleCard" style="display:none">
+        <span class="section-label">موزیک انتخابی</span>
+        <div class="single">
+          <img id="sCover" alt="">
+          <div class="meta">
+            <span class="badge" id="sBadge"></span>
+            <div class="title" id="sTitle"></div>
+            <div class="artist" id="sArtist"></div>
+            <div class="dur" id="sDur"></div>
+          </div>
+        </div>
+        <div class="single-actions">
+          <button type="button" class="btn-play-sm" id="sPlayBtn" title="پیش‌گوش دادن"></button>
+          <button class="btn primary" id="sDownload">⬇ دانلود</button>
+          <button class="btn ghost sm" id="sCopyLink">🔗 کپی لینک</button>
+          <button class="btn ghost sm" id="sLyrics">📄 متن ترانه</button>
+          <button class="btn ghost sm" id="sFav">❤️ ذخیره</button>
+        </div>
+      </div>
+
+      <!-- Playlist / Search Results -->
+      <div class="card" id="plCard" style="display:none">
+        <span class="section-label" id="plSectionLabel">نتایج</span>
+        <div class="tracks" id="plTracks"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: Trending Items -->
+  <div class="tab-page" id="tabTrending">
+    <div class="card">
+      <span class="section-label">
+        <span>🎵 آهنگ‌های داغ روز</span>
+        <small id="songsCount" style="color:var(--muted);"></small>
+      </span>
+      <div class="tracks" id="songsTracks"></div>
+      <button class="btn ghost block" id="songsLoadMore">بارگذاری موارد بیشتر</button>
+    </div>
+    <div class="card">
+      <span class="section-label">
+        <span>🎙 پادکست‌های پرطرفدار</span>
+        <small id="podcastsCount" style="color:var(--muted);"></small>
+      </span>
+      <div class="tracks" id="podcastsTracks"></div>
+      <button class="btn ghost block" id="podcastsLoadMore">بارگذاری موارد بیشتر</button>
+    </div>
+  </div>
+
+  <!-- TAB 3: Favorites -->
+  <div class="tab-page" id="tabFavs">
+    <div class="card">
+      <span class="section-label">❤️ آهنگ‌های نشان‌شده</span>
+      <div class="tracks" id="favTracks"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Drawer for Lyrics -->
+<div class="modal-backdrop" id="lyricsModal">
+  <div class="modal-sheet">
+    <div class="modal-header">
+      <h3 id="lyricsTitle">متن ترانه</h3>
+      <button type="button" class="btn ghost sm" id="closeLyrics">✕</button>
+    </div>
+    <div class="lyrics-body" id="lyricsBody">در حال دریافت متن ترانه...</div>
+    <button class="btn primary block" id="copyLyricsBtn">📋 کپی متن ترانه</button>
+  </div>
+</div>
+
+<!-- Sticky Bottom Player -->
+<div class="bottom-player" id="bottomPlayer">
+  <div class="bp-content">
+    <div class="bp-main">
+      <img id="bpCover" class="bp-cover" src="" alt="">
+      <div class="bp-meta">
+        <div class="bp-title" id="bpTitle">در حال پخش...</div>
+        <div class="bp-artist" id="bpArtist">—</div>
+      </div>
+      <div class="bp-controls">
+        <button type="button" class="btn ghost sm" id="bpPrevBtn" title="قبلی">⏮</button>
+        <button type="button" class="btn-play-sm" id="bpPlayBtn" title="پخش / توقف"></button>
+        <button type="button" class="btn ghost sm" id="bpNextBtn" title="بعدی">⏭</button>
+        <button type="button" class="btn ghost sm" id="bpCloseBtn" title="بستن">✕</button>
+      </div>
+    </div>
+    <div class="bp-slider-wrap">
+      <span id="bpCurrTime">۰۰:۰۰</span>
+      <input type="range" id="bpProgress" value="0" min="0" max="100">
+      <span id="bpTotTime">۰۰:۰۰</span>
+    </div>
+  </div>
+</div>
+
+<!-- Bottom Navigation Bar -->
+<div class="bottom-nav">
+  <button class="nav-item active" id="navBtnSearch">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <span>جستجو</span>
+  </button>
+  <button class="nav-item" id="navBtnTrending">
+    <svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3z"/></svg>
+    <span>داغ‌ترین‌ها</span>
+  </button>
+  <button class="nav-item" id="navBtnFavs">
+    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    <span>نشان‌شده‌ها</span>
+  </button>
+</div>
+
+<div id="toasts"></div>
+
+<script>
+'use strict';
+const $ = s => document.querySelector(s);
+const CF_WORKER_URL = 'https://player.foadtoonak.workers.dev';
+const DEFAULT_COVER = 'https://image.qwenlm.ai/public_source/e65c539b-21b0-4d51-a3dc-04fdb44f3766/1b687daa5-7a77-44b3-9c54-a87811103bb5.png';
+const FA_DIGITS = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+
+const PLAY_ICON = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>';
+const PAUSE_ICON = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+const DL_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>';
+const LINK_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>';
+const DOC_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>';
+const HEART_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
+
+let selectedQuality = '320';
+let currentQueue = [];
+let currentQueueIndex = -1;
+
+function toFa(n) { return String(n).replace(/[0-9]/g, d => FA_DIGITS[d]); }
+function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+function fmtTime(s) { if (!s && s !== 0) return '۰۰:۰۰'; s = Math.round(s); const m = Math.floor(s / 60), ss = s % 60; return toFa(m) + ':' + toFa(String(ss).padStart(2, '0')); }
+function proxyUrl(url) { if (!url) return ''; if (url.startsWith('data:') || url.startsWith('blob:')) return url; return `${CF_WORKER_URL}/?kind=file&url=${encodeURIComponent(url)}`; }
+
+function toast(msg, type = 'ok', ms = 3200) {
+  const el = document.createElement('div');
+  el.className = 'toast ' + type;
+  el.textContent = (type === 'err' ? '⛔ ' : type === 'warn' ? '⚠️ ' : '✅ ') + msg;
+  $('#toasts').appendChild(el);
+  setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 300); }, ms);
+}
+function setStatus(msg, type) {
+  const el = $('#status');
+  el.textContent = msg || '';
+  el.className = msg ? ('show' + (type ? ' ' + type : '')) : '';
+}
+
+/* Quality Switch Handlers */
+document.querySelectorAll('#qualitySwitch .quality-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#qualitySwitch .quality-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedQuality = btn.dataset.quality;
+    toast(`کیفیت روی ${toFa(selectedQuality)} تنظیم شد`, 'ok', 1800);
+  });
+});
+
+/* Search History & Favorites LocalStorage */
+function getHistory() { try { return JSON.parse(localStorage.getItem('mosi_history') || '[]'); } catch(e) { return []; } }
+function addHistory(q) {
+  if (!q || q.startsWith('http')) return;
+  let h = getHistory().filter(x => x !== q);
+  h.unshift(q);
+  localStorage.setItem('mosi_history', JSON.stringify(h.slice(0, 6)));
+  renderHistory();
+}
+function renderHistory() {
+  const h = getHistory();
+  const wrap = $('#historyChips');
+  if (!h.length) { wrap.innerHTML = ''; return; }
+  wrap.innerHTML = h.map(x => `<span class="history-chip" data-q="${esc(x)}">🔍 ${esc(x)}</span>`).join('');
+}
+$('#historyChips').addEventListener('click', e => {
+  const chip = e.target.closest('.history-chip');
+  if (chip) { $('#rjUrl').value = chip.dataset.q; processInput(); }
+});
+renderHistory();
+
+function getFavs() { try { return JSON.parse(localStorage.getItem('mosi_favs') || '[]'); } catch(e) { return []; } }
+function isFav(id) { return getFavs().some(x => (x.permlink || x.id) === id); }
+function toggleFav(item) {
+  let favs = getFavs();
+  const id = item.permlink || item.id;
+  if (isFav(id)) { favs = favs.filter(x => (x.permlink || x.id) !== id); toast('از نشان‌شده‌ها حذف شد', 'warn'); }
+  else { favs.unshift(item); toast('به نشان‌شده‌ها اضافه شد', 'ok'); }
+  localStorage.setItem('mosi_favs', JSON.stringify(favs));
+  renderFavorites();
+}
+
+function renderFavorites() {
+  const favs = getFavs();
+  const wrap = $('#favTracks');
+  if (!favs.length) {
+    wrap.innerHTML = '<div style="padding:24px; text-align:center; color:var(--muted); font-size:0.86rem;">هنوز هیچ آهنگی را نشان نکرده‌اید ❤️</div>';
+    return;
+  }
+  wrap.innerHTML = renderTrackList(favs, 'fav');
+}
+
+/* Audio Player Core */
+let currentAudio = null;
+let currentPlayBtn = null;
+let currentItem = null;
+
+const bottomPlayer = $('#bottomPlayer');
+const bpPlayBtn = $('#bpPlayBtn');
+const bpProgress = $('#bpProgress');
+
+function stopAudio() {
+  if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+  if (currentPlayBtn) { setPlayState(currentPlayBtn, false); currentPlayBtn = null; }
+  setPlayState(bpPlayBtn, false);
+  bottomPlayer.classList.remove('active');
+}
+
+function setPlayState(btn, state) {
+  if (!btn) return;
+  if (state === 'loading') { btn.innerHTML = '<span class="spin"></span>'; btn.classList.add('playing'); }
+  else if (state === true) { btn.innerHTML = PAUSE_ICON; btn.classList.add('playing'); }
+  else { btn.innerHTML = PLAY_ICON; btn.classList.remove('playing'); }
+}
+
+function getItemAudioUrl(item) {
+  if (selectedQuality === '128') return item.lqUrl || item.hqUrl || item.audioUrl || null;
+  return item.hqUrl || item.audioUrl || item.lqUrl || null;
+}
+
+async function togglePlay(item, btn, queueList = [], qIndex = -1) {
+  if (currentPlayBtn === btn && currentAudio) {
+    if (!currentAudio.paused) {
+      currentAudio.pause(); setPlayState(btn, false); setPlayState(bpPlayBtn, false);
+    } else {
+      currentAudio.play().then(() => { setPlayState(btn, true); setPlayState(bpPlayBtn, true); });
+    }
+    return;
+  }
+
+  stopAudio();
+  if (queueList.length) { currentQueue = queueList; currentQueueIndex = qIndex; }
+
+  let audioUrl = getItemAudioUrl(item);
+  if (!audioUrl) {
+    setPlayState(btn, 'loading');
+    try {
+      const raw = await rjFetch('song', item.permlink || item.id || item.title);
+      const norm = normalizeItem(raw);
+      item.hqUrl = norm.hqUrl; item.lqUrl = norm.lqUrl; item.audioUrl = norm.audioUrl;
+      audioUrl = getItemAudioUrl(item);
+    } catch(e) {
+      toast('دریافت لینک پخش ناموفق بود', 'err'); setPlayState(btn, false); return;
+    }
+  }
+
+  if (!audioUrl) { toast('لینک پخش یافت نشد', 'err'); setPlayState(btn, false); return; }
+
+  setPlayState(btn, 'loading');
+  currentItem = item;
+  currentAudio = new Audio(proxyUrl(audioUrl));
+  currentPlayBtn = btn;
+
+  $('#bpCover').src = proxyUrl(item.cover);
+  $('#bpTitle').textContent = item.title;
+  $('#bpArtist').textContent = item.artist || '—';
+
+  currentAudio.play().then(() => {
+    setPlayState(btn, true); setPlayState(bpPlayBtn, true); bottomPlayer.classList.add('active');
+  }).catch(() => { toast('خطا در پخش آنلاین', 'err'); stopAudio(); });
+
+  currentAudio.ontimeupdate = () => {
+    if (!currentAudio || !currentAudio.duration) return;
+    bpProgress.value = (currentAudio.currentTime / currentAudio.duration) * 100;
+    $('#bpCurrTime').textContent = fmtTime(currentAudio.currentTime);
+    $('#bpTotTime').textContent = fmtTime(currentAudio.duration);
+  };
+
+  currentAudio.onended = () => {
+    if (currentQueue.length && currentQueueIndex < currentQueue.length - 1) {
+      playNextInQueue();
+    } else { stopAudio(); }
+  };
+}
+
+function playNextInQueue() {
+  if (currentQueueIndex < currentQueue.length - 1) {
+    currentQueueIndex++;
+    const nextItem = currentQueue[currentQueueIndex];
+    togglePlay(nextItem, null, currentQueue, currentQueueIndex);
+  }
+}
+function playPrevInQueue() {
+  if (currentQueueIndex > 0) {
+    currentQueueIndex--;
+    const prevItem = currentQueue[currentQueueIndex];
+    togglePlay(prevItem, null, currentQueue, currentQueueIndex);
+  }
+}
+
+bpPlayBtn.onclick = () => { if (currentItem) togglePlay(currentItem, currentPlayBtn); };
+$('#bpNextBtn').onclick = playNextInQueue;
+$('#bpPrevBtn').onclick = playPrevInQueue;
+$('#bpCloseBtn').onclick = stopAudio;
+bpProgress.oninput = () => {
+  if (currentAudio && currentAudio.duration) currentAudio.currentTime = (bpProgress.value / 100) * currentAudio.duration;
+};
+
+/* Short Link & RJ Fetch Logic */
+function isShortRJLink(raw) { try { return /^rj\.app$/i.test(new URL(raw.trim()).hostname); } catch(e) { return false; } }
+async function resolveShortLink(raw) {
+  const r = await fetch(`${CF_WORKER_URL}/?kind=resolve&url=${encodeURIComponent(raw.trim())}`);
+  if (!r.ok) throw new Error('لینک کوتاه باز نشد');
+  const d = await r.json(); return d.url;
+}
+
+function detectRJ(raw) {
+  let u; try { u = new URL(raw.trim()); } catch(e) { return null; }
+  if (!/radiojavan/i.test(u.hostname)) return null;
+  const p = u.pathname.toLowerCase();
+  const segs = u.pathname.split('/').filter(Boolean);
+  const last = segs[segs.length - 1];
+  if (!last) return null;
+  if (p.includes('/playlist/mp3/')) return { kind: 'playlist', id: last };
+  if (p.includes('/podcast/')) return { kind: 'podcast', id: last };
+  if (p.includes('/song/') || p.includes('/mp3s/mp3/') || p.includes('/mp3/')) return { kind: 'song', id: last };
+  return null;
+}
+
+async function rjFetch(kind, id) {
+  const encId = encodeURIComponent(id);
+  const r = await fetch(`${CF_WORKER_URL}/?kind=${kind}&id=${encId}`, { cache: 'no-store' });
+  if (r.ok) {
+    const json = await r.json();
+    if (json && json.success !== false) return json;
+  }
+  throw new Error('دریافت اطلاعات ناموفق بود.');
+}
+
+async function searchRJ(query) {
+  const qEnc = encodeURIComponent(query);
+  const targetUrl = `https://rj-deskcloud.com/api2/search?query=${qEnc}`;
+  const r = await fetch(`${CF_WORKER_URL}/?kind=file&url=${encodeURIComponent(targetUrl)}`);
+  if (r.ok) {
+    const data = await r.json();
+    return [...(data?.mp3s || []), ...(data?.podcasts || []), ...(data?.songs || [])];
+  }
+  return [];
+}
+
+function normalizeItem(raw) {
+  const perm = raw.permlink || raw.link || raw.id || '';
+  let cleanPerm = typeof perm === 'string' && perm.includes('/') ? perm.split('/').filter(Boolean).pop() : perm;
+  const hq = raw.hq_link || raw.link || null;
+  let lq = raw.lq_link || (hq && hq.includes('/320/') ? hq.replace('/320/', '/128/') : hq);
+  return {
+    id: cleanPerm || raw.id || null,
+    title: raw.song || raw.name || raw.title || 'بدون‌نام',
+    artist: raw.artist || raw.artist_name || '',
+    cover: raw.photo_player || raw.photo || raw.thumbnail || DEFAULT_COVER,
+    duration: raw.duration != null ? Math.round(raw.duration) : null,
+    hqUrl: hq, lqUrl: lq, audioUrl: hq || lq, permlink: cleanPerm || null,
+    lyric: raw.lyric || raw.lyrics || ''
+  };
+}
+
+/* Download & Copy Handlers */
+function suggestFileName(title, artist, quality = '320') {
+  return `${artist ? artist + ' - ' : ''}${title} (${quality}kbps).mp3`.replace(/[\\/:*?"<>|]+/g, ' ').trim();
+}
+
+async function downloadOne(item, btn) {
+  let downloadUrl = getItemAudioUrl(item);
+  if (!downloadUrl) {
+    if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spin"></span>'; }
+    try {
+      const raw = await rjFetch('song', item.permlink || item.id);
+      const norm = normalizeItem(raw);
+      item.hqUrl = norm.hqUrl; item.lqUrl = norm.lqUrl; downloadUrl = getItemAudioUrl(item);
+    } catch(e) {
+      toast('لینک دانلود یافت نشد', 'err');
+      if (btn) { btn.disabled = false; btn.innerHTML = '⬇ دانلود'; }
+      return;
+    }
+  }
+
+  if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spin"></span>'; }
+  try {
+    const r = await fetch(proxyUrl(downloadUrl));
+    if (!r.ok) throw new Error();
+    const blob = await r.blob();
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = suggestFileName(item.title, item.artist, selectedQuality);
+    document.body.appendChild(a); a.click(); a.remove();
+    toast('دانلود با موفقیت آغاز شد', 'ok');
+  } catch(e) { toast('خطا در دانلود فایل', 'err'); }
+  finally { if (btn) { btn.disabled = false; btn.innerHTML = '⬇ دانلود'; } }
+}
+
+async function copyDirectLink(item) {
+  let url = getItemAudioUrl(item);
+  if (!url) {
+    try {
+      const raw = await rjFetch('song', item.permlink || item.id);
+      const norm = normalizeItem(raw);
+      item.hqUrl = norm.hqUrl; item.lqUrl = norm.lqUrl; url = getItemAudioUrl(item);
+    } catch(e) {}
+  }
+  if (url) {
+    navigator.clipboard.writeText(proxyUrl(url));
+    toast('لینک مستقیم در حافظه کپی شد', 'ok');
+  } else { toast('لینک مستقیم در دسترس نیست', 'err'); }
+}
+
+/* Lyrics Modal */
+async function openLyrics(item) {
+  $('#lyricsModal').classList.add('show');
+  $('#lyricsTitle').textContent = `متن ترانه: ${item.title}`;
+  $('#lyricsBody').innerHTML = '<span class="spin"></span> در حال دریافت متن ترانه...';
+
+  let text = item.lyric;
+  if (!text) {
+    try {
+      const raw = await rjFetch('song', item.permlink || item.id || item.title);
+      text = raw.lyric || raw.lyrics;
+    } catch(e) {}
+  }
+
+  if (text) {
+    $('#lyricsBody').textContent = text;
+    $('#copyLyricsBtn').onclick = () => {
+      navigator.clipboard.writeText(text);
+      toast('متن ترانه کپی شد', 'ok');
+    };
+  } else {
+    $('#lyricsBody').textContent = 'متن ترانه‌ای برای این اثر ثبت نشده است.';
+    $('#copyLyricsBtn').onclick = () => toast('متنی برای کپی وجود ندارد', 'warn');
+  }
+}
+$('#closeLyrics').onclick = () => $('#lyricsModal').classList.remove('show');
+
+/* Two-Line Rendering */
+function renderTrackList(items, context = 'pl') {
+  return items.map((s, i) => {
+    const favActive = isFav(s.permlink || s.id) ? 'active' : '';
+    return `
+      <div class="trow" data-i="${i}" data-ctx="${context}">
+        <div class="trow-top">
+          <img src="${esc(proxyUrl(s.cover))}" loading="lazy" onerror="this.src='${DEFAULT_COVER}'">
+          <button type="button" class="btn-play-sm tplay" title="پخش">${PLAY_ICON}</button>
+          <div class="tmeta">
+            <span class="tt">${esc(s.title)}</span>
+            <span class="ta">${esc(s.artist || '—')}${s.duration ? ' · ' + fmtTime(s.duration) : ''}</span>
+          </div>
+        </div>
+        <div class="trow-bottom">
+          <button type="button" class="btn-action tdl">⬇ دانلود</button>
+          <button type="button" class="btn-action tcopy">🔗 کپی لینک</button>
+          <button type="button" class="btn-action tlyric">📄 متن ترانه</button>
+          <button type="button" class="btn-action fav ${favActive} tfav">❤️ نشان</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+let currentSearchResults = [];
+function renderSingle(kind, item) {
+  stopAudio();
+  $('#plCard').style.display = 'none';
+  $('#singleCard').style.display = 'block';
+  $('#sBadge').textContent = kind === 'podcast' ? 'پادکست' : 'آهنگ';
+  $('#sCover').src = proxyUrl(item.cover);
+  $('#sCover').onerror = () => { $('#sCover').src = DEFAULT_COVER; };
+  $('#sTitle').textContent = item.title;
+  $('#sArtist').textContent = item.artist || '—';
+  $('#sDur').textContent = item.duration ? fmtTime(item.duration) : '';
+
+  setPlayState($('#sPlayBtn'), false);
+  $('#sPlayBtn').onclick = () => togglePlay(item, $('#sPlayBtn'), [item], 0);
+  $('#sDownload').onclick = () => downloadOne(item, $('#sDownload'));
+  $('#sCopyLink').onclick = () => copyDirectLink(item);
+  $('#sLyrics').onclick = () => openLyrics(item);
+  $('#sFav').onclick = () => toggleFav(item);
+}
+
+function renderPlaylist(pl, isSearch = false) {
+  stopAudio();
+  $('#singleCard').style.display = 'none';
+  $('#plCard').style.display = 'block';
+  currentSearchResults = pl.songs;
+  $('#plSectionLabel').textContent = isSearch ? `نتایج جستجو (${toFa(pl.songs.length)} مورد)` : pl.title;
+  $('#plTracks').innerHTML = renderTrackList(pl.songs, 'search');
+}
+
+/* Track Click Delegations */
+function handleTrackClick(e, getList) {
+  const row = e.target.closest('.trow');
+  if (!row) return;
+  const idx = +row.dataset.i;
+  const list = getList();
+  const item = list[idx];
+  if (!item) return;
+
+  if (e.target.closest('.tplay')) { togglePlay(item, row.querySelector('.tplay'), list, idx); }
+  else if (e.target.closest('.tdl')) { downloadOne(item, row.querySelector('.tdl')); }
+  else if (e.target.closest('.tcopy')) { copyDirectLink(item); }
+  else if (e.target.closest('.tlyric')) { openLyrics(item); }
+  else if (e.target.closest('.tfav')) {
+    toggleFav(item);
+    row.querySelector('.tfav').classList.toggle('active', isFav(item.permlink || item.id));
+  }
+}
+
+$('#plTracks').addEventListener('click', e => handleTrackClick(e, () => currentSearchResults));
+$('#favTracks').addEventListener('click', e => handleTrackClick(e, () => getFavs()));
+
+/* Trending / Browse State */
+const browseState = {
+  songs: { endpoint: 'mp3s', type: 'trending', items: [], page: 1, done: false },
+  podcasts: { endpoint: 'podcasts', type: 'popular', items: [], page: 1, done: false }
+};
+
+async function fetchBrowse(endpoint, type, page) {
+  const url = `https://rj-deskcloud.com/api2/${endpoint}?url=${endpoint}&type=${type}&page=${page}`;
+  const r = await fetch(`${CF_WORKER_URL}/?kind=file&url=${encodeURIComponent(url)}`);
+  if (r.ok) {
+    const d = await r.json();
+    return Array.isArray(d) ? d : (d.items || d.mp3s || d.podcasts || []);
+  }
+  return [];
+}
+
+async function loadBrowseMore(key) {
+  const st = browseState[key];
+  if (st.done) return;
+  const btn = $('#' + key + 'LoadMore');
+  btn.disabled = true;
+  try {
+    const batch = await fetchBrowse(st.endpoint, st.type, st.page);
+    if (!batch.length) { st.done = true; btn.style.display = 'none'; }
+    else {
+      st.items.push(...batch.map(normalizeItem));
+      st.page++;
+      $('#' + key + 'Tracks').innerHTML = renderTrackList(st.items, key);
+      $('#' + key + 'Count').textContent = toFa(st.items.length) + ' مورد';
+    }
+  } catch(e) { toast('خطا در دریافت لیست', 'err'); }
+  finally { btn.disabled = false; }
+}
+
+['songs', 'podcasts'].forEach(key => {
+  $('#' + key + 'Tracks').addEventListener('click', e => handleTrackClick(e, () => browseState[key].items));
+  $('#' + key + 'LoadMore').addEventListener('click', () => loadBrowseMore(key));
+});
+
+function loadTrendingItems() {
+  if (!browseState.songs.items.length) loadBrowseMore('songs');
+  if (!browseState.podcasts.items.length) loadBrowseMore('podcasts');
+}
+
+/* Nav Tabs */
+$('#navBtnSearch').onclick = () => { switchTab('Search'); };
+$('#navBtnTrending').onclick = () => { switchTab('Trending'); loadTrendingItems(); };
+$('#navBtnFavs').onclick = () => { switchTab('Favs'); renderFavorites(); };
+
+function switchTab(name) {
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-page').forEach(p => p.classList.remove('active'));
+  $(`#navBtn${name}`).classList.add('active');
+  $(`#tab${name}`).classList.add('active');
+}
+
+/* Process Search / Link Input */
+async function processInput() {
+  let raw = $('#rjUrl').value.trim();
+  setStatus('');
+  $('#result').classList.remove('show');
+  stopAudio();
+
+  if (!raw) { setStatus('لطفاً نام موزیک یا لینک رادیوجوان را وارد کنید', 'warn'); return; }
+
+  const btn = $('#fetchBtn');
+  btn.disabled = true;
+
+  if (isShortRJLink(raw)) {
+    setStatus('در حال باز کردن لینک کوتاه...');
+    try { raw = await resolveShortLink(raw); }
+    catch(e) { setStatus('❌ لینک کوتاه باز نشد', 'err'); btn.disabled = false; return; }
+  }
+
+  const info = detectRJ(raw);
+  if (info) {
+    setStatus('در حال دریافت اطلاعات از رادیوجوان...');
+    try {
+      if (info.kind === 'playlist') {
+        const d = await rjFetch('playlist', info.id);
+        const songs = (d.items || d.songs || []).map(normalizeItem);
+        renderPlaylist({ title: d.title || 'پلی‌لیست', songs }, false);
+      } else {
+        const d = await rjFetch(info.kind, info.id);
+        renderSingle(info.kind, normalizeItem(d));
+      }
+      $('#result').classList.add('show');
+      setStatus('');
+    } catch(e) { setStatus('❌ ' + e.message, 'err'); }
+    finally { btn.disabled = false; }
+  } else {
+    setStatus(`در حال جستجوی «${raw}»...`);
+    addHistory(raw);
+    try {
+      const res = await searchRJ(raw);
+      if (!res.length) { setStatus('هیچ آهنگی یافت نشد', 'warn'); btn.disabled = false; return; }
+      renderPlaylist({ title: raw, songs: res.map(normalizeItem) }, true);
+      $('#result').classList.add('show');
+      setStatus('');
+    } catch(e) { setStatus('❌ خطا در جستجو', 'err'); }
+    finally { btn.disabled = false; }
+  }
+}
+
+const inputEl = $('#rjUrl');
+const clearBtn = $('#clearBtn');
+inputEl.oninput = () => clearBtn.classList.toggle('show', inputEl.value.length > 0);
+clearBtn.onclick = () => { inputEl.value = ''; clearBtn.classList.remove('show'); inputEl.focus(); };
+$('#fetchBtn').onclick = processInput;
+inputEl.onkeydown = e => { if (e.key === 'Enter') processInput(); };
+
+/* PWA Install Flow */
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault(); deferredPrompt = e; $('#pwaBanner').style.display = 'flex';
+});
+$('#pwaInstallBtn').onclick = async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') $('#pwaBanner').style.display = 'none';
+    deferredPrompt = null;
+  } else {
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    toast(isIOS ? 'در سافاری آیفون، دکمه Share و سپس Add to Home Screen را بزنید' : 'از منوی مرورگر گزینه Install یا Add to Home Screen را انتخاب کنید', 'ok', 5000);
+  }
+};
+$('#pwaClose').onclick = () => { $('#pwaBanner').style.display = 'none'; };
+</script>
+</body>
+</html>
