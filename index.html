@@ -147,7 +147,7 @@ header small { display: block; color: var(--muted); font-size: 0.76rem; margin-t
 .btn.primary:hover { filter: brightness(1.08); transform: translateY(-1px); }
 .btn.ghost { background: var(--surface-tonal); color: var(--text); border: 1px solid var(--line); }
 .btn.ghost:hover { background: var(--surface-tonal-hover); }
-.btn.sm { padding: 7px 12px; font-size: 0.76rem; border-radius: var(--radius-pill); }
+.btn.sm { padding: 7px 14px; font-size: 0.76rem; border-radius: var(--radius-pill); }
 .btn.block { width: 100%; margin-top: 14px; }
 .btn[disabled] { opacity: .55; pointer-events: none; }
 .btn svg { width: 16px; height: 16px; }
@@ -180,6 +180,21 @@ header small { display: block; color: var(--muted); font-size: 0.76rem; margin-t
 #status.err { color: var(--danger); }
 #status.warn { color: var(--warn); }
 
+/* Playlist & Collection Header & Actions */
+.pl-head { display: flex; gap: 16px; align-items: center; }
+.pl-head img { width: 78px; height: 78px; border-radius: 20px; object-fit: cover; flex: none; box-shadow: 0 8px 20px rgba(163, 177, 198, 0.3); border: 2px solid #ffffff; }
+.pl-head .meta { min-width: 0; flex: 1; }
+.pl-head .title { font-size: 1.05rem; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pl-head .sub { font-size: 0.78rem; color: var(--muted); margin-top: 3px; font-weight: 500; }
+.pl-actions { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+.pl-actions .btn { flex: 1; }
+
+.dl-progress { display: none; align-items: center; gap: 10px; margin-top: 14px; padding: 10px 14px; border-radius: 16px; background: var(--surface-tonal); border: 1px solid var(--line); font-size: 0.76rem; font-weight: 600; }
+.dl-progress.show { display: flex; }
+.dl-progress .track { flex: 1; height: 6px; border-radius: 6px; background: var(--line-bright); overflow: hidden; }
+.dl-progress .fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--secondary), var(--primary)); transition: width .2s; }
+.dl-progress .lbl { flex: none; color: var(--muted); min-width: 60px; text-align: center; }
+
 /* Two-Line Track Card Design */
 .tracks { margin-top: 14px; max-height: 500px; overflow-y: auto; border: 1px solid var(--line); border-radius: 20px; background: var(--surface-tonal); }
 .trow { display: flex; flex-direction: column; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--line); transition: background .15s; }
@@ -187,20 +202,21 @@ header small { display: block; color: var(--muted); font-size: 0.76rem; margin-t
 .trow:hover { background: var(--surface-tonal-hover); }
 
 .trow-top { display: flex; align-items: center; gap: 12px; }
+.trow-cb { accent-color: var(--primary); width: 18px; height: 18px; flex: none; cursor: pointer; }
 .trow-top img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex: none; background: var(--surface-variant); border: 2px solid #ffffff; box-shadow: 0 4px 10px rgba(163, 177, 198, 0.2); }
-.trow-top .tmeta { flex: 1; min-width: 0; }
+.trow-top .tmeta { flex: 1; min-width: 0; cursor: pointer; }
 .trow-top .tt { font-size: 0.88rem; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; color: var(--text); }
 .trow-top .ta { font-size: 0.76rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; margin-top: 2px; font-weight: 500; }
 
 .trow-bottom { display: flex; align-items: center; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
 .btn-action {
-  display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; border-radius: var(--radius-pill);
-  font-size: 0.74rem; font-weight: 700; color: var(--text); background: #ffffff; border: 1px solid var(--line);
+  display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; padding: 0; border-radius: 50%;
+  font-size: 0.86rem; color: var(--text); background: #ffffff; border: 1px solid var(--line); flex: none;
   box-shadow: 0 2px 6px rgba(163, 177, 198, 0.12); transition: all .15s;
 }
 .btn-action:hover { background: var(--primary-container); color: var(--primary); border-color: var(--primary); }
 .btn-action svg { width: 14px; height: 14px; }
-.btn-action.fav.active { color: var(--danger); }
+.btn-action.fav.active { color: var(--danger); border-color: var(--danger); }
 
 /* Single View */
 .single { display: flex; gap: 16px; align-items: center; }
@@ -211,6 +227,11 @@ header small { display: block; color: var(--muted); font-size: 0.76rem; margin-t
 .single .artist { font-size: 0.84rem; color: var(--muted); margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .single .dur { font-size: 0.74rem; color: var(--title-slate); margin-top: 3px; font-weight: 600; }
 .single-actions { display: flex; align-items: center; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+
+.app-footer { text-align: center; padding: 22px 16px 4px; font-size: 0.72rem; color: var(--muted); }
+.app-footer a { color: var(--primary); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; }
+.app-footer a:hover { text-decoration: underline; }
+.app-footer svg { width: 14px; height: 14px; vertical-align: -2px; }
 
 /* Modal Drawer for Lyrics */
 .modal-backdrop {
@@ -248,6 +269,12 @@ header small { display: block; color: var(--muted); font-size: 0.76rem; margin-t
 .bp-title { font-size: 0.84rem; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .bp-artist { font-size: 0.74rem; color: var(--muted); margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .bp-controls { display: flex; align-items: center; gap: 6px; flex: none; }
+.bp-btn-ctrl {
+  width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--surface-tonal); color: var(--text); border: 1px solid var(--line);
+}
+.bp-btn-ctrl:hover { background: var(--surface-tonal-hover); color: var(--primary); }
+.bp-btn-ctrl svg { width: 15px; height: 15px; fill: currentColor; }
 .bp-slider-wrap { display: flex; align-items: center; gap: 8px; font-size: 0.7rem; font-weight: 700; color: var(--muted); }
 .bp-slider-wrap input[type=range] { flex: 1; height: 5px; accent-color: var(--primary); cursor: pointer; }
 
@@ -304,9 +331,9 @@ header small { display: block; color: var(--muted); font-size: 0.76rem; margin-t
     <div class="card">
       <span class="section-label">جستجو و دانلود</span>
       <div class="field">
-        <label for="rjUrl">لینک یا اسم آهنگ / خواننده</label>
+        <label for="rjUrl">لینک یا اسم آهنگ / خواننده / پادکست</label>
         <div class="field-input-wrap">
-          <input type="text" id="rjUrl" placeholder="مثلاً: شادمهر عقیلی یا لینک آهنگ...">
+          <input type="text" id="rjUrl" placeholder="مثلاً: Mar-Mari یا هایده یا لینک...">
           <button class="clear-btn" id="clearBtn" title="پاک کردن">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
           </button>
@@ -328,7 +355,7 @@ header small { display: block; color: var(--muted); font-size: 0.76rem; margin-t
         دریافت اطلاعات / جستجو
       </button>
       <div id="status"></div>
-      <div class="hint">پشتیبانی از <b>نام فارسی/انگلیسی</b>، <b>لینک‌های کوتاه (rj.app)</b> و <b>پلی‌لیست‌ها</b>.</div>
+      <div class="hint">پشتیبانی کامل از <b>نام فارسی/انگلیسی</b>، <b>لینک شوهای پادکست (podcast/show)</b>، <b>صفحه خواننده (artist)</b> و <b>لینک‌های کوتاه (rj.app)</b>.</div>
     </div>
 
     <div id="result">
@@ -347,15 +374,31 @@ header small { display: block; color: var(--muted); font-size: 0.76rem; margin-t
         <div class="single-actions">
           <button type="button" class="btn-play-sm" id="sPlayBtn" title="پیش‌گوش دادن"></button>
           <button class="btn primary" id="sDownload">⬇ دانلود</button>
-          <button class="btn ghost sm" id="sCopyLink">🔗 کپی لینک</button>
-          <button class="btn ghost sm" id="sLyrics">📄 متن ترانه</button>
-          <button class="btn ghost sm" id="sFav">❤️ ذخیره</button>
+          <button class="btn-action" id="sCopyLink" title="کپی لینک">🔗</button>
+          <button class="btn-action" id="sLyrics" title="متن ترانه">📄</button>
+          <button class="btn-action" id="sFav" title="ذخیره">❤️</button>
         </div>
       </div>
 
-      <!-- Playlist / Search Results -->
+      <!-- Playlist / Podcast Show / Search Results -->
       <div class="card" id="plCard" style="display:none">
-        <span class="section-label" id="plSectionLabel">نتایج</span>
+        <div class="pl-head" id="plHead">
+          <img id="plCover" alt="">
+          <div class="meta">
+            <div class="title" id="plTitle"></div>
+            <div class="sub" id="plSub"></div>
+          </div>
+        </div>
+        <div class="pl-actions" id="plActions">
+          <button type="button" class="btn ghost sm" id="plSelectAll">انتخاب همه</button>
+          <button type="button" class="btn ghost sm" id="plSelectNone">هیچ‌کدام</button>
+          <button type="button" class="btn primary sm" id="plDlZip">⬇ دانلود ZIP انتخابی</button>
+        </div>
+        <div class="dl-progress" id="dlProgress">
+          <span class="lbl" id="dlLbl">۰ / ۰</span>
+          <div class="track"><div class="fill" id="dlFill"></div></div>
+          <button type="button" class="btn ghost sm" id="dlCancel">لغو</button>
+        </div>
         <div class="tracks" id="plTracks"></div>
       </div>
     </div>
@@ -388,6 +431,14 @@ header small { display: block; color: var(--muted); font-size: 0.76rem; margin-t
       <div class="tracks" id="favTracks"></div>
     </div>
   </div>
+
+  <div class="app-footer">
+    ساخته شده توسط مصطفی ·
+    <a href="https://github.com/mostafa5804/rjdownloader" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.11-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.75 2.69 1.25 3.34.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.47.11-3.06 0 0 .97-.31 3.18 1.18.92-.26 1.91-.38 2.9-.39.98.01 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.77.12 3.06.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.39-5.25 5.67.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+      GitHub
+    </a>
+  </div>
 </div>
 
 <!-- Modal Drawer for Lyrics -->
@@ -412,10 +463,14 @@ header small { display: block; color: var(--muted); font-size: 0.76rem; margin-t
         <div class="bp-artist" id="bpArtist">—</div>
       </div>
       <div class="bp-controls">
-        <button type="button" class="btn ghost sm" id="bpPrevBtn" title="قبلی">⏮</button>
+        <button type="button" class="bp-btn-ctrl" id="bpPrevBtn" title="آهنگ قبلی">
+          <svg viewBox="0 0 24 24"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2.5"/></svg>
+        </button>
         <button type="button" class="btn-play-sm" id="bpPlayBtn" title="پخش / توقف"></button>
-        <button type="button" class="btn ghost sm" id="bpNextBtn" title="بعدی">⏭</button>
-        <button type="button" class="btn ghost sm" id="bpCloseBtn" title="بستن">✕</button>
+        <button type="button" class="bp-btn-ctrl" id="bpNextBtn" title="آهنگ بعدی">
+          <svg viewBox="0 0 24 24"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2.5"/></svg>
+        </button>
+        <button type="button" class="bp-btn-ctrl" id="bpCloseBtn" title="بستن">✕</button>
       </div>
     </div>
     <div class="bp-slider-wrap">
@@ -453,14 +508,11 @@ const FA_DIGITS = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
 
 const PLAY_ICON = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>';
 const PAUSE_ICON = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
-const DL_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>';
-const LINK_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>';
-const DOC_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>';
-const HEART_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
 
 let selectedQuality = '320';
 let currentQueue = [];
 let currentQueueIndex = -1;
+let currentPlaylistTracks = [];
 
 function toFa(n) { return String(n).replace(/[0-9]/g, d => FA_DIGITS[d]); }
 function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
@@ -529,7 +581,7 @@ function renderFavorites() {
     wrap.innerHTML = '<div style="padding:24px; text-align:center; color:var(--muted); font-size:0.86rem;">هنوز هیچ آهنگی را نشان نکرده‌اید ❤️</div>';
     return;
   }
-  wrap.innerHTML = renderTrackList(favs, 'fav');
+  wrap.innerHTML = renderTrackList(favs, 'fav', false);
 }
 
 /* Audio Player Core */
@@ -570,14 +622,16 @@ async function togglePlay(item, btn, queueList = [], qIndex = -1) {
     return;
   }
 
-  stopAudio();
+  if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+  if (currentPlayBtn) { setPlayState(currentPlayBtn, false); }
+
   if (queueList.length) { currentQueue = queueList; currentQueueIndex = qIndex; }
 
   let audioUrl = getItemAudioUrl(item);
   if (!audioUrl) {
     setPlayState(btn, 'loading');
     try {
-      const raw = await rjFetch('song', item.permlink || item.id || item.title);
+      const raw = await rjFetch(item.type === 'podcast' ? 'podcast' : 'song', item.permlink || item.id || item.title);
       const norm = normalizeItem(raw);
       item.hqUrl = norm.hqUrl; item.lqUrl = norm.lqUrl; item.audioUrl = norm.audioUrl;
       audioUrl = getItemAudioUrl(item);
@@ -654,8 +708,10 @@ function detectRJ(raw) {
   const last = segs[segs.length - 1];
   if (!last) return null;
   if (p.includes('/playlist/mp3/')) return { kind: 'playlist', id: last };
-  if (p.includes('/podcast/')) return { kind: 'podcast', id: last };
+  if (p.includes('/podcast/show/') || p.includes('/podcasts/show/') || p.includes('/show/')) return { kind: 'podcast_show', id: last };
+  if (p.includes('/podcast/') || p.includes('/podcasts/')) return { kind: 'podcast', id: last };
   if (p.includes('/song/') || p.includes('/mp3s/mp3/') || p.includes('/mp3/')) return { kind: 'song', id: last };
+  if (p.includes('/artist/')) return { kind: 'artist', id: last };
   return null;
 }
 
@@ -666,33 +722,41 @@ async function rjFetch(kind, id) {
     const json = await r.json();
     if (json && json.success !== false) return json;
   }
-  throw new Error('دریافت اطلاعات ناموفق بود.');
+  throw new Error('دریافت اطلاعات از سرور ناموفق بود.');
 }
 
 async function searchRJ(query) {
   const qEnc = encodeURIComponent(query);
-  const targetUrl = `https://rj-deskcloud.com/api2/search?query=${qEnc}`;
-  const r = await fetch(`${CF_WORKER_URL}/?kind=file&url=${encodeURIComponent(targetUrl)}`);
+  const r = await fetch(`${CF_WORKER_URL}/?kind=search&query=${qEnc}`);
   if (r.ok) {
     const data = await r.json();
-    return [...(data?.mp3s || []), ...(data?.podcasts || []), ...(data?.songs || [])];
+    return [...(data?.podcasts || []), ...(data?.mp3s || []), ...(data?.songs || [])];
   }
   return [];
+}
+
+async function fetchArtist(name) {
+  const r = await fetch(`${CF_WORKER_URL}/?kind=artist&query=${encodeURIComponent(name)}`);
+  if (!r.ok) throw new Error('دریافت اطلاعات هنرمند ناموفق بود');
+  const data = await r.json();
+  if (!data || data.success === false) throw new Error(data?.msg || 'این هنرمند پیدا نشد');
+  return data;
 }
 
 function normalizeItem(raw) {
   const perm = raw.permlink || raw.link || raw.id || '';
   let cleanPerm = typeof perm === 'string' && perm.includes('/') ? perm.split('/').filter(Boolean).pop() : perm;
-  const hq = raw.hq_link || raw.link || null;
+  const hq = raw.hq_link || raw.link || raw.audio_url || null;
   let lq = raw.lq_link || (hq && hq.includes('/320/') ? hq.replace('/320/', '/128/') : hq);
   return {
     id: cleanPerm || raw.id || null,
-    title: raw.song || raw.name || raw.title || 'بدون‌نام',
-    artist: raw.artist || raw.artist_name || '',
-    cover: raw.photo_player || raw.photo || raw.thumbnail || DEFAULT_COVER,
+    title: raw.title || raw.song || raw.name || 'بدون‌نام',
+    artist: raw.podcast_artist || raw.artist || raw.artist_name || raw.date || '',
+    cover: raw.photo_player || raw.photo_large || raw.photo || raw.thumbnail || raw.thumb || DEFAULT_COVER,
     duration: raw.duration != null ? Math.round(raw.duration) : null,
     hqUrl: hq, lqUrl: lq, audioUrl: hq || lq, permlink: cleanPerm || null,
-    lyric: raw.lyric || raw.lyrics || ''
+    lyric: raw.lyric || raw.lyrics || '',
+    type: raw.type || (raw.podcast_artist ? 'podcast' : 'song')
   };
 }
 
@@ -706,12 +770,12 @@ async function downloadOne(item, btn) {
   if (!downloadUrl) {
     if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spin"></span>'; }
     try {
-      const raw = await rjFetch('song', item.permlink || item.id);
+      const raw = await rjFetch(item.type === 'podcast' ? 'podcast' : 'song', item.permlink || item.id);
       const norm = normalizeItem(raw);
       item.hqUrl = norm.hqUrl; item.lqUrl = norm.lqUrl; downloadUrl = getItemAudioUrl(item);
     } catch(e) {
       toast('لینک دانلود یافت نشد', 'err');
-      if (btn) { btn.disabled = false; btn.innerHTML = '⬇ دانلود'; }
+      if (btn) { btn.disabled = false; btn.innerHTML = '⬇'; }
       return;
     }
   }
@@ -727,14 +791,14 @@ async function downloadOne(item, btn) {
     document.body.appendChild(a); a.click(); a.remove();
     toast('دانلود با موفقیت آغاز شد', 'ok');
   } catch(e) { toast('خطا در دانلود فایل', 'err'); }
-  finally { if (btn) { btn.disabled = false; btn.innerHTML = '⬇ دانلود'; } }
+  finally { if (btn) { btn.disabled = false; btn.innerHTML = '⬇'; } }
 }
 
 async function copyDirectLink(item) {
   let url = getItemAudioUrl(item);
   if (!url) {
     try {
-      const raw = await rjFetch('song', item.permlink || item.id);
+      const raw = await rjFetch(item.type === 'podcast' ? 'podcast' : 'song', item.permlink || item.id);
       const norm = normalizeItem(raw);
       item.hqUrl = norm.hqUrl; item.lqUrl = norm.lqUrl; url = getItemAudioUrl(item);
     } catch(e) {}
@@ -745,6 +809,59 @@ async function copyDirectLink(item) {
   } else { toast('لینک مستقیم در دسترس نیست', 'err'); }
 }
 
+/* Bulk ZIP Download */
+let bulkCancel = false;
+async function bulkDownloadZip(items, label) {
+  if (!items.length) { toast('هیچ موردی برای دانلود انتخاب نشده است', 'warn'); return; }
+  bulkCancel = false;
+  const prog = $('#dlProgress');
+  prog.classList.add('show');
+  let done = 0, fails = 0, part = 1, zip = new JSZip(), bytesInPart = 0;
+  const PART_LIMIT = 150 * 1024 * 1024;
+  const CONCURRENCY = 3;
+  const queue = [...items];
+
+  async function worker() {
+    while (queue.length && !bulkCancel) {
+      const item = queue.shift();
+      try {
+        let dlUrl = getItemAudioUrl(item);
+        if (!dlUrl) {
+          const raw = await rjFetch(item.type === 'podcast' ? 'podcast' : 'song', item.permlink || item.id);
+          const norm = normalizeItem(raw);
+          item.hqUrl = norm.hqUrl; item.lqUrl = norm.lqUrl; dlUrl = getItemAudioUrl(item);
+        }
+        const r = await fetch(proxyUrl(dlUrl));
+        if (!r.ok) throw new Error();
+        const blob = await r.blob();
+        zip.file(suggestFileName(item.title, item.artist, selectedQuality), blob);
+        bytesInPart += blob.size;
+      } catch(e) { fails++; }
+      done++;
+      $('#dlLbl').textContent = toFa(done) + ' / ' + toFa(items.length);
+      $('#dlFill').style.width = (done / items.length * 100) + '%';
+      if (bytesInPart >= PART_LIMIT && queue.length) {
+        const finished = zip; zip = new JSZip(); bytesInPart = 0;
+        const zblob = await finished.generateAsync({ type: 'blob' });
+        const a = document.createElement('a'); a.href = URL.createObjectURL(zblob);
+        a.download = `${label}-part${part++}.zip`; a.click(); a.remove();
+      }
+    }
+  }
+
+  await Promise.all(Array.from({ length: Math.min(CONCURRENCY, items.length) }, worker));
+  if (bulkCancel) {
+    toast('دانلود لغو شد', 'warn');
+  } else {
+    const zblob = await zip.generateAsync({ type: 'blob' });
+    const a = document.createElement('a'); a.href = URL.createObjectURL(zblob);
+    a.download = part > 1 ? `${label}-part${part}.zip` : `${label}.zip`; a.click(); a.remove();
+    toast(fails ? `پایان یافت (${toFa(fails)} مورد ناموفق)` : 'دانلود ZIP با موفقیت کامل شد', fails ? 'warn' : 'ok');
+  }
+  prog.classList.remove('show');
+}
+$('#dlCancel').onclick = () => { bulkCancel = true; };
+
 /* Lyrics Modal */
 async function openLyrics(item) {
   $('#lyricsModal').classList.add('show');
@@ -754,7 +871,7 @@ async function openLyrics(item) {
   let text = item.lyric;
   if (!text) {
     try {
-      const raw = await rjFetch('song', item.permlink || item.id || item.title);
+      const raw = await rjFetch(item.type === 'podcast' ? 'podcast' : 'song', item.permlink || item.id || item.title);
       text = raw.lyric || raw.lyrics;
     } catch(e) {}
   }
@@ -772,13 +889,15 @@ async function openLyrics(item) {
 }
 $('#closeLyrics').onclick = () => $('#lyricsModal').classList.remove('show');
 
-/* Two-Line Rendering */
-function renderTrackList(items, context = 'pl') {
+/* Two-Line Track Rendering */
+function renderTrackList(items, context = 'pl', showCheckboxes = false) {
   return items.map((s, i) => {
     const favActive = isFav(s.permlink || s.id) ? 'active' : '';
+    const cbHtml = showCheckboxes ? `<input type="checkbox" checked data-i="${i}" class="trow-cb">` : '';
     return `
       <div class="trow" data-i="${i}" data-ctx="${context}">
         <div class="trow-top">
+          ${cbHtml}
           <img src="${esc(proxyUrl(s.cover))}" loading="lazy" onerror="this.src='${DEFAULT_COVER}'">
           <button type="button" class="btn-play-sm tplay" title="پخش">${PLAY_ICON}</button>
           <div class="tmeta">
@@ -787,19 +906,17 @@ function renderTrackList(items, context = 'pl') {
           </div>
         </div>
         <div class="trow-bottom">
-          <button type="button" class="btn-action tdl">⬇ دانلود</button>
-          <button type="button" class="btn-action tcopy">🔗 کپی لینک</button>
-          <button type="button" class="btn-action tlyric">📄 متن ترانه</button>
-          <button type="button" class="btn-action fav ${favActive} tfav">❤️ نشان</button>
+          <button type="button" class="btn-action tdl" title="دانلود">⬇</button>
+          <button type="button" class="btn-action tcopy" title="کپی لینک">🔗</button>
+          <button type="button" class="btn-action tlyric" title="متن ترانه">📄</button>
+          <button type="button" class="btn-action fav ${favActive} tfav" title="نشان">❤️</button>
         </div>
       </div>
     `;
   }).join('');
 }
 
-let currentSearchResults = [];
 function renderSingle(kind, item) {
-  stopAudio();
   $('#plCard').style.display = 'none';
   $('#singleCard').style.display = 'block';
   $('#sBadge').textContent = kind === 'podcast' ? 'پادکست' : 'آهنگ';
@@ -818,12 +935,23 @@ function renderSingle(kind, item) {
 }
 
 function renderPlaylist(pl, isSearch = false) {
-  stopAudio();
   $('#singleCard').style.display = 'none';
   $('#plCard').style.display = 'block';
-  currentSearchResults = pl.songs;
-  $('#plSectionLabel').textContent = isSearch ? `نتایج جستجو (${toFa(pl.songs.length)} مورد)` : pl.title;
-  $('#plTracks').innerHTML = renderTrackList(pl.songs, 'search');
+  currentPlaylistTracks = pl.songs;
+
+  if (isSearch) {
+    $('#plHead').style.display = 'none';
+    $('#plActions').style.display = 'none';
+  } else {
+    $('#plHead').style.display = 'flex';
+    $('#plActions').style.display = 'flex';
+    $('#plCover').src = proxyUrl(pl.cover);
+    $('#plCover').onerror = () => { $('#plCover').src = DEFAULT_COVER; };
+    $('#plTitle').textContent = pl.title;
+    $('#plSub').textContent = `${toFa(pl.songs.length)} اثر${pl.creator ? ' · ' + pl.creator : ''}`;
+  }
+
+  $('#plTracks').innerHTML = renderTrackList(pl.songs, 'pl', !isSearch);
 }
 
 /* Track Click Delegations */
@@ -842,11 +970,23 @@ function handleTrackClick(e, getList) {
   else if (e.target.closest('.tfav')) {
     toggleFav(item);
     row.querySelector('.tfav').classList.toggle('active', isFav(item.permlink || item.id));
+  } else if (e.target.closest('.tmeta')) {
+    const cb = row.querySelector('.trow-cb');
+    if (cb && e.target.tagName !== 'INPUT') cb.checked = !cb.checked;
   }
 }
 
-$('#plTracks').addEventListener('click', e => handleTrackClick(e, () => currentSearchResults));
+$('#plTracks').addEventListener('click', e => handleTrackClick(e, () => currentPlaylistTracks));
 $('#favTracks').addEventListener('click', e => handleTrackClick(e, () => getFavs()));
+
+$('#plSelectAll').onclick = () => $('#plTracks').querySelectorAll('.trow-cb').forEach(c => c.checked = true);
+$('#plSelectNone').onclick = () => $('#plTracks').querySelectorAll('.trow-cb').forEach(c => c.checked = false);
+$('#plDlZip').onclick = () => {
+  const boxes = [...$('#plTracks').querySelectorAll('.trow-cb')];
+  const items = boxes.filter(c => c.checked).map(c => currentPlaylistTracks[+c.dataset.i]);
+  const safeName = $('#plTitle').textContent.replace(/[\\/:*?"<>|]+/g, ' ').trim() || 'rj-playlist';
+  bulkDownloadZip(items, safeName);
+};
 
 /* Trending / Browse State */
 const browseState = {
@@ -875,7 +1015,7 @@ async function loadBrowseMore(key) {
     else {
       st.items.push(...batch.map(normalizeItem));
       st.page++;
-      $('#' + key + 'Tracks').innerHTML = renderTrackList(st.items, key);
+      $('#' + key + 'Tracks').innerHTML = renderTrackList(st.items, key, false);
       $('#' + key + 'Count').textContent = toFa(st.items.length) + ' مورد';
     }
   } catch(e) { toast('خطا در دریافت لیست', 'err'); }
@@ -893,7 +1033,7 @@ function loadTrendingItems() {
 }
 
 /* Nav Tabs */
-$('#navBtnSearch').onclick = () => { switchTab('Search'); };
+$('#navBtnSearch').onclick = () => switchTab('Search');
 $('#navBtnTrending').onclick = () => { switchTab('Trending'); loadTrendingItems(); };
 $('#navBtnFavs').onclick = () => { switchTab('Favs'); renderFavorites(); };
 
@@ -909,7 +1049,6 @@ async function processInput() {
   let raw = $('#rjUrl').value.trim();
   setStatus('');
   $('#result').classList.remove('show');
-  stopAudio();
 
   if (!raw) { setStatus('لطفاً نام موزیک یا لینک رادیوجوان را وارد کنید', 'warn'); return; }
 
@@ -929,10 +1068,25 @@ async function processInput() {
       if (info.kind === 'playlist') {
         const d = await rjFetch('playlist', info.id);
         const songs = (d.items || d.songs || []).map(normalizeItem);
-        renderPlaylist({ title: d.title || 'پلی‌لیست', songs }, false);
+        renderPlaylist({ title: d.title || 'پلی‌لیست', cover: d.photo_player || d.photo || DEFAULT_COVER, creator: d.created_by || '', songs }, false);
+      } else if (info.kind === 'podcast_show') {
+        const d = await rjFetch('podcast_show', info.id);
+        const songs = (d.podcasts || d.items || []).map(normalizeItem);
+        renderPlaylist({ title: d.title || `شو پادکست ${info.id}`, cover: d.photo_large || d.photo || DEFAULT_COVER, creator: d.podcast_artist || '', songs }, false);
+      } else if (info.kind === 'artist') {
+        const d = await fetchArtist(info.id);
+        const songs = [...(d.mp3s || []), ...(d.podcasts || [])].map(normalizeItem);
+        if (!songs.length) throw new Error('اثری برای این هنرمند پیدا نشد');
+        const artistName = d.name || d.query || info.id.replace(/-/g, ' ');
+        renderPlaylist({ title: `🎤 ${artistName}`, cover: d.photo || DEFAULT_COVER, creator: `${toFa(songs.length)} اثر`, songs }, false);
       } else {
         const d = await rjFetch(info.kind, info.id);
-        renderSingle(info.kind, normalizeItem(d));
+        if (d.type === 'show' || Array.isArray(d.podcasts)) {
+          const songs = (d.podcasts || []).map(normalizeItem);
+          renderPlaylist({ title: d.title || 'شو پادکست', cover: d.photo_large || d.photo || DEFAULT_COVER, creator: d.podcast_artist || '', songs }, false);
+        } else {
+          renderSingle(info.kind, normalizeItem(d));
+        }
       }
       $('#result').classList.add('show');
       setStatus('');
@@ -943,7 +1097,7 @@ async function processInput() {
     addHistory(raw);
     try {
       const res = await searchRJ(raw);
-      if (!res.length) { setStatus('هیچ آهنگی یافت نشد', 'warn'); btn.disabled = false; return; }
+      if (!res.length) { setStatus('هیچ موردی یافت نشد', 'warn'); btn.disabled = false; return; }
       renderPlaylist({ title: raw, songs: res.map(normalizeItem) }, true);
       $('#result').classList.add('show');
       setStatus('');
