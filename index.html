@@ -180,7 +180,20 @@ header small { display: block; color: var(--muted); font-size: 0.76rem; margin-t
 #status.err { color: var(--danger); }
 #status.warn { color: var(--warn); }
 
-/* Playlist & Collection Header & Actions */
+/* Featured Artist / Podcast Show Card in Search */
+.featured-box {
+  display: flex; align-items: center; gap: 14px; padding: 14px; border-radius: 20px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(79, 70, 229, 0.08));
+  border: 1.5px solid rgba(59, 130, 246, 0.25); margin-bottom: 16px;
+}
+.featured-box img { width: 62px; height: 62px; border-radius: 50%; object-fit: cover; flex: none; border: 2px solid #ffffff; box-shadow: 0 4px 12px rgba(163, 177, 198, 0.3); }
+.featured-box.show-type img { border-radius: 16px; }
+.featured-box .f-meta { flex: 1; min-width: 0; }
+.featured-box .f-badge { font-size: 0.68rem; font-weight: 800; color: var(--primary); background: var(--primary-container); padding: 2px 8px; border-radius: var(--radius-pill); display: inline-block; margin-bottom: 4px; }
+.featured-box .f-title { font-size: 0.96rem; font-weight: 800; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.featured-box .f-btn { flex: none; }
+
+/* Playlist / Collection Header */
 .pl-head { display: flex; gap: 16px; align-items: center; }
 .pl-head img { width: 78px; height: 78px; border-radius: 20px; object-fit: cover; flex: none; box-shadow: 0 8px 20px rgba(163, 177, 198, 0.3); border: 2px solid #ffffff; }
 .pl-head .meta { min-width: 0; flex: 1; }
@@ -380,8 +393,11 @@ header small { display: block; color: var(--muted); font-size: 0.76rem; margin-t
         </div>
       </div>
 
-      <!-- Playlist / Podcast Show / Search Results -->
+      <!-- Playlist / Podcast Show / Artist Archive / Search Results -->
       <div class="card" id="plCard" style="display:none">
+        <!-- Featured Artist or Podcast Show Box in Search Mode -->
+        <div id="featuredBoxContainer" style="display:none;"></div>
+
         <div class="pl-head" id="plHead">
           <img id="plCover" alt="">
           <div class="meta">
@@ -707,7 +723,7 @@ function detectRJ(raw) {
   const segs = u.pathname.split('/').filter(Boolean);
   const last = segs[segs.length - 1];
   if (!last) return null;
-  if (p.includes('/playlist/mp3/')) return { kind: 'playlist', id: last };
+  if (p.includes('/playlist/mp3/') || p.includes('/playlist/')) return { kind: 'playlist', id: last };
   if (p.includes('/podcast/show/') || p.includes('/podcasts/show/') || p.includes('/show/')) return { kind: 'podcast_show', id: last };
   if (p.includes('/podcast/') || p.includes('/podcasts/')) return { kind: 'podcast', id: last };
   if (p.includes('/song/') || p.includes('/mp3s/mp3/') || p.includes('/mp3/')) return { kind: 'song', id: last };
@@ -729,10 +745,9 @@ async function searchRJ(query) {
   const qEnc = encodeURIComponent(query);
   const r = await fetch(`${CF_WORKER_URL}/?kind=search&query=${qEnc}`);
   if (r.ok) {
-    const data = await r.json();
-    return [...(data?.podcasts || []), ...(data?.mp3s || []), ...(data?.songs || [])];
+    return await r.json();
   }
-  return [];
+  return null;
 }
 
 async function fetchArtist(name) {
@@ -743,18 +758,48 @@ async function fetchArtist(name) {
   return data;
 }
 
+async function fetchPodcastShow(id) {
+  const endpoints = [
+    `https://rj-deskcloud.com/api2/podcast_show?id=${encodeURIComponent(id)}`,
+    `https://rj-deskcloud.com/api2/podcast?id=${encodeURIComponent(id)}`,
+    `https://rj-deskcloud.com/api2/podcast?show=${encodeURIComponent(id)}`
+  ];
+  for (const apiUrl of endpoints) {
+    try {
+      const r = await fetch(`${CF_WORKER_URL}/?kind=file&url=${encodeURIComponent(apiUrl)}`);
+      if (r.ok) {
+        const d = await r.json();
+        if (d && (Array.isArray(d.podcasts) && d.podcasts.length > 0)) return d;
+        if (d && d.type === 'show') return d;
+      }
+    } catch(e) {}
+  }
+  const sData = await searchRJ(id);
+  if (sData && Array.isArray(sData.podcasts) && sData.podcasts.length > 0) {
+    return {
+      title: id.replace(/-/g, ' '),
+      photo_large: sData.podcasts[0].photo || DEFAULT_COVER,
+      podcast_artist: sData.podcasts[0].podcast_artist || '',
+      podcasts: sData.podcasts
+    };
+  }
+  throw new Error('اپیزودهای این شو پادکست پیدا نشد.');
+}
+
 function normalizeItem(raw) {
-  const perm = raw.permlink || raw.link || raw.id || '';
-  let cleanPerm = typeof perm === 'string' && perm.includes('/') ? perm.split('/').filter(Boolean).pop() : perm;
-  const hq = raw.hq_link || raw.link || raw.audio_url || null;
+  let perm = raw.permlink || raw.id || '';
+  if (typeof perm === 'string' && perm.includes('/')) perm = perm.split('/').filter(Boolean).pop();
+  if (typeof perm === 'string' && perm.startsWith('http')) perm = raw.id || '';
+
+  const hq = raw.hq_link || (typeof raw.link === 'string' && raw.link.startsWith('http') ? raw.link : null) || raw.audio_url || null;
   let lq = raw.lq_link || (hq && hq.includes('/320/') ? hq.replace('/320/', '/128/') : hq);
   return {
-    id: cleanPerm || raw.id || null,
+    id: perm || raw.id || null,
     title: raw.title || raw.song || raw.name || 'بدون‌نام',
     artist: raw.podcast_artist || raw.artist || raw.artist_name || raw.date || '',
     cover: raw.photo_player || raw.photo_large || raw.photo || raw.thumbnail || raw.thumb || DEFAULT_COVER,
     duration: raw.duration != null ? Math.round(raw.duration) : null,
-    hqUrl: hq, lqUrl: lq, audioUrl: hq || lq, permlink: cleanPerm || null,
+    hqUrl: hq, lqUrl: lq, audioUrl: hq || lq, permlink: perm || null,
     lyric: raw.lyric || raw.lyrics || '',
     type: raw.type || (raw.podcast_artist ? 'podcast' : 'song')
   };
@@ -934,10 +979,37 @@ function renderSingle(kind, item) {
   $('#sFav').onclick = () => toggleFav(item);
 }
 
-function renderPlaylist(pl, isSearch = false) {
+function renderPlaylist(pl, isSearch = false, featuredEntity = null) {
   $('#singleCard').style.display = 'none';
   $('#plCard').style.display = 'block';
   currentPlaylistTracks = pl.songs;
+
+  const fContainer = $('#featuredBoxContainer');
+  if (isSearch && featuredEntity) {
+    const isArtist = featuredEntity.type === 'artist';
+    fContainer.innerHTML = `
+      <div class="featured-box ${isArtist ? 'artist-type' : 'show-type'}">
+        <img src="${esc(proxyUrl(featuredEntity.photo || DEFAULT_COVER))}" onerror="this.src='${DEFAULT_COVER}'">
+        <div class="f-meta">
+          <span class="f-badge">${isArtist ? '🎤 صفحه اختصاصی هنرمند' : '🎙 صفحه اختصاصی شو پادکست'}</span>
+          <div class="f-title">${esc(featuredEntity.name || featuredEntity.title)}</div>
+        </div>
+        <button type="button" class="btn primary sm f-btn" id="openFeaturedBtn">مشاهده تمام آثار ➔</button>
+      </div>
+    `;
+    fContainer.style.display = 'block';
+    $('#openFeaturedBtn').onclick = () => {
+      if (isArtist) {
+        $('#rjUrl').value = `https://play.radiojavan.com/artist/${featuredEntity.query || featuredEntity.name}`;
+      } else {
+        $('#rjUrl').value = `https://play.radiojavan.com/podcast/show/${featuredEntity.permlink || featuredEntity.id}`;
+      }
+      processInput();
+    };
+  } else {
+    fContainer.innerHTML = '';
+    fContainer.style.display = 'none';
+  }
 
   if (isSearch) {
     $('#plHead').style.display = 'none';
@@ -1070,7 +1142,7 @@ async function processInput() {
         const songs = (d.items || d.songs || []).map(normalizeItem);
         renderPlaylist({ title: d.title || 'پلی‌لیست', cover: d.photo_player || d.photo || DEFAULT_COVER, creator: d.created_by || '', songs }, false);
       } else if (info.kind === 'podcast_show') {
-        const d = await rjFetch('podcast_show', info.id);
+        const d = await fetchPodcastShow(info.id);
         const songs = (d.podcasts || d.items || []).map(normalizeItem);
         renderPlaylist({ title: d.title || `شو پادکست ${info.id}`, cover: d.photo_large || d.photo || DEFAULT_COVER, creator: d.podcast_artist || '', songs }, false);
       } else if (info.kind === 'artist') {
@@ -1096,9 +1168,22 @@ async function processInput() {
     setStatus(`در حال جستجوی «${raw}»...`);
     addHistory(raw);
     try {
-      const res = await searchRJ(raw);
-      if (!res.length) { setStatus('هیچ موردی یافت نشد', 'warn'); btn.disabled = false; return; }
-      renderPlaylist({ title: raw, songs: res.map(normalizeItem) }, true);
+      const data = await searchRJ(raw);
+      if (!data) throw new Error();
+
+      let featured = null;
+      if (Array.isArray(data.shows) && data.shows.length > 0) {
+        featured = { type: 'show', ...data.shows[0] };
+      } else if (Array.isArray(data.artists) && data.artists.length > 0) {
+        featured = { type: 'artist', ...data.artists[0] };
+      }
+
+      const rawItems = [...(data.podcasts || []), ...(data.mp3s || []), ...(data.songs || [])];
+      if (!rawItems.length && !featured) {
+        setStatus('هیچ موردی یافت نشد', 'warn'); btn.disabled = false; return;
+      }
+
+      renderPlaylist({ title: raw, songs: rawItems.map(normalizeItem) }, true, featured);
       $('#result').classList.add('show');
       setStatus('');
     } catch(e) { setStatus('❌ خطا در جستجو', 'err'); }
