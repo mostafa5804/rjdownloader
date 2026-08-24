@@ -340,40 +340,44 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
   border-radius: 18px; margin-bottom: 14px; border: 1px solid var(--line);
 }
 
-/* Sticky Mini Player */
+/* Sticky Mini Player (LTR Standard) */
 .bottom-player {
   position: fixed; bottom: 64px; left: 0; right: 0; z-index: 95;
   background: var(--surface); backdrop-filter: blur(16px);
   border-top: 1px solid var(--line); box-shadow: var(--shadow-player);
   padding: 10px 16px 12px; transform: translateY(150%);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  cursor: pointer;
+  direction: ltr !important; text-align: left;
 }
 .bottom-player.active { transform: translateY(0); }
 .bp-content { max-width: 640px; margin: auto; display: flex; flex-direction: column; gap: 6px; }
-.bp-main { display: flex; align-items: center; gap: 10px; }
-.bp-cover { width: 42px; height: 42px; border-radius: 12px; object-fit: cover; flex: none; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
-.bp-meta { flex: 1; min-width: 0; }
-.bp-title { font-size: 0.84rem; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bp-main { display: flex; align-items: center; gap: 12px; }
+.bp-cover { width: 44px; height: 44px; border-radius: 12px; object-fit: cover; flex: none; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+.bp-meta { flex: 1; min-width: 0; cursor: pointer; }
+.bp-title { font-size: 0.86rem; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .bp-artist { font-size: 0.74rem; color: var(--muted); margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.bp-controls { display: flex; align-items: center; gap: 6px; flex: none; }
+.bp-controls { display: flex; align-items: center; gap: 8px; flex: none; }
 .bp-btn-ctrl {
-  width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+  width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center;
   background: var(--surface-tonal); color: var(--text); border: 1px solid var(--line);
   transition: all .15s;
 }
 .bp-btn-ctrl:hover { background: var(--surface-tonal-hover); color: var(--primary); }
-.bp-btn-ctrl svg { width: 15px; height: 15px; fill: currentColor; }
-.bp-slider-wrap { display: flex; align-items: center; gap: 8px; font-size: 0.7rem; font-weight: 700; color: var(--muted); }
+.bp-btn-ctrl svg { width: 16px; height: 16px; fill: currentColor; }
+.bp-slider-wrap {
+  display: flex; align-items: center; gap: 8px; font-size: 0.72rem; font-weight: 700; color: var(--muted);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
 .bp-slider-wrap input[type=range] { flex: 1; height: 5px; accent-color: var(--primary); cursor: pointer; }
 
-/* REFINED FULLSCREEN PLAYER DESIGN (Spotify / Apple Music Style) */
+/* REFINED LTR FULLSCREEN PLAYER DESIGN (Spotify / Apple Music Inspired) */
 .full-player-sheet {
   position: fixed; inset: 0; z-index: 350; background: var(--surface);
   display: flex; flex-direction: column; justify-content: space-between;
-  padding: calc(env(safe-area-inset-top, 16px) + 12px) 20px calc(env(safe-area-inset-bottom, 16px) + 20px);
+  padding: calc(env(safe-area-inset-top, 16px) + 12px) 24px calc(env(safe-area-inset-bottom, 16px) + 20px);
   transform: translateY(100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  overflow-y: auto;
+  overflow-y: auto; direction: ltr !important; text-align: left;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 .full-player-sheet.show { transform: translateY(0); }
 
@@ -390,15 +394,15 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
 .fp-icon-btn.active { color: var(--danger); border-color: var(--danger); }
 
 .fp-header-title { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 2px; }
-.fp-header-sub { font-size: 0.72rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.fp-header-sub { font-size: 0.72rem; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
 .fp-header-badge { font-size: 0.65rem; font-weight: 800; background: var(--primary-container); color: var(--primary); padding: 2px 8px; border-radius: var(--radius-pill); }
 
 .fp-art-container {
-  position: relative; width: 100%; max-width: 320px; margin: auto auto 16px; aspect-ratio: 1/1;
+  position: relative; width: 100%; max-width: 300px; margin: auto auto 14px; aspect-ratio: 1/1;
   display: flex; align-items: center; justify-content: center;
 }
 .fp-art-glow {
-  position: absolute; inset: 12px; border-radius: 28px;
+  position: absolute; inset: 10px; border-radius: 28px;
   background-size: cover; background-position: center; filter: blur(28px); opacity: 0.45; z-index: 1;
 }
 .fp-cover-img {
@@ -409,11 +413,11 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
 .fp-info-section {
   text-align: center; width: 100%; max-width: 480px; margin: 0 auto 16px; padding: 0 10px;
 }
-.fp-title { font-size: 1.25rem; font-weight: 800; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fp-title { font-size: 1.22rem; font-weight: 800; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .fp-artist { font-size: 0.9rem; font-weight: 600; color: var(--muted); margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 .fp-seek-section {
-  width: 100%; max-width: 480px; margin: 0 auto 18px; display: flex; flex-direction: column; gap: 8px;
+  width: 100%; max-width: 480px; margin: 0 auto 16px; display: flex; flex-direction: column; gap: 8px;
 }
 .fp-range-wrap { width: 100%; }
 .fp-range-wrap input[type=range] {
@@ -421,19 +425,27 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
 }
 .fp-time-row {
   display: flex; justify-content: space-between; font-size: 0.74rem; font-weight: 700; color: var(--muted);
-  direction: ltr; font-variant-numeric: tabular-nums;
+  font-variant-numeric: tabular-nums;
 }
 
 .fp-main-controls {
-  display: flex; align-items: center; justify-content: center; gap: 24px; width: 100%; max-width: 480px; margin: 0 auto 20px;
+  display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 440px; margin: 0 auto 20px;
 }
 .fp-ctrl-btn {
-  width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center;
+  width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; position: relative;
   background: var(--surface-tonal); color: var(--text); border: 1px solid var(--line);
   transition: all .2s ease;
 }
 .fp-ctrl-btn:hover { background: var(--surface-tonal-hover); color: var(--primary); transform: scale(1.08); }
-.fp-ctrl-btn svg { width: 22px; height: 22px; fill: currentColor; }
+.fp-ctrl-btn.active { color: var(--primary); border-color: var(--primary); background: var(--primary-container); }
+.fp-ctrl-btn svg { width: 20px; height: 20px; }
+.fp-badge-repeat {
+  position: absolute; top: -4px; right: -4px; font-size: 0.6rem; font-weight: 800;
+  background: var(--primary); color: #fff; width: 16px; height: 16px; border-radius: 50%;
+  display: none; place-items: center;
+}
+.fp-badge-repeat.show { display: grid; }
+
 .fp-ctrl-play {
   width: 68px; height: 68px; border-radius: 50%; display: grid; place-items: center;
   background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #ffffff;
@@ -638,45 +650,45 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
   </div>
 </div>
 
-<!-- Sticky Mini Player -->
+<!-- Sticky Mini Player (LTR Standard) -->
 <div class="bottom-player" id="bottomPlayer">
   <div class="bp-content">
     <div class="bp-main">
       <img id="bpCover" class="bp-cover" src="" alt="">
       <div class="bp-meta" id="bpMetaArea">
-        <div class="bp-title" id="bpTitle">در حال پخش...</div>
+        <div class="bp-title" id="bpTitle">Now Playing...</div>
         <div class="bp-artist" id="bpArtist">—</div>
       </div>
-      <div class="bp-controls" onclick="event.stopPropagation()">
-        <button type="button" class="bp-btn-ctrl" id="bpPrevBtn" title="آهنگ قبلی">
+      <div class="bp-controls">
+        <button type="button" class="bp-btn-ctrl" id="bpPrevBtn" title="Previous">
           <svg viewBox="0 0 24 24"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2.5"/></svg>
         </button>
-        <button type="button" class="btn-play-sm" id="bpPlayBtn" title="پخش / توقف"></button>
-        <button type="button" class="bp-btn-ctrl" id="bpNextBtn" title="آهنگ بعدی">
+        <button type="button" class="btn-play-sm" id="bpPlayBtn" title="Play / Pause"></button>
+        <button type="button" class="bp-btn-ctrl" id="bpNextBtn" title="Next">
           <svg viewBox="0 0 24 24"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2.5"/></svg>
         </button>
-        <button type="button" class="bp-btn-ctrl" id="bpCloseBtn" title="بستن">✕</button>
+        <button type="button" class="bp-btn-ctrl" id="bpCloseBtn" title="Close">✕</button>
       </div>
     </div>
-    <div class="bp-slider-wrap" onclick="event.stopPropagation()">
-      <span id="bpCurrTime">۰۰:۰۰</span>
+    <div class="bp-slider-wrap">
+      <span id="bpCurrTime">00:00</span>
       <input type="range" id="bpProgress" value="0" min="0" max="100">
-      <span id="bpTotTime">۰۰:۰۰</span>
+      <span id="bpTotTime">00:00</span>
     </div>
   </div>
 </div>
 
-<!-- FULLSCREEN EXPANDED PLAYER SHEET -->
+<!-- FULLSCREEN EXPANDED PLAYER SHEET (LTR & Universal English Control) -->
 <div class="full-player-sheet" id="fullPlayerSheet">
   <div class="fp-top-bar">
-    <button type="button" class="fp-icon-btn" id="fpCloseBtn" title="بستن">
+    <button type="button" class="fp-icon-btn" id="fpCloseBtn" title="Close">
       <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
     </button>
     <div class="fp-header-title">
-      <span class="fp-header-sub">در حال پخش</span>
-      <span class="fp-header-badge" id="fpQualityBadge">۳۲۰ kbps</span>
+      <span class="fp-header-sub">NOW PLAYING</span>
+      <span class="fp-header-badge" id="fpQualityBadge">320 KBPS</span>
     </div>
-    <button type="button" class="fp-icon-btn" id="fpFavBtn" title="نشان کردن">
+    <button type="button" class="fp-icon-btn" id="fpFavBtn" title="Favorite">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
     </button>
   </div>
@@ -696,33 +708,40 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
       <input type="range" id="fpProgress" value="0" min="0" max="100">
     </div>
     <div class="fp-time-row">
-      <span id="fpCurrTime">۰۰:۰۰</span>
-      <span id="fpTotTime">۰۰:۰۰</span>
+      <span id="fpCurrTime">00:00</span>
+      <span id="fpTotTime">00:00</span>
     </div>
   </div>
 
   <div class="fp-main-controls">
-    <button type="button" class="fp-ctrl-btn" id="fpPrevBtn" title="قبلی">
-      <svg viewBox="0 0 24 24"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2.5"/></svg>
+    <button type="button" class="fp-ctrl-btn" id="fpShuffleBtn" title="Shuffle Mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
     </button>
-    <button type="button" class="fp-ctrl-play" id="fpPlayBtn" title="پخش / توقف"></button>
-    <button type="button" class="fp-ctrl-btn" id="fpNextBtn" title="بعدی">
-      <svg viewBox="0 0 24 24"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2.5"/></svg>
+    <button type="button" class="fp-ctrl-btn" id="fpPrevBtn" title="Previous">
+      <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2.5"/></svg>
+    </button>
+    <button type="button" class="fp-ctrl-play" id="fpPlayBtn" title="Play / Pause"></button>
+    <button type="button" class="fp-ctrl-btn" id="fpNextBtn" title="Next">
+      <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2.5"/></svg>
+    </button>
+    <button type="button" class="fp-ctrl-btn" id="fpRepeatBtn" title="Repeat Mode">
+      <span class="fp-badge-repeat" id="fpRepeatBadge">1</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
     </button>
   </div>
 
   <div class="fp-actions-grid">
     <button type="button" class="fp-action-pill" id="fpLyricsBtn">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-      <span>متن ترانه</span>
+      <span>Lyrics</span>
     </button>
     <button type="button" class="fp-action-pill" id="fpCopyBtn">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-      <span>کپی لینک</span>
+      <span>Copy Link</span>
     </button>
     <button type="button" class="fp-action-pill primary" id="fpDownloadBtn">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
-      <span>دانلود</span>
+      <span>Download</span>
     </button>
   </div>
 </div>
@@ -763,9 +782,19 @@ let currentQueue = [];
 let currentQueueIndex = -1;
 let currentPlaylistTracks = [];
 
+let isShuffle = false;
+let repeatMode = 'off'; // 'off' | 'all' | 'one'
+
 function toFa(n) { return String(n).replace(/[0-9]/g, d => FA_DIGITS[d]); }
 function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
-function fmtTime(s) { if (!s && s !== 0) return '۰۰:۰۰'; s = Math.round(s); const m = Math.floor(s / 60), ss = s % 60; return toFa(m) + ':' + toFa(String(ss).padStart(2, '0')); }
+
+// English Standard Time Format (e.g. 03:24)
+function fmtTime(s) {
+  if (!s && s !== 0) return '00:00';
+  s = Math.round(s);
+  const m = Math.floor(s / 60), ss = s % 60;
+  return String(m).padStart(2, '0') + ':' + String(ss).padStart(2, '0');
+}
 function proxyUrl(url) { if (!url) return ''; if (url.startsWith('data:') || url.startsWith('blob:')) return url; return `${CF_WORKER_URL}/?kind=file&url=${encodeURIComponent(url)}`; }
 
 /* Dark / Light Theme System */
@@ -806,7 +835,7 @@ document.querySelectorAll('#qualitySwitch .quality-btn').forEach(btn => {
     document.querySelectorAll('#qualitySwitch .quality-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     selectedQuality = btn.dataset.quality;
-    $('#fpQualityBadge').textContent = `${toFa(selectedQuality)} kbps`;
+    $('#fpQualityBadge').textContent = `${selectedQuality} KBPS`;
     toast(`کیفیت روی ${toFa(selectedQuality)} تنظیم شد`, 'ok', 1800);
   });
 });
@@ -856,8 +885,10 @@ function renderFavorites() {
   wrap.innerHTML = renderTrackList(favs, 'fav', false);
 }
 
-/* Audio Player Core */
-let currentAudio = null;
+/* Audio Player Core Engine (Single Reusable Element for Smooth Mobile Playback) */
+let currentAudio = new Audio();
+currentAudio.preload = 'auto';
+
 let currentPlayBtn = null;
 let currentItem = null;
 
@@ -869,7 +900,7 @@ const fpPlayBtn = $('#fpPlayBtn');
 const fpProgress = $('#fpProgress');
 
 function stopAudio() {
-  if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+  if (currentAudio) { currentAudio.pause(); }
   if (currentPlayBtn) { setPlayState(currentPlayBtn, false); currentPlayBtn = null; }
   setPlayState(bpPlayBtn, false);
   setPlayState(fpPlayBtn, false);
@@ -909,45 +940,92 @@ function getItemAudioUrl(item) {
   return item.hqUrl || item.audioUrl || item.lqUrl || null;
 }
 
+// Global Audio Listeners
+currentAudio.addEventListener('timeupdate', () => {
+  if (!currentAudio || !currentAudio.duration) return;
+  const pct = (currentAudio.currentTime / currentAudio.duration) * 100;
+  bpProgress.value = pct;
+  fpProgress.value = pct;
+  const cTime = fmtTime(currentAudio.currentTime);
+  const tTime = fmtTime(currentAudio.duration);
+  $('#bpCurrTime').textContent = cTime;
+  $('#bpTotTime').textContent = tTime;
+  $('#fpCurrTime').textContent = cTime;
+  $('#fpTotTime').textContent = tTime;
+});
+
+currentAudio.addEventListener('ended', () => {
+  if (repeatMode === 'one') {
+    currentAudio.currentTime = 0;
+    currentAudio.play().catch(() => {});
+    return;
+  }
+  playNextInQueue();
+});
+
+currentAudio.addEventListener('error', () => {
+  toast('Error loading audio stream', 'err');
+  setPlayState(currentPlayBtn, false);
+  setPlayState(bpPlayBtn, false);
+  setPlayState(fpPlayBtn, false);
+});
+
 async function togglePlay(item, btn, queueList = [], qIndex = -1) {
-  if (currentPlayBtn === btn && currentAudio) {
+  if (currentItem && (currentItem.permlink || currentItem.id) === (item.permlink || item.id) && currentAudio.src) {
     if (!currentAudio.paused) {
-      currentAudio.pause(); setPlayState(btn, false); setPlayState(bpPlayBtn, false); setPlayState(fpPlayBtn, false);
+      currentAudio.pause();
+      setPlayState(btn || currentPlayBtn, false);
+      setPlayState(bpPlayBtn, false);
+      setPlayState(fpPlayBtn, false);
     } else {
-      currentAudio.play().then(() => { setPlayState(btn, true); setPlayState(bpPlayBtn, true); setPlayState(fpPlayBtn, true); });
+      currentAudio.play().then(() => {
+        setPlayState(btn || currentPlayBtn, true);
+        setPlayState(bpPlayBtn, true);
+        setPlayState(fpPlayBtn, true);
+      }).catch(() => {});
     }
     updateEqualizers();
     return;
   }
 
-  if (currentAudio) { currentAudio.pause(); currentAudio = null; }
-  if (currentPlayBtn) { setPlayState(currentPlayBtn, false); }
+  if (currentPlayBtn) setPlayState(currentPlayBtn, false);
 
-  if (queueList.length) { currentQueue = queueList; currentQueueIndex = qIndex; }
+  if (queueList && queueList.length > 0) {
+    currentQueue = queueList;
+    currentQueueIndex = (qIndex >= 0) ? qIndex : queueList.findIndex(x => (x.permlink || x.id) === (item.permlink || item.id));
+  } else if (!currentQueue.length) {
+    currentQueue = [item];
+    currentQueueIndex = 0;
+  }
+
+  setPlayState(btn, 'loading');
+  setPlayState(bpPlayBtn, 'loading');
+  setPlayState(fpPlayBtn, 'loading');
 
   let audioUrl = getItemAudioUrl(item);
   if (!audioUrl) {
-    setPlayState(btn, 'loading');
-    setPlayState(bpPlayBtn, 'loading');
-    setPlayState(fpPlayBtn, 'loading');
     try {
       const raw = await rjFetch(item.type === 'podcast' ? 'podcast' : 'song', item.permlink || item.id || item.title);
       const norm = normalizeItem(raw);
       item.hqUrl = norm.hqUrl; item.lqUrl = norm.lqUrl; item.audioUrl = norm.audioUrl;
       audioUrl = getItemAudioUrl(item);
     } catch(e) {
-      toast('دریافت لینک پخش ناموفق بود', 'err'); setPlayState(btn, false); setPlayState(bpPlayBtn, false); setPlayState(fpPlayBtn, false); return;
+      toast('دریافت لینک پخش ناموفق بود', 'err');
+      setPlayState(btn, false); setPlayState(bpPlayBtn, false); setPlayState(fpPlayBtn, false);
+      return;
     }
   }
 
-  if (!audioUrl) { toast('لینک پخش یافت نشد', 'err'); setPlayState(btn, false); setPlayState(bpPlayBtn, false); setPlayState(fpPlayBtn, false); return; }
+  if (!audioUrl) {
+    toast('لینک پخش یافت نشد', 'err');
+    setPlayState(btn, false); setPlayState(bpPlayBtn, false); setPlayState(fpPlayBtn, false);
+    return;
+  }
 
-  setPlayState(btn, 'loading');
-  setPlayState(bpPlayBtn, 'loading');
-  setPlayState(fpPlayBtn, 'loading');
   currentItem = item;
-  currentAudio = new Audio(proxyUrl(audioUrl));
   currentPlayBtn = btn;
+  currentAudio.pause();
+  currentAudio.src = proxyUrl(audioUrl);
 
   const coverSrc = proxyUrl(item.cover);
   $('#bpCover').src = coverSrc;
@@ -959,65 +1037,152 @@ async function togglePlay(item, btn, queueList = [], qIndex = -1) {
   $('#fpTitle').textContent = item.title;
   $('#fpArtist').textContent = item.artist || '—';
   $('#fpFavBtn').classList.toggle('active', isFav(item.permlink || item.id));
-  $('#fpQualityBadge').textContent = `${toFa(selectedQuality)} kbps`;
+  $('#fpQualityBadge').textContent = `${selectedQuality} KBPS`;
 
   currentAudio.play().then(() => {
     setPlayState(btn, true); setPlayState(bpPlayBtn, true); setPlayState(fpPlayBtn, true);
     bottomPlayer.classList.add('active');
     updateEqualizers();
-  }).catch(() => { toast('خطا در پخش آنلاین', 'err'); stopAudio(); });
 
-  currentAudio.ontimeupdate = () => {
-    if (!currentAudio || !currentAudio.duration) return;
-    const pct = (currentAudio.currentTime / currentAudio.duration) * 100;
-    bpProgress.value = pct;
-    fpProgress.value = pct;
-    const cTime = fmtTime(currentAudio.currentTime);
-    const tTime = fmtTime(currentAudio.duration);
-    $('#bpCurrTime').textContent = cTime;
-    $('#bpTotTime').textContent = tTime;
-    $('#fpCurrTime').textContent = cTime;
-    $('#fpTotTime').textContent = tTime;
-  };
-
-  currentAudio.onended = () => {
-    if (currentQueue.length && currentQueueIndex < currentQueue.length - 1) {
-      playNextInQueue();
-    } else { stopAudio(); }
-  };
+    if ('mediaSession' in navigator) {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: item.title,
+        artist: item.artist || 'Radio Javan',
+        artwork: [{ src: coverSrc, sizes: '512x512', type: 'image/jpeg' }]
+      });
+      navigator.mediaSession.setActionHandler('play', () => currentAudio.play());
+      navigator.mediaSession.setActionHandler('pause', () => currentAudio.pause());
+      navigator.mediaSession.setActionHandler('previoustrack', playPrevInQueue);
+      navigator.mediaSession.setActionHandler('nexttrack', playNextInQueue);
+    }
+  }).catch((err) => {
+    console.error('Play error', err);
+    toast('خطا در پخش آنلاین', 'err');
+    setPlayState(btn, false); setPlayState(bpPlayBtn, false); setPlayState(fpPlayBtn, false);
+  });
 }
 
+/* Playlist Navigation Core */
 function playNextInQueue() {
-  if (currentQueueIndex < currentQueue.length - 1) {
-    currentQueueIndex++;
-    const nextItem = currentQueue[currentQueueIndex];
-    togglePlay(nextItem, null, currentQueue, currentQueueIndex);
+  if (!currentQueue || !currentQueue.length) return;
+  let nextIdx = currentQueueIndex;
+  if (isShuffle) {
+    if (currentQueue.length > 1) {
+      do {
+        nextIdx = Math.floor(Math.random() * currentQueue.length);
+      } while (nextIdx === currentQueueIndex);
+    }
+  } else {
+    if (currentQueueIndex < currentQueue.length - 1) {
+      nextIdx = currentQueueIndex + 1;
+    } else if (repeatMode === 'all') {
+      nextIdx = 0;
+    } else {
+      stopAudio();
+      toast('End of playlist reached', 'ok', 2000);
+      return;
+    }
   }
-}
-function playPrevInQueue() {
-  if (currentQueueIndex > 0) {
-    currentQueueIndex--;
-    const prevItem = currentQueue[currentQueueIndex];
-    togglePlay(prevItem, null, currentQueue, currentQueueIndex);
-  }
+
+  currentQueueIndex = nextIdx;
+  const nextItem = currentQueue[nextIdx];
+  togglePlay(nextItem, null, currentQueue, nextIdx);
 }
 
-bpPlayBtn.onclick = () => { if (currentItem) togglePlay(currentItem, currentPlayBtn); };
-fpPlayBtn.onclick = () => { if (currentItem) togglePlay(currentItem, currentPlayBtn); };
-$('#bpNextBtn').onclick = playNextInQueue;
+function playPrevInQueue() {
+  if (!currentQueue || !currentQueue.length) return;
+  if (currentAudio && currentAudio.currentTime > 3) {
+    currentAudio.currentTime = 0;
+    return;
+  }
+  let prevIdx = currentQueueIndex;
+  if (isShuffle) {
+    if (currentQueue.length > 1) {
+      do {
+        prevIdx = Math.floor(Math.random() * currentQueue.length);
+      } while (prevIdx === currentQueueIndex);
+    }
+  } else {
+    if (currentQueueIndex > 0) {
+      prevIdx = currentQueueIndex - 1;
+    } else if (repeatMode === 'all') {
+      prevIdx = currentQueue.length - 1;
+    } else {
+      if (currentAudio) currentAudio.currentTime = 0;
+      return;
+    }
+  }
+
+  currentQueueIndex = prevIdx;
+  const prevItem = currentQueue[prevIdx];
+  togglePlay(prevItem, null, currentQueue, prevIdx);
+}
+
+/* Shuffle and Repeat Handlers */
+$('#fpShuffleBtn').onclick = () => {
+  isShuffle = !isShuffle;
+  $('#fpShuffleBtn').classList.toggle('active', isShuffle);
+  toast(isShuffle ? 'Shuffle ON' : 'Shuffle OFF', 'ok', 1400);
+};
+
+$('#fpRepeatBtn').onclick = () => {
+  const badge = $('#fpRepeatBadge');
+  const btn = $('#fpRepeatBtn');
+  if (repeatMode === 'off') {
+    repeatMode = 'all';
+    btn.classList.add('active');
+    badge.classList.remove('show');
+    toast('Repeat All ON', 'ok', 1400);
+  } else if (repeatMode === 'all') {
+    repeatMode = 'one';
+    btn.classList.add('active');
+    badge.classList.add('show');
+    toast('Repeat One ON', 'ok', 1400);
+  } else {
+    repeatMode = 'off';
+    btn.classList.remove('active');
+    badge.classList.remove('show');
+    toast('Repeat OFF', 'ok', 1400);
+  }
+};
+
+// Mini Player Controls
+$('#bpPlayBtn').onclick = (e) => {
+  e.stopPropagation();
+  if (currentItem) togglePlay(currentItem, currentPlayBtn);
+};
+$('#bpNextBtn').onclick = (e) => {
+  e.stopPropagation();
+  playNextInQueue();
+};
+$('#bpPrevBtn').onclick = (e) => {
+  e.stopPropagation();
+  playPrevInQueue();
+};
+$('#bpCloseBtn').onclick = (e) => {
+  e.stopPropagation();
+  stopAudio();
+};
+$('#bpMetaArea').onclick = () => {
+  if (currentItem) fullPlayerSheet.classList.add('show');
+};
+
+// Full Player Controls
+$('#fpPlayBtn').onclick = () => { if (currentItem) togglePlay(currentItem, currentPlayBtn); };
 $('#fpNextBtn').onclick = playNextInQueue;
-$('#bpPrevBtn').onclick = playPrevInQueue;
 $('#fpPrevBtn').onclick = playPrevInQueue;
-$('#bpCloseBtn').onclick = stopAudio;
 $('#fpCloseBtn').onclick = () => fullPlayerSheet.classList.remove('show');
 
-bottomPlayer.onclick = () => { if (currentItem) fullPlayerSheet.classList.add('show'); };
-
-bpProgress.oninput = () => {
-  if (currentAudio && currentAudio.duration) currentAudio.currentTime = (bpProgress.value / 100) * currentAudio.duration;
+bpProgress.oninput = (e) => {
+  e.stopPropagation();
+  if (currentAudio && currentAudio.duration) {
+    currentAudio.currentTime = (bpProgress.value / 100) * currentAudio.duration;
+  }
 };
 fpProgress.oninput = () => {
-  if (currentAudio && currentAudio.duration) currentAudio.currentTime = (fpProgress.value / 100) * currentAudio.duration;
+  if (currentAudio && currentAudio.duration) {
+    currentAudio.currentTime = (fpProgress.value / 100) * currentAudio.duration;
+  }
 };
 
 $('#fpFavBtn').onclick = () => { if (currentItem) toggleFav(currentItem); };
