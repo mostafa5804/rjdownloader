@@ -95,14 +95,64 @@ a { color: var(--on-primary-container); text-decoration: none; }
 
 .wrap { max-width: 640px; margin: auto; padding: 20px 16px 40px; }
 
-/* PWA Banner */
-.pwa-banner {
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  background: var(--surface); border: 1px solid var(--line); border-radius: 18px;
-  padding: 10px 14px; margin-bottom: 18px; box-shadow: var(--shadow-sm);
+/* Floating PWA Popup */
+.pwa-popup {
+  position: fixed;
+  bottom: 80px;
+  left: 16px;
+  right: 16px;
+  max-width: 480px;
+  margin: 0 auto;
+  z-index: 500;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 12px 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+  animation: slideUpPopup 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.pwa-banner .pb-text { font-size: 0.8rem; font-weight: 700; color: var(--text); }
-.pwa-banner .pb-actions { display: flex; align-items: center; gap: 8px; }
+
+@keyframes slideUpPopup {
+  from { transform: translateY(100px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.pwa-popup-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pwa-popup-icon {
+  font-size: 1.6rem;
+  flex: none;
+}
+
+.pwa-popup-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pwa-popup-text b {
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.pwa-popup-text span {
+  font-size: 0.74rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.pwa-popup-btns {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+}
 
 header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
 .header-left { display: flex; align-items: center; gap: 12px; }
@@ -351,19 +401,20 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
 }
 .bottom-player.active { transform: translateY(0); }
 .bp-content { max-width: 640px; margin: auto; display: flex; flex-direction: column; gap: 6px; }
-.bp-main { display: flex; align-items: center; gap: 12px; }
+.bp-main { display: flex; align-items: center; gap: 10px; }
 .bp-cover { width: 44px; height: 44px; border-radius: 12px; object-fit: cover; flex: none; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
 .bp-meta { flex: 1; min-width: 0; cursor: pointer; }
 .bp-title { font-size: 0.86rem; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .bp-artist { font-size: 0.74rem; color: var(--muted); margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.bp-controls { display: flex; align-items: center; gap: 8px; flex: none; }
+.bp-controls { display: flex; align-items: center; gap: 6px; flex: none; }
 .bp-btn-ctrl {
-  width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center;
+  width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
   background: var(--surface-tonal); color: var(--text); border: 1px solid var(--line);
   transition: all .15s;
 }
 .bp-btn-ctrl:hover { background: var(--surface-tonal-hover); color: var(--primary); }
-.bp-btn-ctrl svg { width: 16px; height: 16px; fill: currentColor; }
+.bp-btn-ctrl.active { color: var(--danger); }
+.bp-btn-ctrl svg { width: 16px; height: 16px; }
 .bp-slider-wrap {
   display: flex; align-items: center; gap: 8px; font-size: 0.72rem; font-weight: 700; color: var(--muted);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -382,7 +433,7 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
 .full-player-sheet.show { transform: translateY(0); }
 
 .fp-top-bar {
-  display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 480px; margin: 0 auto 12px;
+  display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 480px; margin: 0 auto 10px;
 }
 .fp-icon-btn {
   width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center;
@@ -398,7 +449,7 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
 .fp-header-badge { font-size: 0.65rem; font-weight: 800; background: var(--primary-container); color: var(--primary); padding: 2px 8px; border-radius: var(--radius-pill); }
 
 .fp-art-container {
-  position: relative; width: 100%; max-width: 300px; margin: auto auto 14px; aspect-ratio: 1/1;
+  position: relative; width: 100%; max-width: 280px; margin: auto auto 12px; aspect-ratio: 1/1;
   display: flex; align-items: center; justify-content: center;
 }
 .fp-art-glow {
@@ -411,13 +462,13 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
 }
 
 .fp-info-section {
-  text-align: center; width: 100%; max-width: 480px; margin: 0 auto 16px; padding: 0 10px;
+  text-align: center; width: 100%; max-width: 480px; margin: 0 auto 12px; padding: 0 10px;
 }
-.fp-title { font-size: 1.22rem; font-weight: 800; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.fp-artist { font-size: 0.9rem; font-weight: 600; color: var(--muted); margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fp-title { font-size: 1.2rem; font-weight: 800; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fp-artist { font-size: 0.88rem; font-weight: 600; color: var(--muted); margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 .fp-seek-section {
-  width: 100%; max-width: 480px; margin: 0 auto 16px; display: flex; flex-direction: column; gap: 8px;
+  width: 100%; max-width: 440px; margin: 0 auto 14px; display: flex; flex-direction: column; gap: 6px;
 }
 .fp-range-wrap { width: 100%; }
 .fp-range-wrap input[type=range] {
@@ -429,7 +480,7 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
 }
 
 .fp-main-controls {
-  display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 440px; margin: 0 auto 20px;
+  display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 420px; margin: 0 auto 14px;
 }
 .fp-ctrl-btn {
   width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; position: relative;
@@ -447,15 +498,31 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
 .fp-badge-repeat.show { display: grid; }
 
 .fp-ctrl-play {
-  width: 68px; height: 68px; border-radius: 50%; display: grid; place-items: center;
+  width: 66px; height: 66px; border-radius: 50%; display: grid; place-items: center;
   background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #ffffff;
   box-shadow: 0 8px 24px rgba(59, 130, 246, 0.35); transition: all .2s ease;
 }
 .fp-ctrl-play:hover { transform: scale(1.08); filter: brightness(1.08); }
 .fp-ctrl-play svg { width: 28px; height: 28px; fill: currentColor; }
 
+/* Volume Slider Row */
+.fp-volume-section {
+  display: flex; align-items: center; gap: 12px; width: 100%; max-width: 420px; margin: 0 auto 16px;
+  background: var(--surface-tonal); padding: 8px 14px; border-radius: var(--radius-pill); border: 1px solid var(--line);
+}
+.fp-vol-btn {
+  width: 28px; height: 28px; display: grid; place-items: center; color: var(--muted); transition: color .15s; flex: none;
+}
+.fp-vol-btn:hover { color: var(--primary); }
+.fp-vol-btn.active { color: var(--danger); }
+.fp-vol-btn svg { width: 18px; height: 18px; }
+.fp-vol-slider-wrap { flex: 1; display: flex; align-items: center; }
+.fp-vol-slider-wrap input[type=range] {
+  width: 100%; height: 5px; accent-color: var(--primary); cursor: pointer; border-radius: 4px; background: var(--line-bright);
+}
+
 .fp-actions-grid {
-  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; width: 100%; max-width: 480px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; width: 100%; max-width: 440px; margin: 0 auto;
 }
 .fp-action-pill {
   display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 11px 8px;
@@ -497,12 +564,18 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
 </head>
 <body>
 <div class="wrap">
-  <!-- PWA Install Banner -->
-  <div class="pwa-banner" id="pwaBanner" style="display:none;">
-    <div class="pb-text">📲 نصب اپلیکیشن مصی دانلودر روی دستگاه</div>
-    <div class="pb-actions">
-      <button type="button" class="btn primary sm" id="pwaInstallBtn">نصب</button>
-      <button type="button" class="btn ghost sm" id="pwaClose">✕</button>
+  <!-- Floating Dismissible PWA Install Popup -->
+  <div class="pwa-popup" id="pwaPopup" style="display:none;">
+    <div class="pwa-popup-content">
+      <div class="pwa-popup-icon">📲</div>
+      <div class="pwa-popup-text">
+        <b>نصب اپلیکیشن مصی دانلودر</b>
+        <span id="pwaDesc">برای دسترسی سریع‌تر، آفلاین و تمام‌صفحه اپ را نصب کنید.</span>
+      </div>
+      <div class="pwa-popup-btns">
+        <button type="button" class="btn primary sm" id="pwaInstallBtn">نصب</button>
+        <button type="button" class="btn ghost sm" id="pwaCloseBtn" title="بستن">✕</button>
+      </div>
     </div>
   </div>
 
@@ -688,6 +761,7 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
         <button type="button" class="bp-btn-ctrl" id="bpNextBtn" title="Next">
           <svg viewBox="0 0 24 24"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2.5"/></svg>
         </button>
+        <button type="button" class="bp-btn-ctrl" id="bpMuteBtn" title="Mute / Unmute"></button>
         <button type="button" class="bp-btn-ctrl" id="bpCloseBtn" title="Close">✕</button>
       </div>
     </div>
@@ -751,6 +825,14 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
     </button>
   </div>
 
+  <!-- VOLUME SLIDER & MUTE ROW -->
+  <div class="fp-volume-section">
+    <button type="button" class="fp-vol-btn" id="fpMuteBtn" title="Mute / Unmute"></button>
+    <div class="fp-vol-slider-wrap">
+      <input type="range" id="fpVolume" min="0" max="1" step="0.01" value="1">
+    </div>
+  </div>
+
   <div class="fp-actions-grid">
     <button type="button" class="fp-action-pill" id="fpLyricsBtn">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
@@ -798,6 +880,10 @@ const PAUSE_ICON = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M6 19h
 const SUN_ICON = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="currentColor"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 const MOON_ICON = '<svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z" fill="currentColor"/></svg>';
 
+const VOL_HIGH_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>';
+const VOL_LOW_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>';
+const VOL_MUTE_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
+
 let selectedQuality = '320';
 let currentQueue = [];
 let currentQueueIndex = -1;
@@ -805,11 +891,11 @@ let currentPlaylistTracks = [];
 
 let isShuffle = false;
 let repeatMode = 'off'; // 'off' | 'all' | 'one'
+let lastVolume = 1;
 
 function toFa(n) { return String(n).replace(/[0-9]/g, d => FA_DIGITS[d]); }
 function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
 
-// English Standard Time Format (e.g. 03:24)
 function fmtTime(s) {
   if (!s && s !== 0) return '00:00';
   s = Math.round(s);
@@ -817,6 +903,47 @@ function fmtTime(s) {
   return String(m).padStart(2, '0') + ':' + String(ss).padStart(2, '0');
 }
 function proxyUrl(url) { if (!url) return ''; if (url.startsWith('data:') || url.startsWith('blob:')) return url; return `${CF_WORKER_URL}/?kind=file&url=${encodeURIComponent(url)}`; }
+
+/* PWA Intelligent Install Popup Logic */
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+const isDismissed = localStorage.getItem('mosi_pwa_dismissed') === 'true';
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+let deferredPrompt = null;
+const pwaPopup = $('#pwaPopup');
+const pwaInstallBtn = $('#pwaInstallBtn');
+const pwaCloseBtn = $('#pwaCloseBtn');
+const pwaDesc = $('#pwaDesc');
+
+if (!isStandalone && !isDismissed) {
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault();
+    deferredPrompt = e;
+    pwaPopup.style.display = 'block';
+  });
+
+  if (isIOS) {
+    pwaDesc.textContent = 'دکمه Share (اشتراک) و سپس Add to Home Screen را بزنید.';
+    pwaInstallBtn.textContent = 'راهنما';
+    pwaPopup.style.display = 'block';
+  }
+}
+
+pwaInstallBtn.onclick = async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') pwaPopup.style.display = 'none';
+    deferredPrompt = null;
+  } else if (isIOS) {
+    toast('در سافاری آیفون: دکمه Share (پایین مرورگر) ➔ سپس Add to Home Screen را بزنید.', 'ok', 6000);
+  }
+};
+
+pwaCloseBtn.onclick = () => {
+  pwaPopup.style.display = 'none';
+  localStorage.setItem('mosi_pwa_dismissed', 'true');
+};
 
 /* Dark / Light Theme System */
 function initTheme() {
@@ -906,9 +1033,15 @@ function renderFavorites() {
   wrap.innerHTML = renderTrackList(favs, 'fav', false);
 }
 
-/* Audio Player Core Engine (Single Reusable Element for Smooth Mobile Playback) */
+/* Audio Player Core Engine */
 let currentAudio = new Audio();
 currentAudio.preload = 'auto';
+
+const savedVol = localStorage.getItem('mosi_volume');
+if (savedVol !== null) {
+  currentAudio.volume = parseFloat(savedVol);
+  lastVolume = currentAudio.volume || 1;
+}
 
 let currentPlayBtn = null;
 let currentItem = null;
@@ -960,6 +1093,33 @@ function getItemAudioUrl(item) {
   if (selectedQuality === '128') return item.lqUrl || item.hqUrl || item.audioUrl || null;
   return item.hqUrl || item.audioUrl || item.lqUrl || null;
 }
+
+/* Volume UI Updating */
+function updateVolumeUI() {
+  const isMuted = currentAudio.muted || currentAudio.volume === 0;
+  const vol = currentAudio.muted ? 0 : currentAudio.volume;
+  $('#fpVolume').value = vol;
+
+  const currentIcon = isMuted ? VOL_MUTE_ICON : (vol < 0.4 ? VOL_LOW_ICON : VOL_HIGH_ICON);
+  $('#bpMuteBtn').innerHTML = isMuted ? VOL_MUTE_ICON : VOL_HIGH_ICON;
+  $('#fpMuteBtn').innerHTML = currentIcon;
+  $('#bpMuteBtn').classList.toggle('active', isMuted);
+  $('#fpMuteBtn').classList.toggle('active', isMuted);
+}
+
+function toggleMute() {
+  if (currentAudio.muted) {
+    currentAudio.muted = false;
+    if (currentAudio.volume === 0) currentAudio.volume = lastVolume || 1;
+  } else {
+    lastVolume = currentAudio.volume || 1;
+    currentAudio.muted = true;
+  }
+  updateVolumeUI();
+  toast(currentAudio.muted ? 'Muted' : 'Unmuted', 'ok', 1200);
+}
+
+updateVolumeUI();
 
 // Global Audio Listeners
 currentAudio.addEventListener('timeupdate', () => {
@@ -1059,6 +1219,8 @@ async function togglePlay(item, btn, queueList = [], qIndex = -1) {
   $('#fpArtist').textContent = item.artist || '—';
   $('#fpFavBtn').classList.toggle('active', isFav(item.permlink || item.id));
   $('#fpQualityBadge').textContent = `${selectedQuality} KBPS`;
+
+  updateVolumeUI();
 
   currentAudio.play().then(() => {
     setPlayState(btn, true); setPlayState(bpPlayBtn, true); setPlayState(fpPlayBtn, true);
@@ -1180,6 +1342,10 @@ $('#bpPrevBtn').onclick = (e) => {
   e.stopPropagation();
   playPrevInQueue();
 };
+$('#bpMuteBtn').onclick = (e) => {
+  e.stopPropagation();
+  toggleMute();
+};
 $('#bpCloseBtn').onclick = (e) => {
   e.stopPropagation();
   stopAudio();
@@ -1193,6 +1359,16 @@ $('#fpPlayBtn').onclick = () => { if (currentItem) togglePlay(currentItem, curre
 $('#fpNextBtn').onclick = playNextInQueue;
 $('#fpPrevBtn').onclick = playPrevInQueue;
 $('#fpCloseBtn').onclick = () => fullPlayerSheet.classList.remove('show');
+
+$('#fpMuteBtn').onclick = toggleMute;
+$('#fpVolume').oninput = (e) => {
+  const val = parseFloat(e.target.value);
+  currentAudio.volume = val;
+  currentAudio.muted = (val === 0);
+  if (val > 0) lastVolume = val;
+  localStorage.setItem('mosi_volume', val);
+  updateVolumeUI();
+};
 
 bpProgress.oninput = (e) => {
   e.stopPropagation();
@@ -1742,24 +1918,6 @@ inputEl.oninput = () => clearBtn.classList.toggle('show', inputEl.value.length >
 clearBtn.onclick = () => { inputEl.value = ''; clearBtn.classList.remove('show'); inputEl.focus(); };
 $('#fetchBtn').onclick = processInput;
 inputEl.onkeydown = e => { if (e.key === 'Enter') processInput(); };
-
-/* PWA Install Flow */
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault(); deferredPrompt = e; $('#pwaBanner').style.display = 'flex';
-});
-$('#pwaInstallBtn').onclick = async () => {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === 'accepted') $('#pwaBanner').style.display = 'none';
-    deferredPrompt = null;
-  } else {
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    toast(isIOS ? 'در سافاری آیفون، دکمه Share و سپس Add to Home Screen را بزنید' : 'از منوی مرورگر گزینه Install یا Add to Home Screen را انتخاب کنید', 'ok', 5000);
-  }
-};
-$('#pwaClose').onclick = () => { $('#pwaBanner').style.display = 'none'; };
 </script>
 </body>
 </html>
