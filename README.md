@@ -1,68 +1,95 @@
-# 🎵 مصی دانلودر (Mosi Downloader)
+<div align="center">
 
-یک وب‌اپلیکیشن مدرن، سریع و سبک (PWA) برای جستجو، پخش آنلاین و دانلود تکی یا گروهی آهنگ‌ها، پادکست‌ها و پلی‌لیست‌های **رادیوجوان (Radio Javan)** با کیفیت دلخواه (۳۲۰ و ۱۲۸)، بدون نیاز به فیلترشکن.
+  <!-- Main Logo -->
+  <img src="https://raw.githubusercontent.com/mostafa5804/rjdownloader/main/icon.svg" width="120" height="120" alt="Mosi Downloader Logo" onerror="this.src='https://image.qwenlm.ai/public_source/e65c539b-21b0-4d51-a3dc-04fdb44f3766/1b687daa5-7a77-44b3-9c54-a87811103bb5.png'" />
+
+  <br />
+
+  <!-- Animated Typing Header -->
+  <a href="https://github.com/mostafa5804/rjdownloader">
+    <img src="https://readme-typing-svg.demolab.com?font=Vazirmatn&weight=800&size=26&pause=1200&color=3B82F6&center=true&vCenter=true&random=false&width=560&lines=%D9%85%D8%B5%DB%8C+%D8%AF%D8%A7%D9%86%D9%84%D9%88%D8%AF%D8%B1+%7C+Mosi+Downloader;%D8%AF%D8%A7%D9%86%D9%84%D9%88%D8%AF+%D9%85%D9%88%D8%B2%DB%8C%DA%A9%D8%8C+%D9%BE%D8%A7%D8%AF%DA%A9%D8%B3%D8%AA+%D9%88+%D9%BE%D9%84%DB%8C%E2%80%8C%D9%84%DB%8C%D8%B3%D8%AA;%D8%A8%D8%AF%D9%88%D9%86+%D9%86%DB%8C%D8%A7%D8%B2+%D8%A8%D9%87+%D9%81%DB%8C%D9%84%D8%AA%D8%B1%D8%B4%DA%A9%D9%86+(Cloudflare+Proxy);%D9%BE%D9%84%DB%8C%D8%B1+%D9%BE%DB%8C%D8%B4%D8%B1%D9%81%D8%AA%D9%87+%D9%88+%D8%AF%D8%A7%D9%86%D9%84%D9%88%D8%AF+%DA%AF%D8%B1%D9%88%D9%87%DB%8C+ZIP" alt="Typing SVG" />
+  </a>
+
+  <p align="center">
+    <b>وب‌اپلیکیشن مدرن، سریع و سبک (PWA) برای جستجو، پخش آنلاین و دانلود تکی یا گروهی آثار رادیوجوان با کیفیت ۳۲۰ و ۱۲۸</b>
+  </p>
+
+  <!-- Badges -->
+  <p align="center">
+    <img src="https://img.shields.io/badge/PWA-Installable-success?style=for-the-badge&logo=pwa&logoColor=white" alt="PWA Ready" />
+    <img src="https://img.shields.io/badge/Cloudflare-Workers-F38020?style=for-the-badge&logo=cloudflare&logoColor=white" alt="Cloudflare Workers" />
+    <img src="https://img.shields.io/badge/UI-Neumorphic%20Glass-3B82F6?style=for-the-badge" alt="Neumorphic UI" />
+    <img src="https://img.shields.io/badge/License-MIT-4F46E5?style=for-the-badge" alt="MIT License" />
+  </p>
+
+</div>
 
 ---
 
-## ✨ امکانات و قابلیت‌ها
+## 🌟 ویژگی‌ها و قابلیت‌های کلیدی
 
-* **🔍 جستجوی هوشمند و پیشرفته:** جستجوی مستقیم بر اساس نام آهنگ یا خواننده بدون نیاز به لینک.
-* **🔗 پشتیبانی از انواع لینک‌ها:**
-  * لینک مستقیم تک‌آهنگ، پادکست و پلی‌لیست (`play.radiojavan.com/...`)
-  * لینک‌های کوتاه اپلیکیشن (`rj.app/m/...`)
-  * لینک‌های مرور و دسته‌بندی (`browse/songs`, `browse/podcasts`)
-* **🎧 پخش‌کننده آنلاین چسبیده به فوتر (Sticky Audio Player):**
-  * پیش‌گوش دادن پیش از دانلود
-  * اسلایدر پیشرفت زمان با قابلیت پرش زمانی (Seek)
-  * دکمه‌های پرش به آهنگ قبلی/بعدی و پخش خودکار ترک بعدی (Auto-Next)
-* **⚡ عبور از فیلترینگ شبکه ایران:** پروکسی کامل کاورها و استریم فایل‌های صوتی از طریق Cloudflare Worker.
-* **🎚 انتخاب کیفیت دانلود:** تغییر کیفیت دانلود بین **۳۲۰ (عالی)** و **۱۲۸ (معمولی)**.
-* **📦 دانلود گروهی (ZIP):** دانلود تمام یا آهنگ‌های انتخابی یک پلی‌لیست در قالب فایل فشرده ZIP.
-* **📋 کپی لینک مستقیم:** دریافت و کپی مستقیم لینک MP3 برای دانلود منیجرها (IDM, ADM).
-* **📄 نمایش متن ترانه (Lyrics):** دریافت لحظه‌ای متن ترانه از رادیوجوان با امکان کپی متن.
-* **❤️ نشان‌شده‌ها و تاریخچه:** ذخیره آفلاین آهنگ‌های موردعلاقه و تاریخچه جستجوها در حافظه مرورگر (`LocalStorage`).
-* **📱 وب‌اپلیکیشن پیش‌رونده (PWA):** قابلیت نصب روی اندروید، iOS و ویندوز با بنر هوشمند راهنما.
-* **🎨 طراحی مدرن (Soft Neumorphic):** طراحی مینیمال دو سطری بهینه برای موبایل با فونت وزیرمتن (Vazirmatn).
+* **🔍 موتور جستجوی هوشمند:**
+  * جستجوی سریع براساس نام آهنگ، خواننده، آلبوم یا شوهای پادکست
+  * بخش ویژه در بالای نتایج برای دسترسی مستقیم به صفحه دیسکوگرافی خواننده (`artist`) یا شو پادکست (`podcast_show`)
+* **🔗 پشتیبانی از تمام پیوندهای رادیوجوان:**
+  * لینک‌های استاندارد وب (`play.radiojavan.com/...`)
+  * لینک‌های کوتاه و اپلیکیشن (`rj.app/m/...` و `rj.app/p/...`)
+  * لینک‌های مرور سبک‌ها و دسته‌بندی‌ها (`browse/songs`, `browse/podcasts`)
+* **🎧 پخش‌کننده آنلاین دو حالته (Mini & Full Player):**
+  * نوار چسبیده به فوتر با دکمه‌های کنترل سریع و دکمه Mute
+  * پلیر تمام‌قد مدرن (مشابه Spotify و Apple Music) همراه با کاور درخشان، اسلایدر صدا (Volume Slider)، حالت تصادفی (Shuffle) و تکرار چندگانه (Repeat One / All)
+  * انتقال خودکار به آهنگ بعدی پس از پایان قطعه (Auto-Play Next)
+  * هماهنگی با صفحه قفل گوشی و ساعت هوشمند از طریق **Media Session API**
+* **⚡ بدون نیاز به فیلترشکن:**
+  * استریم، پروکسی و دانلود مستقیم با استفاده از Cloudflare Worker بدون مشکل تحریم یا فیلترینگ
+* **📦 دانلود گروهی (ZIP Download):**
+  * قابلیت دانلود یک‌جای تمام یا آهنگ‌های انتخابی یک پلی‌لیست و شو پادکست در قالب فایل‌های ZIP فشرده
+* **🎚 انتخاب کیفیت:** تغییر آنی کیفیت دانلود بین **۳۲۰ (High)** و **۱۲۸ (Standard)**
+* **🌙 حالت شب و روز (Dark / Light Mode):** پشتیبانی از تم تاریک عمیق (OLED Friendly) با ذخیره خودکار وضعیت
+* **📄 دریافت متن ترانه (Lyrics):** نمایش و کپی آسان متن شعر همگام با رادیوجوان
+* **❤️ نشان‌شده‌ها و تاریخچه:** ذخیره آفلاین علاقه‌مندی‌ها و جستجوهای اخیر در حافظه مرورگر (`LocalStorage`)
 
 ---
 
-## 🚀 نحوه راه‌اندازی و اجرا
+## 🛠 تکنولوژی‌های استفاده‌شده
 
-این پروژه با **Pure Vanilla JS / HTML / CSS** و بدون فریم‌ورک‌های سنگین ساخته شده است:
+<div align="center">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=html,css,js,cloudflare,github,git,vscode" alt="Tech Stack" />
+  </a>
+</div>
 
-### روش ۱: استقرار روی GitHub Pages (پیشنهادی)
-1. این مخزن را در حساب گیت‌هاب خود ایجاد و فایل `index.html` را در آن آپلود کنید.
-2. به بخش **Settings** مخزن و سپس تب **Pages** بروید.
-3. در بخش **Build and deployment** گزینه منبع را روی `Deploy from a branch` و شاخه را روی `main` (یا `master`) و مسیر را روی `/ (root)` قرار دهید.
-4. آدرس سایت بعد از چند ثانیه آماده استفاده خواهد بود.
+* **Frontend:** HTML5, CSS3 (Modern Variables, Flexbox, Grid), Vanilla JavaScript (ES6+)
+* **Typography:** [فونت رسمی وزیرمتن (Vazirmatn)](https://github.com/rastikerdar/vazirmatn)
+* **Compression:** [JSZip](https://stuk.github.io/jszip/) جهت ساخت آرشیوهای دانلودی ZIP در مرورگر
+* **Backend Layer:** [Cloudflare Workers](https://workers.cloudflare.com/) (Serverless Proxy)
 
-### روش ۲: اجرای محلی
-فایل `index.html` را در مرورگر یا با افزونه `Live Server` در VS Code باز کنید.
+---
+
+## 🚀 راهنمای نصب و اجرای سریع
+
+این پروژه بدون هیچ وابستگی سنگین یا فریم‌ورک‌های پیچیده توسعه داده شده است و استقرار آن در کمتر از ۲ دقیقه انجام می‌شود:
+
+### ۱. استقرار روی GitHub Pages (پیشنهادی)
+1. این مخزن را در گیت‌هاب Fork کنید یا فایل `index.html` را در یک مخزن جدید آپلود نمایید.
+2. به تب **Settings** مخزن رفته و از منوی چپ گزینه **Pages** را انتخاب کنید.
+3. در بخش **Build and deployment** منبع را روی `Deploy from a branch` و شاخه را روی `main` و مسیر `/ (root)` ذخیره کنید.
+4. آدرس اختصاصی سایت شما پس از چند لحظه فعال خواهد شد.
+
+### ۲. اجرای محلی (Local)
+فایل `index.html` را در هر مرورگری باز کنید یا با افزونه **Live Server** در VS Code اجرا نمایید.
 
 ---
 
 ## ☁️ راه‌اندازی ورکر اختصاصی کلودفلر (Cloudflare Worker)
 
-برای برقراری ارتباط با API رادیوجوان و عبور از محدودیت‌های CORS و فیلترینگ:
+جهت ارتباط پایدار با سرورهای رادیوجوان و عبور از محدودیت‌های فیلترینگ و CORS:
 
-۱. در پنل [Cloudflare Dashboard](https://dash.cloudflare.com) وارد بخش **Workers & Pages** شوید.  
-۲. یک Worker جدید ایجاد کرده و کد worker.js را درون آن ذخیره و Deploy کنید:
-۳. آدرس ورکر خود را در فایل `index.html` در متغیر زیر جایگزین کنید:
+۱. وارد داشبورد [Cloudflare](https://dash.cloudflare.com) شوید و به بخش **Workers & Pages** بروید.  
+۲. یک Worker جدید ایجاد کرده و اسکریپت زیر را درون آن قرار داده و **Deploy** کنید:
+
+
+۳. آدرس ورکر اختصاصی خود را در خط مربوطه داخل index.html تنظیم کنید:
 
 ```javascript
 const CF_WORKER_URL = '[https://your-worker-subdomain.workers.dev](https://your-worker-subdomain.workers.dev)';
-```
-
-## 🛠 تکنولوژی‌های استفاده‌شده
-Frontend: HTML5, CSS3, Vanilla JavaScript (ES6+)
-
-Typography: Vazirmatn Font
-
-Archive Builder: JSZip
-
-Proxy Layer: Cloudflare Workers (Serverless)
-
-📄 لایسنس
-این پروژه تحت مجوز MIT منتشر شده است.
-
-```
