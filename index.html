@@ -6,7 +6,8 @@
 <meta name="theme-color" content="#ebf0f7" id="themeMeta">
 <meta name="color-scheme" content="light dark">
 <title>مصی دانلودر | دانلود از رادیوجوان</title>
-<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoi2YXYtduMINiv2KfZhtmE2YjYr9ixIiwic2hvcnRfbmFtZSI6ItmF2LXZjCDYr9in2YhtmE2YjYr9ixIiwic3RhcnRfdXJsIjoiLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiNlYmYwZjciLCJ0aGVtZV9jb2xvciI6IiNlYmYwZjciLCJkaXIiOiJydGwiLCJsYW5nIjoiZmEifQ==">
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjogItmF2LXbjCDYr9in2YbZhNmI2K/YsSIsICJzaG9ydF9uYW1lIjogItmF2LXbjCDYr9in2YbZhNmI2K/YsSIsICJzdGFydF91cmwiOiAiLyIsICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLCAiYmFja2dyb3VuZF9jb2xvciI6ICIjZWJmMGY3IiwgInRoZW1lX2NvbG9yIjogIiNlYmYwZjciLCAiZGlyIjogInJ0bCIsICJsYW5nIjogImZhIn0=">
+<!-- توجه: مانیفست بالا برای نصب PWA به یک آرایه‌ی "icons" (حداقل 192x192 و 512x512) هم نیاز دارد که فعلاً ندارد؛ باید فایل آیکون واقعی اضافه و لینک شود -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/vazirmatn@latest/arabic-400-normal.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/vazirmatn@latest/arabic-500-normal.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/vazirmatn@latest/arabic-700-normal.css">
@@ -904,6 +905,17 @@ function fmtTime(s) {
 }
 function proxyUrl(url) { if (!url) return ''; if (url.startsWith('data:') || url.startsWith('blob:')) return url; return `${CF_WORKER_URL}/?kind=file&url=${encodeURIComponent(url)}`; }
 
+function triggerBlobDownload(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
 /* PWA Intelligent Install Popup Logic */
 const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
 const isDismissed = localStorage.getItem('mosi_pwa_dismissed') === 'true';
@@ -1410,15 +1422,24 @@ function renderSkeletons(count = 4) {
 }
 
 /* Short Link & RJ Fetch Logic */
-function isShortRJLink(raw) { try { return /^rj\.app$/i.test(new URL(raw.trim()).hostname); } catch(e) { return false; } }
+function toAbsoluteUrl(raw) {
+  const trimmed = raw.trim();
+  if (/^https?:\/\//i.test(trimmed)) return trimmed;
+  // اگر شبیه یک دامنه/مسیر باشد (نه یک عبارت جستجوی معمولی)، https:// را فرض کن
+  if (/^[a-z0-9-]+(\.[a-z0-9-]+)+\//i.test(trimmed) || /^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(trimmed)) {
+    return 'https://' + trimmed;
+  }
+  return trimmed;
+}
+function isShortRJLink(raw) { try { return /^rj\.app$/i.test(new URL(toAbsoluteUrl(raw)).hostname); } catch(e) { return false; } }
 async function resolveShortLink(raw) {
-  const r = await fetch(`${CF_WORKER_URL}/?kind=resolve&url=${encodeURIComponent(raw.trim())}`);
+  const r = await fetch(`${CF_WORKER_URL}/?kind=resolve&url=${encodeURIComponent(toAbsoluteUrl(raw))}`);
   if (!r.ok) throw new Error('لینک کوتاه باز نشد');
   const d = await r.json(); return d.url;
 }
 
 function detectRJ(raw) {
-  let u; try { u = new URL(raw.trim()); } catch(e) { return null; }
+  let u; try { u = new URL(toAbsoluteUrl(raw)); } catch(e) { return null; }
   if (!/radiojavan/i.test(u.hostname)) return null;
   const p = u.pathname.toLowerCase();
   const segs = u.pathname.split('/').filter(Boolean);
@@ -1473,7 +1494,7 @@ async function fetchPodcastShow(id) {
         if (d && (Array.isArray(d.podcasts) && d.podcasts.length > 0)) return d;
         if (d && d.type === 'show') return d;
       }
-    } catch(e) {}
+    } catch(e) { console.warn('fetchPodcastShow endpoint failed:', apiUrl, e); }
   }
   const sData = await searchRJ(id);
   if (sData && Array.isArray(sData.podcasts) && sData.podcasts.length > 0) {
@@ -1531,10 +1552,7 @@ async function downloadOne(item, btn) {
     const r = await fetch(proxyUrl(downloadUrl));
     if (!r.ok) throw new Error();
     const blob = await r.blob();
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = suggestFileName(item.title, item.artist, selectedQuality);
-    document.body.appendChild(a); a.click(); a.remove();
+    triggerBlobDownload(blob, suggestFileName(item.title, item.artist, selectedQuality));
     toast('دانلود با موفقیت آغاز شد', 'ok');
   } catch(e) { toast('خطا در دانلود فایل', 'err'); }
   finally { if (btn) { btn.disabled = false; btn.innerHTML = '⬇'; } }
@@ -1547,7 +1565,7 @@ async function copyDirectLink(item) {
       const raw = await rjFetch(item.type === 'podcast' ? 'podcast' : 'song', item.permlink || item.id);
       const norm = normalizeItem(raw);
       item.hqUrl = norm.hqUrl; item.lqUrl = norm.lqUrl; url = getItemAudioUrl(item);
-    } catch(e) {}
+    } catch(e) { console.warn('copyDirectLink fallback fetch failed:', e); }
   }
   if (url) {
     navigator.clipboard.writeText(proxyUrl(url));
@@ -1557,9 +1575,14 @@ async function copyDirectLink(item) {
 
 /* Bulk ZIP Download */
 let bulkCancel = false;
+let bulkRunning = false;
 async function bulkDownloadZip(items, label) {
   if (!items.length) { toast('هیچ موردی برای دانلود انتخاب نشده است', 'warn'); return; }
+  if (bulkRunning) { toast('یک دانلود انبوه دیگر در حال اجراست - صبر کنید یا لغوش کنید', 'warn'); return; }
+  bulkRunning = true;
   bulkCancel = false;
+  const zipBtn = $('#plDlZip');
+  if (zipBtn) zipBtn.disabled = true;
   const prog = $('#dlProgress');
   prog.classList.add('show');
   let done = 0, fails = 0, part = 1, zip = new JSZip(), bytesInPart = 0;
@@ -1589,8 +1612,7 @@ async function bulkDownloadZip(items, label) {
       if (bytesInPart >= PART_LIMIT && queue.length) {
         const finished = zip; zip = new JSZip(); bytesInPart = 0;
         const zblob = await finished.generateAsync({ type: 'blob' });
-        const a = document.createElement('a'); a.href = URL.createObjectURL(zblob);
-        a.download = `${label}-part${part++}.zip`; a.click(); a.remove();
+        triggerBlobDownload(zblob, `${label}-part${part++}.zip`);
       }
     }
   }
@@ -1600,11 +1622,12 @@ async function bulkDownloadZip(items, label) {
     toast('دانلود لغو شد', 'warn');
   } else {
     const zblob = await zip.generateAsync({ type: 'blob' });
-    const a = document.createElement('a'); a.href = URL.createObjectURL(zblob);
-    a.download = part > 1 ? `${label}-part${part}.zip` : `${label}.zip`; a.click(); a.remove();
+    triggerBlobDownload(zblob, part > 1 ? `${label}-part${part}.zip` : `${label}.zip`);
     toast(fails ? `پایان یافت (${toFa(fails)} مورد ناموفق)` : 'دانلود ZIP با موفقیت کامل شد', fails ? 'warn' : 'ok');
   }
   prog.classList.remove('show');
+  bulkRunning = false;
+  if (zipBtn) zipBtn.disabled = false;
 }
 $('#dlCancel').onclick = () => { bulkCancel = true; };
 
@@ -1619,7 +1642,7 @@ async function openLyrics(item) {
     try {
       const raw = await rjFetch(item.type === 'podcast' ? 'podcast' : 'song', item.permlink || item.id || item.title);
       text = raw.lyric || raw.lyrics;
-    } catch(e) {}
+    } catch(e) { console.warn('openLyrics fallback fetch failed:', e); }
   }
 
   if (text) {
@@ -1646,7 +1669,7 @@ function renderTrackList(items, context = 'pl', showCheckboxes = false) {
         <div class="trow-top">
           ${cbHtml}
           <div class="trow-img-wrap">
-            <img src="${esc(proxyUrl(s.cover))}" loading="lazy" onerror="this.src='${DEFAULT_COVER}'">
+            <img src="${esc(proxyUrl(s.cover))}" alt="${esc(s.title)}" loading="lazy" onerror="this.src='${DEFAULT_COVER}'">
           </div>
           <button type="button" class="btn-play-sm tplay" title="پخش">${PLAY_ICON}</button>
           <div class="tmeta">
@@ -1693,7 +1716,7 @@ function renderPlaylist(pl, isSearch = false, featuredEntity = null) {
     const isArtist = featuredEntity.type === 'artist';
     fContainer.innerHTML = `
       <div class="featured-box ${isArtist ? 'artist-type' : 'show-type'}">
-        <img src="${esc(proxyUrl(featuredEntity.photo || DEFAULT_COVER))}" onerror="this.src='${DEFAULT_COVER}'">
+        <img src="${esc(proxyUrl(featuredEntity.photo || DEFAULT_COVER))}" alt="${esc(featuredEntity.name || featuredEntity.title || '')}" onerror="this.src='${DEFAULT_COVER}'">
         <div class="f-meta">
           <span class="f-badge">${isArtist ? '🎤 صفحه اختصاصی هنرمند' : '🎙 صفحه اختصاصی شو پادکست'}</span>
           <div class="f-title">${esc(featuredEntity.name || featuredEntity.title)}</div>
@@ -1918,6 +1941,14 @@ inputEl.oninput = () => clearBtn.classList.toggle('show', inputEl.value.length >
 clearBtn.onclick = () => { inputEl.value = ''; clearBtn.classList.remove('show'); inputEl.focus(); };
 $('#fetchBtn').onclick = processInput;
 inputEl.onkeydown = e => { if (e.key === 'Enter') processInput(); };
+
+/* PWA Service Worker Registration - برای این‌که beforeinstallprompt در مرورگرهایی
+   مثل کروم که وجود Service Worker را شرط نصب می‌دانند فعال شود */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(err => console.warn('SW registration failed:', err));
+  });
+}
 </script>
 </body>
 </html>
