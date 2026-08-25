@@ -1791,7 +1791,7 @@ $('#plDlZip').onclick = () => {
 /* Trending / Browse State */
 const browseState = {
   songs: { endpoint: 'mp3s', type: 'featured', items: [], page: 1, done: false },
-  podcasts: { endpoint: 'podcasts', type: 'popular', items: [], page: 1, done: false }
+  podcasts: { endpoint: 'podcasts', type: 'featured', items: [], page: 1, done: false }
 };
 
 async function fetchBrowse(endpoint, type, page) {
