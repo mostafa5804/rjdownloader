@@ -1,7 +1,7 @@
 <div align="center">
 
   <!-- Main Logo -->
-  <img src="https://raw.githubusercontent.com/mostafa5804/rjdownloader/blob/main/icon.svg" width="120" height="120" alt="Mosi Downloader Logo" onerror="this.src='https://image.qwenlm.ai/public_source/e65c539b-21b0-4d51-a3dc-04fdb44f3766/1b687daa5-7a77-44b3-9c54-a87811103bb5.png'" />
+  <img src="https://raw.githubusercontent.com/mostafa5804/rjdownloader/refs/heads/main/icon.svg" width="120" height="120" alt="Mosi Downloader Logo" onerror="this.src='https://image.qwenlm.ai/public_source/e65c539b-21b0-4d51-a3dc-04fdb44f3766/1b687daa5-7a77-44b3-9c54-a87811103bb5.png'" />
 
   <br />
 
