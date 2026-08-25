@@ -107,10 +107,10 @@ a { color: var(--on-primary-container); text-decoration: none; }
 header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
 .header-left { display: flex; align-items: center; gap: 12px; }
 .logo {
-  width: 46px; height: 46px; border-radius: 16px; display: grid; place-items: center; flex: none;
-  background: var(--surface); color: var(--primary); box-shadow: var(--shadow-md);
+  width: 48px; height: 48px; border-radius: 16px; display: grid; place-items: center; flex: none;
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3); overflow: hidden;
 }
-.logo svg { width: 24px; height: 24px; }
+.logo svg { width: 100%; height: 100%; }
 header h1 { font-size: 1.25rem; font-weight: 800; color: var(--text); }
 header small { display: block; color: var(--muted); font-size: 0.75rem; margin-top: 2px; font-weight: 500; }
 
@@ -508,8 +508,29 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
 
   <header>
     <div class="header-left">
+      <!-- BRAND ICON: RADIO JAVAN + M + DOWNLOAD MOTIF -->
       <div class="logo">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" fill="currentColor"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+          <defs>
+            <linearGradient id="rjBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#2563eb" />
+              <stop offset="50%" stop-color="#3b82f6" />
+              <stop offset="100%" stop-color="#4f46e5" />
+            </linearGradient>
+            <linearGradient id="glyphGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#ffffff" />
+              <stop offset="100%" stop-color="#e0e7ff" />
+            </linearGradient>
+          </defs>
+          <rect width="512" height="512" rx="128" fill="url(#rjBgGrad)" />
+          <g fill="url(#glyphGrad)">
+            <rect x="110" y="140" width="46" height="170" rx="23" />
+            <rect x="356" y="140" width="46" height="170" rx="23" />
+            <path d="M 185 145 C 198 145 208 153 213 164 L 236 215 V 155 C 236 144 245 135 256 135 C 267 135 276 144 276 155 V 215 L 299 164 C 304 153 314 145 327 145 C 342 145 353 158 350 173 L 272 312 C 264 326 248 326 240 312 L 162 173 C 159 158 170 145 185 145 Z" />
+            <path d="M 224 280 L 256 325 L 288 280 Z" />
+            <path d="M 125 355 C 175 400 337 400 387 355 C 397 346 413 348 421 359 C 430 370 427 386 416 395 C 348 450 164 450 96 395 C 85 386 82 370 91 359 C 99 348 115 346 125 355 Z" />
+          </g>
+        </svg>
       </div>
       <div>
         <h1>مصی دانلودر</h1>
