@@ -1795,8 +1795,8 @@ const browseState = {
 };
 
 async function fetchBrowse(endpoint, type, page) {
-  const url = `https://rj-deskcloud.com/api2/${endpoint}?url=${endpoint}&type=${type}&page=${page}`;
-  const r = await fetch(`${CF_WORKER_URL}/?kind=file&url=${encodeURIComponent(url)}`);
+  const url = `https://rj-deskcloud.com/api2/${endpoint}?url=${endpoint}&type=${type}&page=${page}&_t=${Date.now()}`;
+  const r = await fetch(`${CF_WORKER_URL}/?kind=file&url=${encodeURIComponent(url)}`, { cache: 'no-store' });
   if (r.ok) {
     const d = await r.json();
     return Array.isArray(d) ? d : (d.items || d.mp3s || d.podcasts || []);
