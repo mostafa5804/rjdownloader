@@ -6,9 +6,9 @@
   <br />
 
   <!-- Animated Typing Header -->
-  <a href="https://github.com/mostafa5804/rjdownloader">
-    <img src="https://readme-typing-svg.demolab.com?font=Vazirmatn&weight=800&size=26&pause=1200&color=3B82F6&center=true&vCenter=true&random=false&width=560&lines=%D9%85%D8%B5%DB%8C+%D8%AF%D8%A7%D9%86%D9%84%D9%88%D8%AF%D8%B1+%7C+Mosi+Downloader;%D8%AF%D8%A7%D9%86%D9%84%D9%88%D8%AF+%D9%85%D9%88%D8%B2%DB%8C%DA%A9%D8%8C+%D9%BE%D8%A7%D8%AF%DA%A9%D8%B3%D8%AA+%D9%88+%D9%BE%D9%84%DB%8C%E2%80%8C%D9%84%DB%8C%D8%B3%D8%AA;%D8%A8%D8%AF%D9%88%D9%86+%D9%86%DB%8C%D8%A7%D8%B2+%D8%A8%D9%87+%D9%81%DB%8C%D9%84%D8%AA%D8%B1%D8%B4%DA%A9%D9%86+(Cloudflare+Proxy);%D9%BE%D9%84%DB%8C%D8%B1+%D9%BE%DB%8C%D8%B4%D8%B1%D9%81%D8%AA%D9%87+%D9%88+%D8%AF%D8%A7%D9%86%D9%84%D9%88%D8%AF+%DA%AF%D8%B1%D9%88%D9%87%DB%8C+ZIP" alt="Typing SVG" />
-  </a>
+<a href="https://github.com/mostafa5804/rjdownloader">
+  <img src="https://readme-typing-svg.demolab.com?font=Vazirmatn&weight=800&size=26&pause=1200&color=3B82F6&center=true&vCenter=true&random=false&width=560&lines=%D8%B1%D8%A7%D8%AF%DB%8C%D9%88%D8%AC%D9%88%D8%A7%D9%86+%D8%AF%D8%A7%D9%86%D9%84%D9%88%D8%AF%D8%B1+%7C+Rj+Downloader;%D8%AF%D8%A7%D9%86%D9%84%D9%88%D8%AF+%D9%85%D9%88%D8%B2%DB%8C%DA%A9%D8%8C+%D9%BE%D8%A7%D8%AF%DA%A9%D8%B3%D8%AA+%D9%88+%D9%BE%D9%84%DB%8C%E2%80%8C%D9%84%DB%8C%D8%B3%D8%AA;%D8%A8%D8%AF%D9%88%D9%86+%D9%86%DB%8C%D8%A7%D8%B2+%D8%A8%D9%87+%D9%81%DB%8C%D9%84%D8%AA%D8%B1%D8%B4%DA%A9%D9%86+(Cloudflare+Proxy);%D9%BE%D9%84%DB%8C%D8%B1+%D9%BE%DB%8C%D8%B4%D8%B1%D9%81%D8%AA%D9%87+%D9%88+%D8%AF%D8%A7%D9%86%D9%84%D9%88%D8%AF+%DA%AF%D8%B1%D9%88%D9%87%DB%8C+ZIP" alt="Typing SVG" />
+</a>
 
   <p align="center">
     <b>وب‌اپلیکیشن مدرن، سریع و سبک (PWA) برای جستجو، پخش آنلاین و دانلود تکی یا گروهی آثار رادیوجوان با کیفیت ۳۲۰ و ۱۲۸</b>
