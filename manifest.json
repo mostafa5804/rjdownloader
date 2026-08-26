@@ -1,7 +1,7 @@
 {
   "id": "./",
-  "name": "مصی دانلودر",
-  "short_name": "مصی دانلودر",
+  "name": "رادیو جوان دانلودر",
+  "short_name": "Rj DL",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
