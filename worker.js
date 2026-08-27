@@ -1,4 +1,4 @@
-// ورکر اختصاصی «مصی دانلودر» — پشتیبانی کامل از شوهای پادکست، هنرمندان و جستجو
+// ورکر اختصاصی «رادیوجوان دانلودر» — پشتیبانی از شوهای پادکست، هنرمندان، جستجو و ارسال مستقیم به تلگرام[cite: 2]
 const RJ_API = 'https://rj-deskcloud.com/api2/';
 const RJ_HEADERS = {
   'Accept': 'application/json, text/plain, */*',
@@ -16,11 +16,15 @@ const ENDPOINT_BY_KIND = {
   search: 'search',
 };
 
+// توکن ربات تلگرام خود را اینجا قرار دهید یا در متغیرهای ورکر (Variables) تنظیم کنید
+const DEFAULT_BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE';
+
 export default {
-  async fetch(request) {
+  async fetch(request, env) {
+    const BOT_TOKEN = env?.BOT_TOKEN || DEFAULT_BOT_TOKEN;
     const CORS = {
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, OPTIONS',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
       'Access-Control-Allow-Headers': '*',
       'Access-Control-Max-Age': '86400',
     };
@@ -28,9 +32,47 @@ export default {
     if (request.method === 'OPTIONS') return new Response(null, { headers: CORS });
 
     const url = new URL(request.url);
-    const kind = url.searchParams.get('kind');
+    const kind = url.searchParams.get('kind') || url.searchParams.get('action');
 
     try {
+      // ارسال مستقیم موزیک/پادکست به چت کاربر در تلگرام
+      if (kind === 'send_tg') {
+        const chatId = url.searchParams.get('chat_id');
+        const audioUrl = url.searchParams.get('audio_url');
+        const title = url.searchParams.get('title') || 'Music';
+        const performer = url.searchParams.get('artist') || 'Radio Javan';
+        const coverUrl = url.searchParams.get('cover');
+
+        if (!chatId || !audioUrl) {
+          return new Response(JSON.stringify({ ok: false, error: 'Missing chat_id or audio_url' }), {
+            status: 400,
+            headers: { ...CORS, 'content-type': 'application/json; charset=utf-8' },
+          });
+        }
+
+        const tgPayload = {
+          chat_id: chatId,
+          audio: audioUrl,
+          title: title,
+          performer: performer,
+          caption: `🎵 <b>${title}</b>\n👤 <b>${performer}</b>\n\n🤖 @RjDownloaderBot`,
+          parse_mode: 'HTML',
+        };
+        if (coverUrl) tgPayload.thumbnail = coverUrl;
+
+        const tgRes = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendAudio`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(tgPayload),
+        });
+
+        const tgData = await tgRes.text();
+        return new Response(tgData, {
+          status: tgRes.status,
+          headers: { ...CORS, 'content-type': 'application/json; charset=utf-8' },
+        });
+      }
+
       if (kind === 'resolve') {
         const shortUrl = url.searchParams.get('url');
         if (!shortUrl) return new Response('Missing url', { status: 400, headers: CORS });
