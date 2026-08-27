@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#ebf0f7" id="themeMeta">
 <meta name="color-scheme" content="light dark">
-<title> Rj Downloader  | دانلود از رادیوجوان</title>
+<title>رادیوجوان دانلودر | Rj Downloader</title>
 <link rel="manifest" href="./manifest.json">
 <link rel="apple-touch-icon" href="./icon-192.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/vazirmatn@latest/arabic-400-normal.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/vazirmatn@latest/arabic-500-normal.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/vazirmatn@latest/arabic-700-normal.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/vazirmatn@latest/arabic-800-normal.css">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 <style>
 :root {
@@ -162,7 +163,7 @@ header { display: flex; align-items: center; justify-content: space-between; mar
   box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3); overflow: hidden;
 }
 .logo svg { width: 100%; height: 100%; }
-header h1 { font-size: 1.25rem; font-weight: 800; color: var(--text); }
+header h1 { font-size: 1.2rem; font-weight: 800; color: var(--text); }
 header small { display: block; color: var(--muted); font-size: 0.75rem; margin-top: 2px; font-weight: 500; }
 
 .theme-toggle-btn {
@@ -582,7 +583,6 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
 
   <header>
     <div class="header-left">
-      <!-- BRAND ICON: RADIO JAVAN + M + DOWNLOAD MOTIF -->
       <div class="logo">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
           <defs>
@@ -607,7 +607,7 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
         </svg>
       </div>
       <div>
-        <h1>رادیوجوان دانلودر | Rj Downloader </h1>
+        <h1>رادیوجوان دانلودر | Rj Downloader</h1>
         <small>دانلود و پخش مستقیم موزیک و پادکست</small>
       </div>
     </div>
@@ -664,6 +664,7 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
         <div class="single-actions">
           <button type="button" class="btn-play-sm" id="sPlayBtn" title="پیش‌گوش دادن"></button>
           <button class="btn primary" id="sDownload">⬇ دانلود</button>
+          <button class="btn-action" id="sSendTg" title="ارسال به ربات تلگرام">✈️</button>
           <button class="btn-action" id="sCopyLink" title="کپی لینک">🔗</button>
           <button class="btn-action" id="sLyrics" title="متن ترانه">📄</button>
           <button class="btn-action" id="sFav" title="ذخیره">❤️</button>
@@ -700,7 +701,7 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
   <div class="tab-page" id="tabTrending">
     <div class="card">
       <span class="section-label">
-        <span>🎵 آهنگ‌های داغ روز</span>
+        <span>🔥 آهنگ‌های داغ و منتخب</span>
         <small id="songsCount" style="color:var(--muted);"></small>
       </span>
       <div class="tracks" id="songsTracks"></div>
@@ -708,7 +709,7 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
     </div>
     <div class="card">
       <span class="section-label">
-        <span>🎙 پادکست‌های پرطرفدار</span>
+        <span>🎙 جدیدترین پادکست‌ها</span>
         <small id="podcastsCount" style="color:var(--muted);"></small>
       </span>
       <div class="tracks" id="podcastsTracks"></div>
@@ -725,11 +726,15 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
   </div>
 
   <div class="app-footer">
-    ساخته شده توسط مصطفی ·
-    <a href="https://github.com/mostafa5804/rjdownloader" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.11-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.75 2.69 1.25 3.34.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.47.11-3.06 0 0 .97-.31 3.18 1.18.92-.26 1.91-.38 2.9-.39.98.01 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.77.12 3.06.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.39-5.25 5.67.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
-      GitHub
-    </a>
+    <div>ساخته شده توسط مصطفی ·
+      <a href="https://github.com/mostafa5804/rjdownloader" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.11-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.75 2.69 1.25 3.34.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.47.11-3.06 0 0 .97-.31 3.18 1.18.92-.26 1.91-.38 2.9-.39.98.01 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.77.12 3.06.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.39-5.25 5.67.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+        GitHub
+      </a>
+    </div>
+    <div style="margin-top: 6px; font-size: 0.7rem; color: var(--muted); display: inline-flex; align-items: center; gap: 4px;">
+      <span>🚗</span> پشتیبانی اختصاصی از اندروید اتو (Android Auto)
+    </div>
   </div>
 </div>
 
@@ -875,6 +880,13 @@ const CF_WORKER_URL = 'https://player.foadtoonak.workers.dev';
 const DEFAULT_COVER = 'https://image.qwenlm.ai/public_source/e65c539b-21b0-4d51-a3dc-04fdb44f3766/1b687daa5-7a77-44b3-9c54-a87811103bb5.png';
 const FA_DIGITS = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
 
+/* راه‌اندازی مینی‌اپ تلگرام */
+if (window.Telegram?.WebApp) {
+  const tg = window.Telegram.WebApp;
+  tg.ready();
+  tg.expand();
+}
+
 const PLAY_ICON = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>';
 const PAUSE_ICON = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
 
@@ -891,7 +903,7 @@ let currentQueueIndex = -1;
 let currentPlaylistTracks = [];
 
 let isShuffle = false;
-let repeatMode = 'off'; // 'off' | 'all' | 'one'
+let repeatMode = 'off';
 let lastVolume = 1;
 
 function toFa(n) { return String(n).replace(/[0-9]/g, d => FA_DIGITS[d]); }
@@ -916,7 +928,7 @@ function triggerBlobDownload(blob, filename) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-/* PWA Intelligent Install Popup Logic */
+/* PWA Install Logic */
 const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
 const isDismissed = localStorage.getItem('mosi_pwa_dismissed') === 'true';
 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -1106,7 +1118,6 @@ function getItemAudioUrl(item) {
   return item.hqUrl || item.audioUrl || item.lqUrl || null;
 }
 
-/* Volume UI Updating */
 function updateVolumeUI() {
   const isMuted = currentAudio.muted || currentAudio.volume === 0;
   const vol = currentAudio.muted ? 0 : currentAudio.volume;
@@ -1257,7 +1268,6 @@ async function togglePlay(item, btn, queueList = [], qIndex = -1) {
   });
 }
 
-/* Playlist Navigation Core */
 function playNextInQueue() {
   if (!currentQueue || !currentQueue.length) return;
   let nextIdx = currentQueueIndex;
@@ -1342,29 +1352,12 @@ $('#fpRepeatBtn').onclick = () => {
 };
 
 // Mini Player Controls
-$('#bpPlayBtn').onclick = (e) => {
-  e.stopPropagation();
-  if (currentItem) togglePlay(currentItem, currentPlayBtn);
-};
-$('#bpNextBtn').onclick = (e) => {
-  e.stopPropagation();
-  playNextInQueue();
-};
-$('#bpPrevBtn').onclick = (e) => {
-  e.stopPropagation();
-  playPrevInQueue();
-};
-$('#bpMuteBtn').onclick = (e) => {
-  e.stopPropagation();
-  toggleMute();
-};
-$('#bpCloseBtn').onclick = (e) => {
-  e.stopPropagation();
-  stopAudio();
-};
-$('#bpMetaArea').onclick = () => {
-  if (currentItem) fullPlayerSheet.classList.add('show');
-};
+$('#bpPlayBtn').onclick = (e) => { e.stopPropagation(); if (currentItem) togglePlay(currentItem, currentPlayBtn); };
+$('#bpNextBtn').onclick = (e) => { e.stopPropagation(); playNextInQueue(); };
+$('#bpPrevBtn').onclick = (e) => { e.stopPropagation(); playPrevInQueue(); };
+$('#bpMuteBtn').onclick = (e) => { e.stopPropagation(); toggleMute(); };
+$('#bpCloseBtn').onclick = (e) => { e.stopPropagation(); stopAudio(); };
+$('#bpMetaArea').onclick = () => { if (currentItem) fullPlayerSheet.classList.add('show'); };
 
 // Full Player Controls
 $('#fpPlayBtn').onclick = () => { if (currentItem) togglePlay(currentItem, currentPlayBtn); };
@@ -1399,6 +1392,47 @@ $('#fpLyricsBtn').onclick = () => { if (currentItem) openLyrics(currentItem); };
 $('#fpCopyBtn').onclick = () => { if (currentItem) copyDirectLink(currentItem); };
 $('#fpDownloadBtn').onclick = () => { if (currentItem) downloadOne(currentItem, $('#fpDownloadBtn')); };
 
+/* ارسال موزیک به تلگرام */
+async function sendSongToTelegram(item, btn) {
+  const tg = window.Telegram?.WebApp;
+  const chatId = tg?.initDataUnsafe?.user?.id;
+  if (!chatId) {
+    toast('این قابلیت مخصوص اجرا درون ربات تلگرام است', 'warn');
+    return;
+  }
+  tg.HapticFeedback?.impactOccurred('medium');
+  if (btn) { btn.disabled = true; }
+  toast('در حال ارسال فایل به چت تلگرام...', 'ok', 3000);
+
+  let audioUrl = getItemAudioUrl(item);
+  if (!audioUrl) {
+    try {
+      const raw = await rjFetch(item.type === 'podcast' ? 'podcast' : 'song', item.permlink || item.id);
+      const norm = normalizeItem(raw);
+      item.hqUrl = norm.hqUrl; item.lqUrl = norm.lqUrl; audioUrl = getItemAudioUrl(item);
+    } catch(e) {
+      toast('خطا در دریافت لینک فایل', 'err');
+      if (btn) btn.disabled = false;
+      return;
+    }
+  }
+
+  try {
+    const res = await fetch(`${CF_WORKER_URL}/?kind=send_tg&chat_id=${chatId}&audio_url=${encodeURIComponent(audioUrl)}&title=${encodeURIComponent(item.title)}&artist=${encodeURIComponent(item.artist)}&cover=${encodeURIComponent(item.cover)}`);
+    const data = await res.json();
+    if (data.ok) {
+      tg.HapticFeedback?.notificationOccurred('success');
+      toast('✅ موزیک با موفقیت به چت شما ارسال شد', 'ok', 4000);
+    } else {
+      toast('خطا در ارسال فایل توسط تلگرام', 'err');
+    }
+  } catch(e) {
+    toast('خطا در برقراری ارتباط با سرور', 'err');
+  } finally {
+    if (btn) btn.disabled = false;
+  }
+}
+
 /* Skeleton Helpers */
 function renderSkeletons(count = 4) {
   return Array.from({ length: count }, () => `
@@ -1425,7 +1459,6 @@ function renderSkeletons(count = 4) {
 function toAbsoluteUrl(raw) {
   const trimmed = raw.trim();
   if (/^https?:\/\//i.test(trimmed)) return trimmed;
-  // اگر شبیه یک دامنه/مسیر باشد (نه یک عبارت جستجوی معمولی)، https:// را فرض کن
   if (/^[a-z0-9-]+(\.[a-z0-9-]+)+\//i.test(trimmed) || /^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(trimmed)) {
     return 'https://' + trimmed;
   }
@@ -1527,7 +1560,6 @@ function normalizeItem(raw) {
   };
 }
 
-/* Download & Copy Handlers */
 function suggestFileName(title, artist, quality = '320') {
   return `${artist ? artist + ' - ' : ''}${title} (${quality}kbps).mp3`.replace(/[\\/:*?"<>|]+/g, ' ').trim();
 }
@@ -1679,6 +1711,7 @@ function renderTrackList(items, context = 'pl', showCheckboxes = false) {
         </div>
         <div class="trow-bottom">
           <button type="button" class="btn-action tdl" title="دانلود">⬇</button>
+          <button type="button" class="btn-action ttg" title="ارسال به ربات تلگرام">✈️</button>
           <button type="button" class="btn-action tcopy" title="کپی لینک">🔗</button>
           <button type="button" class="btn-action tlyric" title="متن ترانه">📄</button>
           <button type="button" class="btn-action fav ${favActive} tfav" title="نشان">❤️</button>
@@ -1701,6 +1734,7 @@ function renderSingle(kind, item) {
   setPlayState($('#sPlayBtn'), false);
   $('#sPlayBtn').onclick = () => togglePlay(item, $('#sPlayBtn'), [item], 0);
   $('#sDownload').onclick = () => downloadOne(item, $('#sDownload'));
+  $('#sSendTg').onclick = () => sendSongToTelegram(item, $('#sSendTg'));
   $('#sCopyLink').onclick = () => copyDirectLink(item);
   $('#sLyrics').onclick = () => openLyrics(item);
   $('#sFav').onclick = () => toggleFav(item);
@@ -1765,6 +1799,7 @@ function handleTrackClick(e, getList) {
 
   if (e.target.closest('.tplay')) { togglePlay(item, row.querySelector('.tplay'), list, idx); }
   else if (e.target.closest('.tdl')) { downloadOne(item, row.querySelector('.tdl')); }
+  else if (e.target.closest('.ttg')) { sendSongToTelegram(item, row.querySelector('.ttg')); }
   else if (e.target.closest('.tcopy')) { copyDirectLink(item); }
   else if (e.target.closest('.tlyric')) { openLyrics(item); }
   else if (e.target.closest('.tfav')) {
@@ -1791,7 +1826,7 @@ $('#plDlZip').onclick = () => {
 /* Trending / Browse State */
 const browseState = {
   songs: { endpoint: 'mp3s', type: 'featured', items: [], page: 1, done: false },
-  podcasts: { endpoint: 'podcasts', type: 'featured', items: [], page: 1, done: false }
+  podcasts: { endpoint: 'podcasts', type: 'new', items: [], page: 1, done: false }
 };
 
 async function fetchBrowse(endpoint, type, page) {
@@ -1942,8 +1977,7 @@ clearBtn.onclick = () => { inputEl.value = ''; clearBtn.classList.remove('show')
 $('#fetchBtn').onclick = processInput;
 inputEl.onkeydown = e => { if (e.key === 'Enter') processInput(); };
 
-/* PWA Service Worker Registration - برای این‌که beforeinstallprompt در مرورگرهایی
-   مثل کروم که وجود Service Worker را شرط نصب می‌دانند فعال شود */
+/* Service Worker Registration */
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js').catch(err => console.warn('SW registration failed:', err));
