@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#090D16" id="themeMeta">
 <meta name="color-scheme" content="light dark">
-<title>رادیوجوان دانلودر | RJ Music Studio v1.1</title>
+<title>رادیوجوان دانلودر | RJ Studio v1.1</title>
 
 <!-- Fonts & Scripts -->
 <link rel="manifest" href="./manifest.json">
@@ -29,7 +29,7 @@
   --surface: #111827;
   --surface-tonal: #182234;
   --surface-tonal-hover: #222F47;
-  --surface-glass: rgba(17, 24, 39, 0.88);
+  --surface-glass: rgba(17, 24, 39, 0.92);
   --line: rgba(255, 255, 255, 0.08);
   --line-strong: rgba(255, 255, 255, 0.16);
 
@@ -61,7 +61,7 @@
   --surface: #FFFFFF;
   --surface-tonal: #F8FAFC;
   --surface-tonal-hover: #EEF2F6;
-  --surface-glass: rgba(255, 255, 255, 0.92);
+  --surface-glass: rgba(255, 255, 255, 0.95);
   --line: #E2E8F0;
   --line-strong: #CBD5E1;
 
@@ -94,7 +94,7 @@ body {
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  padding-bottom: 170px;
+  padding-bottom: 90px; /* فضای امن برای منوی پایین */
   transition: background-color 0.25s ease, color 0.25s ease;
   background-image:
     radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.08) 0px, transparent 50%),
@@ -107,7 +107,7 @@ img { display: block; }
 a { color: var(--on-primary-container); text-decoration: none; }
 :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: var(--radius-sm); }
 
-.wrap { max-width: 640px; margin: auto; padding: 18px 16px 40px; }
+.wrap { max-width: 640px; margin: auto; padding: 18px 16px 30px; }
 
 header {
   display: flex;
@@ -116,7 +116,8 @@ header {
   margin-bottom: 20px;
   padding: 0 4px;
 }
-.header-left { display: flex; align-items: center; gap: 12px; }
+.header-left { display: flex; align-items: center; gap: 12px; width: 100%; justify-content: space-between; }
+.header-brand { display: flex; align-items: center; gap: 12px; }
 .logo-container {
   width: 48px; height: 48px; border-radius: var(--radius-md); display: grid; place-items: center; flex: none;
   box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35); overflow: hidden;
@@ -124,13 +125,6 @@ header {
 .logo-container svg { width: 100%; height: 100%; }
 header h1 { font-size: 1.15rem; font-weight: 900; letter-spacing: -0.3px; }
 header small { display: block; color: var(--muted); font-size: 0.74rem; margin-top: 2px; font-weight: 600; }
-
-.theme-toggle-btn {
-  width: 44px; height: 44px; border-radius: var(--radius-md); display: grid; place-items: center;
-  background: var(--surface); color: var(--text); border: 1px solid var(--line);
-  box-shadow: var(--shadow-sm); transition: all 0.2s ease; font-size: 17px;
-}
-.theme-toggle-btn:hover { transform: scale(1.05); border-color: var(--primary); }
 
 .card {
   background: var(--surface);
@@ -168,11 +162,11 @@ header small { display: block; color: var(--muted); font-size: 0.74rem; margin-t
 .field label { display: block; font-size: 0.8rem; color: var(--title-slate); margin-bottom: 8px; font-weight: 700; }
 .field-input-wrap { position: relative; width: 100%; }
 .field input {
-  width: 100%; padding: 14px 16px 14px 44px; background: var(--surface-tonal); border: 1px solid var(--line);
-  border-radius: var(--radius-md); color: var(--text); font-size: 0.9jrem; font-weight: 500; transition: all 0.2s ease;
+  width: 100%; padding: 12px 16px 12px 40px; background: var(--surface-tonal); border: 1px solid var(--line);
+  border-radius: var(--radius-md); color: var(--text); font-size: 0.88rem; font-weight: 500; transition: all 0.2s ease;
 }
 .field input:focus { border-color: var(--primary); background: var(--surface); box-shadow: 0 0 0 4px var(--primary-container); }
-.field input::placeholder { color: var(--muted); opacity: 0.75; }
+.field input::placeholder { color: var(--muted); opacity: 0.7; font-size: 0.84rem; font-weight: 400; }
 .field .clear-btn {
   position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted);
   width: 26px; height: 26px; border-radius: var(--radius-pill); display: none; place-items: center;
@@ -188,19 +182,6 @@ header small { display: block; color: var(--muted); font-size: 0.74rem; margin-t
   display: inline-flex; align-items: center; gap: 6px; transition: all 0.15s ease;
 }
 .history-chip:hover { background: var(--surface-tonal-hover); color: var(--text); border-color: var(--line-strong); }
-
-.quality-box {
-  margin-top: 14px; display: flex; align-items: center; justify-content: space-between;
-  background: var(--surface-tonal); padding: 8px 12px; border-radius: var(--radius-md); border: 1px solid var(--line);
-}
-.quality-box .q-title { font-size: 0.8rem; font-weight: 700; color: var(--title-slate); }
-.quality-switch { display: flex; background: var(--surface); padding: 3px; border-radius: var(--radius-pill); border: 1px solid var(--line); }
-.quality-btn {
-  padding: 6px 14px; border-radius: var(--radius-pill); font-size: 0.76rem; font-weight: 800; color: var(--muted); transition: all 0.2s ease;
-}
-.quality-btn.active {
-  background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #ffffff; box-shadow: 0 4px 12px var(--primary-glow);
-}
 
 .btn {
   padding: 12px 22px; border-radius: var(--radius-pill); font-weight: 800; font-size: 0.88rem;
@@ -366,14 +347,16 @@ header small { display: block; color: var(--muted); font-size: 0.74rem; margin-t
   border-radius: var(--radius-md); margin-bottom: 14px; border: 1px solid var(--line);
 }
 
+/* مینی‌پلیر: کاملاً پنهان در حالت عادی با transform و نمایش فقط موقع پلی شدن */
 .bottom-player {
-  position: fixed; bottom: 74px; left: 14px; right: 14px; max-width: 612px; margin: 0 auto;
+  position: fixed; bottom: 72px; left: 14px; right: 14px; max-width: 612px; margin: 0 auto;
   z-index: 120; background: var(--surface-glass); backdrop-filter: blur(20px);
   border: 1px solid var(--line-strong); border-radius: var(--radius-md); box-shadow: var(--shadow-player);
-  padding: 10px 14px; transform: translateY(160%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 10px 14px; transform: translateY(200%); opacity: 0; pointer-events: none;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
   direction: ltr !important; text-align: left;
 }
-.bottom-player.active { transform: translateY(0); }
+.bottom-player.active { transform: translateY(0); opacity: 1; pointer-events: auto; }
 .bp-content { display: flex; flex-direction: column; gap: 6px; }
 .bp-main { display: flex; align-items: center; gap: 10px; }
 .bp-cover { width: 44px; height: 44px; border-radius: var(--radius-sm); object-fit: cover; flex: none; box-shadow: var(--shadow-sm); }
@@ -474,7 +457,7 @@ header small { display: block; color: var(--muted); font-size: 0.74rem; margin-t
 .fp-action-pill:hover { background: var(--surface-tonal-hover); transform: translateY(-1px); }
 .fp-action-pill.primary { background: var(--primary-container); color: var(--primary); border-color: rgba(59, 130, 246, 0.35); }
 
-/* Bottom Navigation Dock - با گوشه‌های کاملاً یکسان با سایر بخش‌ها */
+/* Bottom Navigation Dock */
 .bottom-nav {
   position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
   background: var(--surface-glass); backdrop-filter: blur(20px);
@@ -512,7 +495,6 @@ header small { display: block; color: var(--muted); font-size: 0.74rem; margin-t
 <body>
 
 <div class="wrap">
-  <!-- PWA Install Popup -->
   <div class="pwa-popup" id="pwaPopup" style="display:none;">
     <div class="pwa-popup-content">
       <div class="pwa-popup-icon">📲</div>
@@ -527,40 +509,38 @@ header small { display: block; color: var(--muted); font-size: 0.74rem; margin-t
     </div>
   </div>
 
-  <!-- Header -->
   <header>
     <div class="header-left">
-      <div class="logo-container">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
-          <defs>
-            <linearGradient id="rjBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#2563eb" />
-              <stop offset="50%" stop-color="#3b82f6" />
-              <stop offset="100%" stop-color="#4f46e5" />
-            </linearGradient>
-            <linearGradient id="glyphGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#ffffff" />
-              <stop offset="100%" stop-color="#e0e7ff" />
-            </linearGradient>
-          </defs>
-          <rect width="512" height="512" rx="128" fill="url(#rjBgGrad)" />
-          <g fill="url(#glyphGrad)">
-            <rect x="110" y="140" width="46" height="170" rx="23" />
-            <rect x="356" y="140" width="46" height="170" rx="23" />
-            <path d="M 185 145 C 198 145 208 153 213 164 L 236 215 V 155 C 236 144 245 135 256 135 C 267 135 276 144 276 155 V 215 L 299 164 C 304 153 314 145 327 145 C 342 145 353 158 350 173 L 272 312 C 264 326 248 326 240 312 L 162 173 C 159 158 170 145 185 145 Z" />
-            <path d="M 224 280 L 256 325 L 288 280 Z" />
-            <path d="M 125 355 C 175 400 337 400 387 355 C 397 346 413 348 421 359 C 430 370 427 386 416 395 C 348 450 164 450 96 395 C 85 386 82 370 91 359 C 99 348 115 346 125 355 Z" />
-          </g>
-        </svg>
-      </div>
-      <div>
-        <h1>رادیوجوان دانلودر | RJ Studio v1.1</h1>
-        <small data-i18n="headerSub">دانلود و پخش آنلاین بدون محدودیت</small>
+      <div class="header-brand">
+        <div class="logo-container">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+            <defs>
+              <linearGradient id="rjBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#2563eb" />
+                <stop offset="50%" stop-color="#3b82f6" />
+                <stop offset="100%" stop-color="#4f46e5" />
+              </linearGradient>
+              <linearGradient id="glyphGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#ffffff" />
+                <stop offset="100%" stop-color="#e0e7ff" />
+              </linearGradient>
+            </defs>
+            <rect width="512" height="512" rx="128" fill="url(#rjBgGrad)" />
+            <g fill="url(#glyphGrad)">
+              <rect x="110" y="140" width="46" height="170" rx="23" />
+              <rect x="356" y="140" width="46" height="170" rx="23" />
+              <path d="M 185 145 C 198 145 208 153 213 164 L 236 215 V 155 C 236 144 245 135 256 135 C 267 135 276 144 276 155 V 215 L 299 164 C 304 153 314 145 327 145 C 342 145 353 158 350 173 L 272 312 C 264 326 248 326 240 312 L 162 173 C 159 158 170 145 185 145 Z" />
+              <path d="M 224 280 L 256 325 L 288 280 Z" />
+              <path d="M 125 355 C 175 400 337 400 387 355 C 397 346 413 348 421 359 C 430 370 427 386 416 395 C 348 450 164 450 96 395 C 85 386 82 370 91 359 C 99 348 115 346 125 355 Z" />
+            </g>
+          </svg>
+        </div>
+        <div>
+          <h1>رادیوجوان دانلودر | RJ Studio</h1>
+          <small>v1.1 · <span data-i18n="headerSub">دانلود و پخش آنلاین بدون محدودیت</span></small>
+        </div>
       </div>
     </div>
-    <button type="button" class="theme-toggle-btn" id="themeToggleBtn" title="تغییر تم روز و شب">
-      <i id="themeIcon" class="fa-solid fa-sun"></i>
-    </button>
   </header>
 
   <!-- TAB 1: Search & Download -->
@@ -577,15 +557,7 @@ header small { display: block; color: var(--muted); font-size: 0.74rem; margin-t
 
       <div class="history-wrap" id="historyChips"></div>
 
-      <div class="quality-box">
-        <span class="q-title" data-i18n="lblQuality">کیفیت دانلود:</span>
-        <div class="quality-switch" id="qualitySwitch">
-          <button type="button" class="quality-btn" data-quality="320">۳۲۰ (Master)</button>
-          <button type="button" class="quality-btn active" data-quality="128">۱۲۸ (Standard)</button>
-        </div>
-      </div>
-
-      <button class="btn primary block" id="fetchBtn">
+      <button class="btn primary block" id="fetchBtn" style="margin-top: 16px;">
         <i class="fa-solid fa-bolt"></i> <span data-i18n="btnFetch">دریافت اطلاعات و جستجو</span>
       </button>
       <div id="status"></div>
@@ -856,14 +828,12 @@ const CF_WORKER_URL = 'https://player.foadtoonak.workers.dev';
 const DEFAULT_COVER = 'https://image.qwenlm.ai/public_source/e65c539b-21b0-4d51-a3dc-04fdb44f3766/1b687daa5-7a77-44b3-9c54-a87811103bb5.png';
 const FA_DIGITS = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
 
-/* Internationalization Dictionary (i18n) */
 const i18n = {
   fa: {
     headerSub: "دانلود و پخش آنلاین بدون محدودیت",
     lblSearchTitle: "جستجو و دریافت لینک مستقیم",
     lblInputLabel: "لینک یا نام آهنگ / خواننده / پادکست",
     placeholderInput: "مثلاً: Mar-Mari یا هایده یا پیوند rj.app...",
-    lblQuality: "کیفیت دانلود:",
     btnFetch: "دریافت اطلاعات و جستجو",
     hintText: "پشتیبانی کامل از <b>نام فارسی/انگلیسی</b>، <b>شوهای پادکست</b>، <b>صفحه خواننده</b> و <b>پیوندهای کوتاه</b>.",
     lblSingleTrack: "موزیک انتخابی",
@@ -905,7 +875,6 @@ const i18n = {
     lblSearchTitle: "Search & Direct Link Fetcher",
     lblInputLabel: "URL or Track Name / Artist / Podcast",
     placeholderInput: "e.g., Mar-Mari, Hayedeh or rj.app link...",
-    lblQuality: "Download Quality:",
     btnFetch: "Fetch Details & Search",
     hintText: "Full support for <b>Persian/English names</b>, <b>Podcast shows</b>, <b>Artist pages</b> & <b>Short links</b>.",
     lblSingleTrack: "Selected Track",
@@ -967,7 +936,6 @@ function setLanguage(lang) {
   if (cfgLang) cfgLang.value = lang;
 }
 
-/* Telegram WebApp Initializer */
 if (window.Telegram?.WebApp) {
   const tg = window.Telegram.WebApp;
   tg.ready();
@@ -1016,7 +984,6 @@ function triggerBlobDownload(blob, filename) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-/* PWA Installation Lifecycle */
 const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
 const isDismissed = localStorage.getItem('mosi_pwa_dismissed') === 'true';
 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -1057,7 +1024,6 @@ pwaCloseBtn.onclick = () => {
   localStorage.setItem('mosi_pwa_dismissed', 'true');
 };
 
-/* Unified Theme Engine */
 function initTheme() {
   const saved = localStorage.getItem('mosi_theme') || 'dark';
   applyTheme(saved);
@@ -1070,21 +1036,11 @@ function applyTheme(mode) {
 
   document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
   $('#themeMeta').content = isDark ? '#090D16' : '#F1F5F9';
-  const icon = $('#themeIcon');
-  if (icon) {
-    icon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-  }
   localStorage.setItem('mosi_theme', mode);
   const cfgTheme = $('#cfgThemeSelect');
   if (cfgTheme) cfgTheme.value = mode;
 }
 
-$('#themeToggleBtn').onclick = () => {
-  const current = localStorage.getItem('mosi_theme') || 'dark';
-  const next = current === 'dark' ? 'light' : 'dark';
-  applyTheme(next);
-  toast(next === 'light' ? 'تم روشن فعال شد ☀️' : 'تم تیتانیوم دارک فعال شد 🌙', 'ok', 1600);
-};
 initTheme();
 setLanguage(currentLang);
 
@@ -1105,20 +1061,10 @@ function setStatus(msg, type) {
 function syncQualityUI(q) {
   selectedQuality = q;
   localStorage.setItem('mosi_quality', q);
-  document.querySelectorAll('#qualitySwitch .quality-btn').forEach(b => {
-    b.classList.toggle('active', b.dataset.quality === q);
-  });
   $('#fpQualityBadge').textContent = `${q} KBPS`;
   const cfgQ = $('#cfgQualitySelect');
   if (cfgQ) cfgQ.value = q;
 }
-
-document.querySelectorAll('#qualitySwitch .quality-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    syncQualityUI(btn.dataset.quality);
-    toast(`${i18n[currentLang].toastQuality} ${toFa(selectedQuality)}`, 'ok', 1800);
-  });
-});
 
 $('#cfgQualitySelect').onchange = e => {
   syncQualityUI(e.target.value);
