@@ -663,7 +663,7 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
         </div>
         <div class="single-actions">
           <button type="button" class="btn-play-sm" id="sPlayBtn" title="پیش‌گوش دادن"></button>
-          <button class="btn primary" id="sDownload">⬇ دانلود</button>
+          <button class="btn primary" id="sDownload">⬇️ دانلود</button>
           <button class="btn-action" id="sSendTg" title="ارسال به ربات تلگرام">📲</button>
           <button class="btn-action" id="sCopyLink" title="کپی لینک">🔗</button>
           <button class="btn-action" id="sLyrics" title="متن ترانه">📄</button>
@@ -685,7 +685,7 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
         <div class="pl-actions" id="plActions">
           <button type="button" class="btn ghost sm" id="plSelectAll">انتخاب همه</button>
           <button type="button" class="btn ghost sm" id="plSelectNone">هیچ‌کدام</button>
-          <button type="button" class="btn primary sm" id="plDlZip">⬇ دانلود ZIP انتخابی</button>
+          <button type="button" class="btn primary sm" id="plDlZip">⬇️ دانلود ZIP انتخابی</button>
         </div>
         <div class="dl-progress" id="dlProgress">
           <span class="lbl" id="dlLbl">۰ / ۰</span>
@@ -1574,7 +1574,7 @@ async function downloadOne(item, btn) {
       item.hqUrl = norm.hqUrl; item.lqUrl = norm.lqUrl; downloadUrl = getItemAudioUrl(item);
     } catch(e) {
       toast('لینک دانلود یافت نشد', 'err');
-      if (btn) { btn.disabled = false; btn.innerHTML = '⬇'; }
+      if (btn) { btn.disabled = false; btn.innerHTML = '⬇️'; }
       return;
     }
   }
@@ -1587,7 +1587,7 @@ async function downloadOne(item, btn) {
     triggerBlobDownload(blob, suggestFileName(item.title, item.artist, selectedQuality));
     toast('دانلود با موفقیت آغاز شد', 'ok');
   } catch(e) { toast('خطا در دانلود فایل', 'err'); }
-  finally { if (btn) { btn.disabled = false; btn.innerHTML = '⬇'; } }
+  finally { if (btn) { btn.disabled = false; btn.innerHTML = '⬇️'; } }
 }
 
 async function copyDirectLink(item) {
@@ -1710,7 +1710,7 @@ function renderTrackList(items, context = 'pl', showCheckboxes = false) {
           </div>
         </div>
         <div class="trow-bottom">
-          <button type="button" class="btn-action tdl" title="دانلود">⬇</button>
+          <button type="button" class="btn-action tdl" title="دانلود">⬇️</button>
           <button type="button" class="btn-action ttg" title="ارسال به ربات تلگرام">📲</button>
           <button type="button" class="btn-action tcopy" title="کپی لینک">🔗</button>
           <button type="button" class="btn-action tlyric" title="متن ترانه">📄</button>
