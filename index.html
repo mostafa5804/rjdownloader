@@ -1,81 +1,90 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa" dir="rtl" id="htmlRoot">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#ebf0f7" id="themeMeta">
+<meta name="theme-color" content="#090D16" id="themeMeta">
 <meta name="color-scheme" content="light dark">
-<title>رادیوجوان دانلودر | Rj Downloader</title>
+<title>رادیوجوان دانلودر | RJ Music Studio v1.1</title>
+
+<!-- Fonts & Scripts -->
 <link rel="manifest" href="./manifest.json">
 <link rel="apple-touch-icon" href="./icon-192.png">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/vazirmatn@latest/arabic-400-normal.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/vazirmatn@latest/arabic-500-normal.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/vazirmatn@latest/arabic-700-normal.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/vazirmatn@latest/arabic-800-normal.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+
 <style>
 :root {
-  --bg: #ebf0f7;
-  --surface: #ffffff;
-  --surface-tonal: #f1f5f9;
-  --surface-tonal-hover: #e2e8f0;
-  --surface-variant: #eef2f7;
-  --line: #e2e8f0;
-  --line-bright: #cbd5e1;
-  --text: #1e293b;
-  --muted: #64748b;
-  --title-slate: #5c6b89;
-  
-  --primary: #3b82f6;
-  --primary-dark: #2563eb;
-  --primary-container: #eff6ff;
-  --on-primary-container: #1d4ed8;
-  
-  --secondary: #4f46e5;
-  --secondary-container: #eef2ff;
-  
-  --danger: #ef4444;
-  --danger-container: #fef2f2;
-  --warn: #f59e0b;
-  
-  --shadow-sm: 0 4px 12px rgba(148, 163, 184, 0.12);
-  --shadow-md: 0 16px 32px rgba(163, 177, 198, 0.22), -6px -6px 20px rgba(255, 255, 255, 0.85);
-  --shadow-player: 0 -10px 30px rgba(148, 163, 184, 0.25);
-  --radius-card: 24px;
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
   --radius-pill: 9999px;
-  --shimmer-base: #e2e8f0;
-  --shimmer-highlight: #f8fafc;
+
+  --bg: #090D16;
+  --surface: #111827;
+  --surface-tonal: #182234;
+  --surface-tonal-hover: #222F47;
+  --surface-glass: rgba(17, 24, 39, 0.88);
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.16);
+
+  --text: #F8FAFC;
+  --muted: #94A3B8;
+  --title-slate: #CBD5E1;
+
+  --primary: #3B82F6;
+  --primary-hover: #2563EB;
+  --primary-glow: rgba(59, 130, 246, 0.28);
+  --primary-container: rgba(59, 130, 246, 0.16);
+  --on-primary-container: #93C5FD;
+
+  --secondary: #6366F1;
+  --danger: #EF4444;
+  --danger-container: rgba(239, 68, 68, 0.16);
+  --warn: #F59E0B;
+
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.4);
+  --shadow-player: 0 -10px 35px rgba(0, 0, 0, 0.55);
+
+  --shimmer-base: #182234;
+  --shimmer-highlight: #24334D;
 }
 
-[data-theme="dark"] {
-  --bg: #0b0f19;
-  --surface: #131b2e;
-  --surface-tonal: #1c2640;
-  --surface-tonal-hover: #263354;
-  --surface-variant: #192238;
-  --line: #222f4c;
-  --line-bright: #2d3e63;
-  --text: #f8fafc;
-  --muted: #94a3b8;
-  --title-slate: #cbd5e1;
-  
-  --primary: #3b82f6;
-  --primary-dark: #60a5fa;
-  --primary-container: #1e293b;
-  --on-primary-container: #93c5fd;
-  
-  --secondary: #6366f1;
-  --secondary-container: #1e1e38;
-  
-  --danger: #f87171;
-  --danger-container: #331515;
-  
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 16px 32px rgba(0, 0, 0, 0.45);
-  --shadow-player: 0 -10px 30px rgba(0, 0, 0, 0.6);
-  --shimmer-base: #1c2640;
-  --shimmer-highlight: #283556;
+[data-theme="light"] {
+  --bg: #F1F5F9;
+  --surface: #FFFFFF;
+  --surface-tonal: #F8FAFC;
+  --surface-tonal-hover: #EEF2F6;
+  --surface-glass: rgba(255, 255, 255, 0.92);
+  --line: #E2E8F0;
+  --line-strong: #CBD5E1;
+
+  --text: #0F172A;
+  --muted: #64748B;
+  --title-slate: #475569;
+
+  --primary: #2563EB;
+  --primary-hover: #1D4ED8;
+  --primary-glow: rgba(37, 99, 235, 0.2);
+  --primary-container: #EFF6FF;
+  --on-primary-container: #1D4ED8;
+
+  --secondary: #4F46E5;
+  --danger: #DC2626;
+  --danger-container: #FEF2F2;
+
+  --shadow-sm: 0 4px 12px rgba(148, 163, 184, 0.12);
+  --shadow-md: 0 12px 30px rgba(148, 163, 184, 0.18);
+  --shadow-player: 0 -8px 30px rgba(148, 163, 184, 0.22);
+
+  --shimmer-base: #E2E8F0;
+  --shimmer-highlight: #F8FAFC;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -85,505 +94,443 @@ body {
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  padding-bottom: 160px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  padding-bottom: 170px;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  background-image:
+    radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.06) 0px, transparent 50%);
 }
 
-button, input { font: inherit; color: inherit; border: none; background: none; }
+button, input, select { font: inherit; color: inherit; border: none; background: none; }
 button { cursor: pointer; }
 img { display: block; }
 a { color: var(--on-primary-container); text-decoration: none; }
-:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 8px; }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: var(--radius-sm); }
 
-.wrap { max-width: 640px; margin: auto; padding: 20px 16px 40px; }
+.wrap { max-width: 640px; margin: auto; padding: 18px 16px 40px; }
 
-/* Floating PWA Popup */
-.pwa-popup {
-  position: fixed;
-  bottom: 80px;
-  left: 16px;
-  right: 16px;
-  max-width: 480px;
-  margin: 0 auto;
-  z-index: 500;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  padding: 12px 16px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
-  animation: slideUpPopup 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes slideUpPopup {
-  from { transform: translateY(100px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-.pwa-popup-content {
+header {
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 0 4px;
 }
-
-.pwa-popup-icon {
-  font-size: 1.6rem;
-  flex: none;
-}
-
-.pwa-popup-text {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.pwa-popup-text b {
-  font-size: 0.85rem;
-  color: var(--text);
-}
-
-.pwa-popup-text span {
-  font-size: 0.74rem;
-  color: var(--muted);
-  line-height: 1.4;
-}
-
-.pwa-popup-btns {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex: none;
-}
-
-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
 .header-left { display: flex; align-items: center; gap: 12px; }
-.logo {
-  width: 48px; height: 48px; border-radius: 16px; display: grid; place-items: center; flex: none;
-  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3); overflow: hidden;
+.logo-container {
+  width: 48px; height: 48px; border-radius: var(--radius-md); display: grid; place-items: center; flex: none;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35); overflow: hidden;
 }
-.logo svg { width: 100%; height: 100%; }
-header h1 { font-size: 1.2rem; font-weight: 800; color: var(--text); }
-header small { display: block; color: var(--muted); font-size: 0.75rem; margin-top: 2px; font-weight: 500; }
+.logo-container svg { width: 100%; height: 100%; }
+header h1 { font-size: 1.15rem; font-weight: 900; letter-spacing: -0.3px; }
+header small { display: block; color: var(--muted); font-size: 0.74rem; margin-top: 2px; font-weight: 600; }
 
 .theme-toggle-btn {
-  width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center;
+  width: 44px; height: 44px; border-radius: var(--radius-md); display: grid; place-items: center;
   background: var(--surface); color: var(--text); border: 1px solid var(--line);
-  box-shadow: var(--shadow-sm); transition: all .2s ease;
+  box-shadow: var(--shadow-sm); transition: all 0.2s ease; font-size: 17px;
 }
-.theme-toggle-btn:hover { transform: scale(1.08); }
-.theme-toggle-btn svg { width: 20px; height: 20px; fill: currentColor; }
-
-.section-label {
-  font-size: 0.8rem; font-weight: 800; letter-spacing: 0.5px; color: var(--title-slate);
-  margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;
-}
+.theme-toggle-btn:hover { transform: scale(1.05); border-color: var(--primary); }
 
 .card {
-  background: var(--surface); border-radius: var(--radius-card); box-shadow: var(--shadow-md);
-  padding: 20px; border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 20px;
+  border: 1px solid var(--line);
+  position: relative;
 }
 .card + .card { margin-top: 18px; }
 
+.section-label {
+  font-size: 0.8rem; font-weight: 800; letter-spacing: 0.3px; color: var(--title-slate);
+  margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;
+}
+
+.pwa-popup {
+  position: fixed; bottom: 84px; left: 16px; right: 16px; max-width: 480px; margin: 0 auto;
+  z-index: 500; background: var(--surface-glass); backdrop-filter: blur(16px);
+  border: 1px solid var(--line-strong); border-radius: var(--radius-md); padding: 12px 16px;
+  box-shadow: var(--shadow-md); animation: slideUpPopup 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes slideUpPopup { from { transform: translateY(80px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.pwa-popup-content { display: flex; align-items: center; gap: 12px; }
+.pwa-popup-icon { font-size: 1.6rem; flex: none; }
+.pwa-popup-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.pwa-popup-text b { font-size: 0.85rem; }
+.pwa-popup-text span { font-size: 0.74rem; color: var(--muted); line-height: 1.4; }
+.pwa-popup-btns { display: flex; align-items: center; gap: 6px; flex: none; }
+
 .tab-page { display: none; }
-.tab-page.active { display: block; }
+.tab-page.active { display: block; animation: tabFade 0.2s ease forwards; }
+@keyframes tabFade { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
 .field label { display: block; font-size: 0.8rem; color: var(--title-slate); margin-bottom: 8px; font-weight: 700; }
 .field-input-wrap { position: relative; width: 100%; }
 .field input {
-  width: 100%; padding: 13px 16px 13px 40px; background: var(--surface-tonal); border: 1.5px solid var(--line);
-  border-radius: 16px; color: var(--text); direction: rtl; text-align: right; font-size: 0.9rem;
-  transition: all .2s ease;
+  width: 100%; padding: 14px 16px 14px 44px; background: var(--surface-tonal); border: 1px solid var(--line);
+  border-radius: var(--radius-md); color: var(--text); font-size: 0.9jrem; font-weight: 500; transition: all 0.2s ease;
 }
-.field input:focus { border-color: var(--primary); background: var(--surface); box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15); }
-.field input::placeholder { color: var(--muted); opacity: .75; }
+.field input:focus { border-color: var(--primary); background: var(--surface); box-shadow: 0 0 0 4px var(--primary-container); }
+.field input::placeholder { color: var(--muted); opacity: 0.75; }
 .field .clear-btn {
-  position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
-  color: var(--muted); padding: 4px; border-radius: 50%; display: none;
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted);
+  width: 26px; height: 26px; border-radius: var(--radius-pill); display: none; place-items: center;
+  font-size: 13px; background: var(--line); transition: 0.2s;
 }
-.field .clear-btn.show { display: grid; place-items: center; }
-.field .clear-btn svg { width: 16px; height: 16px; }
+.field .clear-btn:hover { color: var(--text); }
+.field .clear-btn.show { display: grid; }
 
-/* History Chips */
 .history-wrap { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
 .history-chip {
   background: var(--surface-tonal); border: 1px solid var(--line); border-radius: var(--radius-pill);
-  padding: 5px 12px; font-size: 0.74rem; font-weight: 600; color: var(--muted); cursor: pointer;
-  display: inline-flex; align-items: center; gap: 6px; transition: all .15s;
+  padding: 6px 14px; font-size: 0.74rem; font-weight: 600; color: var(--muted); cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px; transition: all 0.15s ease;
 }
-.history-chip:hover { background: var(--surface-tonal-hover); color: var(--text); }
+.history-chip:hover { background: var(--surface-tonal-hover); color: var(--text); border-color: var(--line-strong); }
 
-/* Quality Switch */
 .quality-box {
   margin-top: 14px; display: flex; align-items: center; justify-content: space-between;
-  background: var(--surface-tonal); padding: 8px 12px; border-radius: 16px; border: 1px solid var(--line);
+  background: var(--surface-tonal); padding: 8px 12px; border-radius: var(--radius-md); border: 1px solid var(--line);
 }
 .quality-box .q-title { font-size: 0.8rem; font-weight: 700; color: var(--title-slate); }
 .quality-switch { display: flex; background: var(--surface); padding: 3px; border-radius: var(--radius-pill); border: 1px solid var(--line); }
 .quality-btn {
-  padding: 5px 12px; border-radius: var(--radius-pill); font-size: 0.76rem; font-weight: 700; color: var(--muted);
-  transition: all .2s ease;
+  padding: 6px 14px; border-radius: var(--radius-pill); font-size: 0.76rem; font-weight: 800; color: var(--muted); transition: all 0.2s ease;
 }
 .quality-btn.active {
-  background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #ffffff;
-  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.25);
+  background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #ffffff; box-shadow: 0 4px 12px var(--primary-glow);
 }
 
 .btn {
-  padding: 12px 20px; border-radius: var(--radius-pill); font-weight: 700; font-size: 0.86rem;
-  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-  transition: all .2s ease; white-space: nowrap;
+  padding: 12px 22px; border-radius: var(--radius-pill); font-weight: 800; font-size: 0.88rem;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s ease; white-space: nowrap;
 }
 .btn.primary {
-  background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #ffffff;
-  box-shadow: 0 6px 18px rgba(59, 130, 246, 0.26);
+  background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #ffffff; box-shadow: 0 6px 20px var(--primary-glow);
 }
-.btn.primary:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.btn.primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
 .btn.ghost { background: var(--surface-tonal); color: var(--text); border: 1px solid var(--line); }
-.btn.ghost:hover { background: var(--surface-tonal-hover); }
-.btn.sm { padding: 7px 14px; font-size: 0.76rem; border-radius: var(--radius-pill); }
-.btn.block { width: 100%; margin-top: 14px; }
-.btn[disabled] { opacity: .55; pointer-events: none; }
-.btn svg { width: 16px; height: 16px; }
+.btn.ghost:hover { background: var(--surface-tonal-hover); border-color: var(--line-strong); }
+.btn.sm { padding: 7px 16px; font-size: 0.78rem; }
+.btn.block { width: 100%; margin-top: 14px; height: 48px; }
+.btn[disabled] { opacity: 0.55; pointer-events: none; }
 
 .btn-play-sm {
-  width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; flex: none;
-  background: var(--surface-tonal); color: var(--primary); transition: all .2s ease; border: 1px solid var(--line);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  width: 42px; height: 42px; border-radius: var(--radius-pill); display: grid; place-items: center; flex: none;
+  background: var(--primary-container); color: var(--primary); transition: all 0.2s ease; border: 1px solid var(--line); font-size: 15px;
 }
 .btn-play-sm:hover { transform: scale(1.06); background: var(--primary); color: #ffffff; }
-.btn-play-sm.playing { background: var(--secondary); color: #ffffff; animation: pulse 1.5s infinite; }
-.btn-play-sm svg { width: 18px; height: 18px; fill: currentColor; }
-
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4); }
-  70% { box-shadow: 0 0 0 8px rgba(79, 70, 229, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+.btn-play-sm.playing { background: var(--secondary); color: #ffffff; animation: pulsePlay 1.6s infinite; }
+@keyframes pulsePlay {
+  0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+  70% { box-shadow: 0 0 0 8px rgba(99, 102, 241, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
 }
 
-.spin { display: inline-block; width: 16px; height: 16px; border: 2px solid currentColor; border-inline-end-color: transparent; border-radius: 50%; animation: sp .8s linear infinite; }
-@keyframes sp { to { transform: rotate(360deg); } }
+.btn-action {
+  display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px;
+  border-radius: var(--radius-pill); color: var(--text); background: var(--surface); border: 1px solid var(--line);
+  flex: none; box-shadow: var(--shadow-sm); transition: all 0.15s ease; font-size: 14px;
+}
+.btn-action:hover { background: var(--primary-container); color: var(--primary); border-color: var(--primary); transform: scale(1.08); }
+.btn-action.fav.active { color: var(--danger); border-color: var(--danger); }
 
-/* Live Animated Equalizer */
 .equalizer-wrap {
-  position: absolute; inset: 0; background: rgba(0, 0, 0, 0.55); border-radius: 50%;
+  position: absolute; inset: 0; background: rgba(0, 0, 0, 0.55); border-radius: var(--radius-sm);
   display: flex; align-items: center; justify-content: center; gap: 3px; backdrop-filter: blur(2px);
 }
 .eq-bar {
-  width: 3px; height: 14px; background: #ffffff; border-radius: 2px;
-  animation: eqBounce 1s ease-in-out infinite alternate;
+  width: 3px; height: 14px; background: #ffffff; border-radius: 2px; animation: eqBounce 0.9s ease-in-out infinite alternate;
 }
 .eq-bar:nth-child(1) { animation-delay: 0.1s; height: 8px; }
 .eq-bar:nth-child(2) { animation-delay: 0.3s; height: 16px; }
-.eq-bar:nth-child(3) { animation-delay: 0.2s; height: 10px; }
+.eq-bar:nth-child(3) { animation-delay: 0.2s; height: 11px; }
 @keyframes eqBounce { 0% { transform: scaleY(0.3); } 100% { transform: scaleY(1); } }
 
-/* Skeleton Shimmer Loading */
-.skeleton-row {
-  display: flex; flex-direction: column; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--line);
-}
+.skeleton-row { display: flex; flex-direction: column; gap: 10px; padding: 14px; border-bottom: 1px solid var(--line); }
 .skeleton-top { display: flex; align-items: center; gap: 12px; }
 .skeleton-box {
   background: linear-gradient(90deg, var(--shimmer-base) 25%, var(--shimmer-highlight) 50%, var(--shimmer-base) 75%);
-  background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 8px;
+  background-size: 200% 100%; animation: shimmerAnim 1.5s infinite; border-radius: var(--radius-xs);
 }
-.skeleton-img { width: 48px; height: 48px; border-radius: 50%; flex: none; }
-.skeleton-btn { width: 38px; height: 38px; border-radius: 50%; flex: none; }
-.skeleton-text-1 { width: 60%; height: 14px; margin-bottom: 6px; }
-.skeleton-text-2 { width: 40%; height: 10px; }
+.skeleton-img { width: 48px; height: 48px; border-radius: var(--radius-sm); flex: none; }
+.skeleton-btn { width: 40px; height: 40px; border-radius: var(--radius-pill); flex: none; }
+.skeleton-text-1 { width: 55%; height: 14px; margin-bottom: 6px; }
+.skeleton-text-2 { width: 35%; height: 10px; }
 .skeleton-actions { display: flex; justify-content: flex-end; gap: 8px; }
-.skeleton-action-btn { width: 32px; height: 32px; border-radius: 50%; }
-@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+.skeleton-action-btn { width: 34px; height: 34px; border-radius: var(--radius-pill); }
+@keyframes shimmerAnim { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
 
 .hint { font-size: 0.78rem; color: var(--muted); margin-top: 12px; line-height: 1.6; font-weight: 500; }
 .hint b { color: var(--text); }
-
-#result { display: none; }
-#result.show { display: block; }
-#status { font-size: 0.82rem; color: var(--muted); margin-top: 10px; display: none; font-weight: 600; }
+#status { font-size: 0.82rem; color: var(--muted); margin-top: 10px; display: none; font-weight: 700; }
 #status.show { display: block; }
 #status.err { color: var(--danger); }
 #status.warn { color: var(--warn); }
+#result { display: none; }
+#result.show { display: block; }
 
-/* Featured Card in Search */
 .featured-box {
-  display: flex; align-items: center; gap: 14px; padding: 14px; border-radius: 20px;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(79, 70, 229, 0.1));
-  border: 1.5px solid rgba(59, 130, 246, 0.3); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 14px; padding: 14px; border-radius: var(--radius-md);
+  background: var(--primary-container); border: 1px solid rgba(59, 130, 246, 0.35); margin-bottom: 16px;
 }
-.featured-box img { width: 62px; height: 62px; border-radius: 50%; object-fit: cover; flex: none; border: 2px solid var(--surface); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
-.featured-box.show-type img { border-radius: 16px; }
+.featured-box img { width: 60px; height: 60px; border-radius: var(--radius-sm); object-fit: cover; flex: none; border: 2px solid var(--surface); box-shadow: var(--shadow-sm); }
+.featured-box.artist-type img { border-radius: var(--radius-pill); }
 .featured-box .f-meta { flex: 1; min-width: 0; }
-.featured-box .f-badge { font-size: 0.68rem; font-weight: 800; color: var(--primary); background: var(--primary-container); padding: 2px 8px; border-radius: var(--radius-pill); display: inline-block; margin-bottom: 4px; }
-.featured-box .f-title { font-size: 0.96rem; font-weight: 800; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.featured-box .f-btn { flex: none; }
+.featured-box .f-badge {
+  font-size: 0.68rem; font-weight: 800; color: var(--primary); background: var(--surface); padding: 2px 8px; border-radius: var(--radius-pill); display: inline-block; margin-bottom: 4px;
+}
+.featured-box .f-title { font-size: 0.98rem; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-/* Playlist / Collection Header */
 .pl-head { display: flex; gap: 16px; align-items: center; }
-.pl-head img { width: 78px; height: 78px; border-radius: 20px; object-fit: cover; flex: none; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18); border: 2px solid var(--surface); }
+.pl-head img { width: 78px; height: 78px; border-radius: var(--radius-md); object-fit: cover; flex: none; box-shadow: var(--shadow-sm); border: 2px solid var(--surface); }
 .pl-head .meta { min-width: 0; flex: 1; }
-.pl-head .title { font-size: 1.05rem; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.pl-head .sub { font-size: 0.78rem; color: var(--muted); margin-top: 3px; font-weight: 500; }
+.pl-head .title { font-size: 1.08rem; font-weight: 900; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pl-head .sub { font-size: 0.78rem; color: var(--muted); margin-top: 3px; font-weight: 600; }
 .pl-actions { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
 .pl-actions .btn { flex: 1; }
 
-.dl-progress { display: none; align-items: center; gap: 10px; margin-top: 14px; padding: 10px 14px; border-radius: 16px; background: var(--surface-tonal); border: 1px solid var(--line); font-size: 0.76rem; font-weight: 600; }
+.dl-progress {
+  display: none; align-items: center; gap: 10px; margin-top: 14px; padding: 10px 14px;
+  border-radius: var(--radius-md); background: var(--surface-tonal); border: 1px solid var(--line); font-size: 0.76rem; font-weight: 700;
+}
 .dl-progress.show { display: flex; }
-.dl-progress .track { flex: 1; height: 6px; border-radius: 6px; background: var(--line-bright); overflow: hidden; }
-.dl-progress .fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--secondary), var(--primary)); transition: width .2s; }
+.dl-progress .track { flex: 1; height: 6px; border-radius: var(--radius-pill); background: var(--line-strong); overflow: hidden; }
+.dl-progress .fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--secondary), var(--primary)); transition: width 0.2s; }
 .dl-progress .lbl { flex: none; color: var(--muted); min-width: 60px; text-align: center; }
 
-/* Two-Line Track Card Design */
-.tracks { margin-top: 14px; max-height: 500px; overflow-y: auto; border: 1px solid var(--line); border-radius: 20px; background: var(--surface-tonal); }
-.trow { display: flex; flex-direction: column; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--line); transition: background .15s; }
+.tracks {
+  margin-top: 14px; max-height: 520px; overflow-y: auto; border: 1px solid var(--line);
+  border-radius: var(--radius-md); background: var(--surface-tonal); scrollbar-width: none;
+}
+.tracks::-webkit-scrollbar { display: none; }
+
+.trow {
+  display: flex; flex-direction: column; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--line); transition: background 0.15s ease;
+}
 .trow:last-child { border-bottom: none; }
 .trow:hover { background: var(--surface-tonal-hover); }
 
 .trow-top { display: flex; align-items: center; gap: 12px; }
 .trow-cb { accent-color: var(--primary); width: 18px; height: 18px; flex: none; cursor: pointer; }
 .trow-img-wrap { position: relative; width: 48px; height: 48px; flex: none; }
-.trow-top img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: var(--surface-variant); border: 2px solid var(--surface); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12); }
-.trow-top .tmeta { flex: 1; min-width: 0; cursor: pointer; }
-.trow-top .tt { font-size: 0.88rem; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; color: var(--text); }
-.trow-top .ta { font-size: 0.76rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; margin-top: 2px; font-weight: 500; }
-
-.trow-bottom { display: flex; align-items: center; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
-.btn-action {
-  display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; padding: 0; border-radius: 50%;
-  font-size: 0.86rem; color: var(--text); background: var(--surface); border: 1px solid var(--line); flex: none;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08); transition: all .15s;
+.trow-top img {
+  width: 100%; height: 100%; border-radius: var(--radius-sm); object-fit: cover; background: var(--surface-tonal); box-shadow: var(--shadow-sm);
 }
-.btn-action:hover { background: var(--primary-container); color: var(--primary); border-color: var(--primary); transform: scale(1.06); }
-.btn-action svg { width: 14px; height: 14px; }
-.btn-action.fav.active { color: var(--danger); border-color: var(--danger); }
+.trow-top .tmeta { flex: 1; min-width: 0; cursor: pointer; }
+.trow-top .tt { font-size: 0.88rem; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; }
+.trow-top .ta { font-size: 0.76rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; margin-top: 2px; font-weight: 600; }
+.trow-bottom { display: flex; align-items: center; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
 
-/* Single View */
 .single { display: flex; gap: 16px; align-items: center; }
-.single img { width: 86px; height: 86px; border-radius: 50%; object-fit: cover; flex: none; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18); border: 3px solid var(--surface); }
+.single img { width: 84px; height: 84px; border-radius: var(--radius-md); object-fit: cover; flex: none; box-shadow: var(--shadow-sm); }
 .single .meta { min-width: 0; flex: 1; }
-.badge { display: inline-block; font-size: 0.7rem; font-weight: 800; color: var(--on-primary-container); background: var(--primary-container); padding: 3px 10px; border-radius: var(--radius-pill); margin-bottom: 5px; }
-.single .title { font-size: 1.05rem; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.badge {
+  display: inline-block; font-size: 0.7rem; font-weight: 800; color: var(--on-primary-container);
+  background: var(--primary-container); padding: 3px 10px; border-radius: var(--radius-pill); margin-bottom: 5px;
+}
+.single .title { font-size: 1.05rem; font-weight: 900; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .single .artist { font-size: 0.84rem; color: var(--muted); margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.single .dur { font-size: 0.74rem; color: var(--title-slate); margin-top: 3px; font-weight: 600; }
+.single .dur { font-size: 0.74rem; color: var(--title-slate); margin-top: 3px; font-weight: 700; }
 .single-actions { display: flex; align-items: center; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
 
-.app-footer { text-align: center; padding: 22px 16px 4px; font-size: 0.72rem; color: var(--muted); }
-.app-footer a { color: var(--primary); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; }
-.app-footer a:hover { text-decoration: underline; }
-.app-footer svg { width: 14px; height: 14px; vertical-align: -2px; }
+.settings-group { display: flex; flex-direction: column; gap: 16px; }
+.setting-item {
+  display: flex; align-items: center; justify-content: space-between; padding: 12px 14px;
+  background: var(--surface-tonal); border: 1px solid var(--line); border-radius: var(--radius-md);
+}
+.setting-info b { display: block; font-size: 0.86rem; font-weight: 800; }
+.setting-info span { display: block; font-size: 0.74rem; color: var(--muted); margin-top: 2px; }
+.setting-ctrl {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-pill);
+  padding: 6px 12px; font-size: 0.8rem; font-weight: 700; color: var(--text); outline: none;
+}
 
-/* Modal Drawer for Lyrics */
 .modal-backdrop {
-  position: fixed; inset: 0; z-index: 500; background: rgba(15, 23, 42, 0.65);
+  position: fixed; inset: 0; z-index: 600; background: rgba(0, 0, 0, 0.65);
   backdrop-filter: blur(8px); display: none; align-items: flex-end; justify-content: center;
 }
 .modal-backdrop.show { display: flex; }
 .modal-sheet {
-  background: var(--surface); border-radius: 28px 28px 0 0; width: 100%; max-width: 640px;
-  max-height: 80vh; display: flex; flex-direction: column; padding: 22px; box-shadow: var(--shadow-player);
-  animation: slideUp .3s cubic-bezier(0.16, 1, 0.3, 1); border-top: 1px solid var(--line);
+  background: var(--surface); border-radius: var(--radius-lg) var(--radius-lg) 0 0; width: 100%; max-width: 640px;
+  max-height: 82vh; display: flex; flex-direction: column; padding: 22px; box-shadow: var(--shadow-player);
+  animation: slideUpModal 0.3s cubic-bezier(0.16, 1, 0.3, 1); border-top: 1px solid var(--line);
 }
-@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+@keyframes slideUpModal { from { transform: translateY(100%); } to { transform: translateY(0); } }
 .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
-.modal-header h3 { font-size: 1.1rem; font-weight: 800; }
+.modal-header h3 { font-size: 1.05rem; font-weight: 900; }
 .lyrics-body {
   flex: 1; overflow-y: auto; font-size: 0.92rem; line-height: 2; white-space: pre-line;
-  text-align: center; color: var(--text); padding: 14px; background: var(--surface-tonal);
-  border-radius: 18px; margin-bottom: 14px; border: 1px solid var(--line);
+  text-align: center; color: var(--text); padding: 16px; background: var(--surface-tonal);
+  border-radius: var(--radius-md); margin-bottom: 14px; border: 1px solid var(--line);
 }
 
-/* Sticky Mini Player (LTR Standard) */
 .bottom-player {
-  position: fixed; bottom: 64px; left: 0; right: 0; z-index: 95;
-  background: var(--surface); backdrop-filter: blur(16px);
-  border-top: 1px solid var(--line); box-shadow: var(--shadow-player);
-  padding: 10px 16px 12px; transform: translateY(150%);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: fixed; bottom: 74px; left: 14px; right: 14px; max-width: 612px; margin: 0 auto;
+  z-index: 120; background: var(--surface-glass); backdrop-filter: blur(20px);
+  border: 1px solid var(--line-strong); border-radius: var(--radius-md); box-shadow: var(--shadow-player);
+  padding: 10px 14px; transform: translateY(160%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   direction: ltr !important; text-align: left;
 }
 .bottom-player.active { transform: translateY(0); }
-.bp-content { max-width: 640px; margin: auto; display: flex; flex-direction: column; gap: 6px; }
+.bp-content { display: flex; flex-direction: column; gap: 6px; }
 .bp-main { display: flex; align-items: center; gap: 10px; }
-.bp-cover { width: 44px; height: 44px; border-radius: 12px; object-fit: cover; flex: none; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+.bp-cover { width: 44px; height: 44px; border-radius: var(--radius-sm); object-fit: cover; flex: none; box-shadow: var(--shadow-sm); }
 .bp-meta { flex: 1; min-width: 0; cursor: pointer; }
 .bp-title { font-size: 0.86rem; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .bp-artist { font-size: 0.74rem; color: var(--muted); margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .bp-controls { display: flex; align-items: center; gap: 6px; flex: none; }
 .bp-btn-ctrl {
-  width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
-  background: var(--surface-tonal); color: var(--text); border: 1px solid var(--line);
-  transition: all .15s;
+  width: 36px; height: 36px; border-radius: var(--radius-pill); display: grid; place-items: center;
+  background: var(--surface-tonal); color: var(--text); border: 1px solid var(--line); transition: all 0.15s ease; font-size: 13px;
 }
 .bp-btn-ctrl:hover { background: var(--surface-tonal-hover); color: var(--primary); }
 .bp-btn-ctrl.active { color: var(--danger); }
-.bp-btn-ctrl svg { width: 16px; height: 16px; }
-.bp-slider-wrap {
-  display: flex; align-items: center; gap: 8px; font-size: 0.72rem; font-weight: 700; color: var(--muted);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
+.bp-slider-wrap { display: flex; align-items: center; gap: 8px; font-size: 0.72rem; font-weight: 700; color: var(--muted); }
 .bp-slider-wrap input[type=range] { flex: 1; height: 5px; accent-color: var(--primary); cursor: pointer; }
 
-/* REFINED LTR FULLSCREEN PLAYER DESIGN (Spotify / Apple Music Inspired) */
 .full-player-sheet {
-  position: fixed; inset: 0; z-index: 350; background: var(--surface);
-  display: flex; flex-direction: column; justify-content: space-between;
-  padding: calc(env(safe-area-inset-top, 16px) + 12px) 24px calc(env(safe-area-inset-bottom, 16px) + 20px);
+  position: fixed; inset: 0; z-index: 400; background: var(--bg); display: flex; flex-direction: column;
+  justify-content: space-between; padding: calc(env(safe-area-inset-top, 16px) + 12px) 24px calc(env(safe-area-inset-bottom, 16px) + 20px);
   transform: translateY(100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   overflow-y: auto; direction: ltr !important; text-align: left;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 .full-player-sheet.show { transform: translateY(0); }
 
-.fp-top-bar {
-  display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 480px; margin: 0 auto 10px;
-}
+.fp-top-bar { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 460px; margin: 0 auto 10px; }
 .fp-icon-btn {
-  width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center;
-  background: var(--surface-tonal); color: var(--text); border: 1px solid var(--line);
-  transition: all .2s ease;
+  width: 44px; height: 44px; border-radius: var(--radius-pill); display: grid; place-items: center;
+  background: var(--surface-tonal); color: var(--text); border: 1px solid var(--line); transition: all 0.2s ease; font-size: 16px;
 }
 .fp-icon-btn:hover { background: var(--surface-tonal-hover); transform: scale(1.05); }
-.fp-icon-btn svg { width: 20px; height: 20px; }
 .fp-icon-btn.active { color: var(--danger); border-color: var(--danger); }
 
 .fp-header-title { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 2px; }
-.fp-header-sub { font-size: 0.72rem; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
-.fp-header-badge { font-size: 0.65rem; font-weight: 800; background: var(--primary-container); color: var(--primary); padding: 2px 8px; border-radius: var(--radius-pill); }
+.fp-header-sub { font-size: 0.72rem; font-weight: 800; color: var(--muted); letter-spacing: 1px; }
+.fp-header-badge { font-size: 0.65rem; font-weight: 800; background: var(--primary-container); color: var(--primary); padding: 2px 10px; border-radius: var(--radius-pill); }
 
 .fp-art-container {
-  position: relative; width: 100%; max-width: 280px; margin: auto auto 12px; aspect-ratio: 1/1;
+  position: relative; width: 100%; max-width: 290px; margin: auto auto 14px; aspect-ratio: 1/1;
   display: flex; align-items: center; justify-content: center;
 }
 .fp-art-glow {
-  position: absolute; inset: 10px; border-radius: 28px;
-  background-size: cover; background-position: center; filter: blur(28px); opacity: 0.45; z-index: 1;
+  position: absolute; inset: 12px; border-radius: var(--radius-lg); background-size: cover;
+  background-position: center; filter: blur(32px); opacity: 0.45; z-index: 1;
 }
 .fp-cover-img {
-  position: relative; z-index: 2; width: 100%; height: 100%; border-radius: 28px; object-fit: cover;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22); border: 2px solid rgba(255, 255, 255, 0.1);
+  position: relative; z-index: 2; width: 100%; height: 100%; border-radius: var(--radius-lg); object-fit: cover;
+  box-shadow: var(--shadow-md); border: 2px solid var(--line);
 }
 
-.fp-info-section {
-  text-align: center; width: 100%; max-width: 480px; margin: 0 auto 12px; padding: 0 10px;
-}
-.fp-title { font-size: 1.2rem; font-weight: 800; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fp-info-section { text-align: center; width: 100%; max-width: 460px; margin: 0 auto 12px; }
+.fp-title { font-size: 1.25rem; font-weight: 900; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .fp-artist { font-size: 0.88rem; font-weight: 600; color: var(--muted); margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-.fp-seek-section {
-  width: 100%; max-width: 440px; margin: 0 auto 14px; display: flex; flex-direction: column; gap: 6px;
-}
-.fp-range-wrap { width: 100%; }
+.fp-seek-section { width: 100%; max-width: 440px; margin: 0 auto 14px; display: flex; flex-direction: column; gap: 6px; }
 .fp-range-wrap input[type=range] {
-  width: 100%; height: 6px; accent-color: var(--primary); cursor: pointer; border-radius: 4px; background: var(--line);
+  width: 100%; height: 6px; accent-color: var(--primary); cursor: pointer; border-radius: var(--radius-pill); background: var(--line-strong);
 }
-.fp-time-row {
-  display: flex; justify-content: space-between; font-size: 0.74rem; font-weight: 700; color: var(--muted);
-  font-variant-numeric: tabular-nums;
-}
+.fp-time-row { display: flex; justify-content: space-between; font-size: 0.74rem; font-weight: 700; color: var(--muted); }
 
-.fp-main-controls {
-  display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 420px; margin: 0 auto 14px;
-}
+.fp-main-controls { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 420px; margin: 0 auto 14px; }
 .fp-ctrl-btn {
-  width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; position: relative;
-  background: var(--surface-tonal); color: var(--text); border: 1px solid var(--line);
-  transition: all .2s ease;
+  width: 46px; height: 46px; border-radius: var(--radius-pill); display: grid; place-items: center;
+  background: var(--surface-tonal); color: var(--text); border: 1px solid var(--line); transition: all 0.2s ease; position: relative; font-size: 17px;
 }
-.fp-ctrl-btn:hover { background: var(--surface-tonal-hover); color: var(--primary); transform: scale(1.08); }
+.fp-ctrl-btn:hover { background: var(--surface-tonal-hover); color: var(--primary); transform: scale(1.06); }
 .fp-ctrl-btn.active { color: var(--primary); border-color: var(--primary); background: var(--primary-container); }
-.fp-ctrl-btn svg { width: 20px; height: 20px; }
 .fp-badge-repeat {
-  position: absolute; top: -4px; right: -4px; font-size: 0.6rem; font-weight: 800;
-  background: var(--primary); color: #fff; width: 16px; height: 16px; border-radius: 50%;
-  display: none; place-items: center;
+  position: absolute; top: -4px; right: -4px; font-size: 0.6rem; font-weight: 800; background: var(--primary);
+  color: #fff; width: 16px; height: 16px; border-radius: var(--radius-pill); display: none; place-items: center;
 }
 .fp-badge-repeat.show { display: grid; }
 
 .fp-ctrl-play {
-  width: 66px; height: 66px; border-radius: 50%; display: grid; place-items: center;
-  background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #ffffff;
-  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.35); transition: all .2s ease;
+  width: 68px; height: 68px; border-radius: var(--radius-pill); display: grid; place-items: center;
+  background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #ffffff; box-shadow: 0 8px 24px var(--primary-glow);
+  transition: all 0.2s ease; font-size: 24px;
 }
-.fp-ctrl-play:hover { transform: scale(1.08); filter: brightness(1.08); }
-.fp-ctrl-play svg { width: 28px; height: 28px; fill: currentColor; }
+.fp-ctrl-play:hover { transform: scale(1.06); filter: brightness(1.1); }
 
-/* Volume Slider Row */
 .fp-volume-section {
   display: flex; align-items: center; gap: 12px; width: 100%; max-width: 420px; margin: 0 auto 16px;
-  background: var(--surface-tonal); padding: 8px 14px; border-radius: var(--radius-pill); border: 1px solid var(--line);
+  background: var(--surface-tonal); padding: 8px 16px; border-radius: var(--radius-pill); border: 1px solid var(--line);
 }
-.fp-vol-btn {
-  width: 28px; height: 28px; display: grid; place-items: center; color: var(--muted); transition: color .15s; flex: none;
-}
+.fp-vol-btn { width: 30px; height: 30px; display: grid; place-items: center; color: var(--muted); flex: none; font-size: 15px; }
 .fp-vol-btn:hover { color: var(--primary); }
 .fp-vol-btn.active { color: var(--danger); }
-.fp-vol-btn svg { width: 18px; height: 18px; }
 .fp-vol-slider-wrap { flex: 1; display: flex; align-items: center; }
 .fp-vol-slider-wrap input[type=range] {
-  width: 100%; height: 5px; accent-color: var(--primary); cursor: pointer; border-radius: 4px; background: var(--line-bright);
+  width: 100%; height: 5px; accent-color: var(--primary); cursor: pointer; border-radius: var(--radius-pill); background: var(--line-strong);
 }
 
-.fp-actions-grid {
-  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; width: 100%; max-width: 440px; margin: 0 auto;
-}
+.fp-actions-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; width: 100%; max-width: 440px; margin: 0 auto; }
 .fp-action-pill {
-  display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 11px 8px;
-  border-radius: var(--radius-pill); font-size: 0.78rem; font-weight: 700; color: var(--text);
-  background: var(--surface-tonal); border: 1px solid var(--line); transition: all .2s ease;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 12px 8px;
+  border-radius: var(--radius-pill); font-size: 0.78rem; font-weight: 800; color: var(--text);
+  background: var(--surface-tonal); border: 1px solid var(--line); transition: all 0.2s ease;
 }
 .fp-action-pill:hover { background: var(--surface-tonal-hover); transform: translateY(-1px); }
-.fp-action-pill.primary {
-  background: var(--primary-container); color: var(--primary); border-color: rgba(59, 130, 246, 0.3);
-}
-.fp-action-pill svg { width: 16px; height: 16px; }
+.fp-action-pill.primary { background: var(--primary-container); color: var(--primary); border-color: rgba(59, 130, 246, 0.35); }
 
-/* Bottom Nav */
+/* Bottom Navigation Dock - با گوشه‌های کاملاً یکسان با سایر بخش‌ها */
 .bottom-nav {
   position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
-  background: var(--surface); border-top: 1px solid var(--line);
-  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
+  background: var(--surface-glass); backdrop-filter: blur(20px);
+  border-top: 1px solid var(--line); box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.12);
   display: flex; justify-content: space-around; align-items: center;
-  height: 64px; max-width: 640px; margin: 0 auto;
+  height: 66px; max-width: 640px; margin: 0 auto;
+  border-top-left-radius: var(--radius-lg); border-top-right-radius: var(--radius-lg);
 }
 .nav-item {
-  display: flex; flex-direction: column; align-items: center; gap: 2px;
-  color: var(--muted); font-size: 0.72rem; font-weight: 700; width: 33.33%; padding: 6px 0;
-  transition: all .2s ease;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  color: var(--muted); font-size: 0.74rem; font-weight: 800; width: 25%; padding: 6px 0; transition: all 0.2s ease;
 }
-.nav-item svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; }
+.nav-item i { font-size: 19px; }
 .nav-item.active { color: var(--primary); }
 
-#toasts { position: fixed; bottom: 74px; inset-inline-end: 18px; z-index: 600; display: flex; flex-direction: column; gap: 8px; max-width: 320px; }
+#toasts {
+  position: fixed; bottom: 78px; inset-inline-end: 18px; z-index: 700; display: flex; flex-direction: column; gap: 8px; max-width: 320px;
+}
 .toast {
-  background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 10px 14px;
-  font-size: 0.82rem; font-weight: 600; box-shadow: var(--shadow-md); animation: tin .25s ease-out; color: var(--text);
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 10px 16px;
+  font-size: 0.82rem; font-weight: 700; box-shadow: var(--shadow-md); animation: toastIn 0.25s ease-out; color: var(--text);
 }
 .toast.err { border-color: rgba(239, 68, 68, 0.4); background: var(--danger-container); color: var(--danger); }
-.toast.warn { border-color: rgba(245, 158, 11, 0.4); color: #b45309; }
-.toast.out { opacity: 0; transform: translateX(-16px); transition: all .25s; }
-@keyframes tin { from { opacity: 0; transform: translateX(-16px); } to { opacity: 1; transform: none; } }
+.toast.warn { border-color: rgba(245, 158, 11, 0.4); color: #B45309; }
+.toast.out { opacity: 0; transform: translateX(-16px); transition: all 0.25s; }
+@keyframes toastIn { from { opacity: 0; transform: translateX(-16px); } to { opacity: 1; transform: none; } }
+
+.app-footer {
+  text-align: center; padding: 24px 16px 6px; font-size: 0.74rem; color: var(--muted); line-height: 1.8;
+}
+.app-footer a { color: var(--primary); font-weight: 800; display: inline-flex; align-items: center; gap: 4px; }
+.app-footer span { display: inline-block; margin: 0 4px; }
 </style>
 </head>
 <body>
+
 <div class="wrap">
-  <!-- Floating Dismissible PWA Install Popup -->
+  <!-- PWA Install Popup -->
   <div class="pwa-popup" id="pwaPopup" style="display:none;">
     <div class="pwa-popup-content">
       <div class="pwa-popup-icon">📲</div>
       <div class="pwa-popup-text">
-        <b>نصب اپلیکیشن رادیوجوان دانلودر</b>
-        <span id="pwaDesc">برای دسترسی سریع‌تر، آفلاین و تمام‌صفحه اپ را نصب کنید.</span>
+        <b data-i18n="pwaTitle">نصب وب‌اپلیکیشن رادیوجوان</b>
+        <span data-i18n="pwaDesc">برای استفاده آفلاین و دسترسی سریع‌تر، اپلیکیشن را نصب کنید.</span>
       </div>
       <div class="pwa-popup-btns">
-        <button type="button" class="btn primary sm" id="pwaInstallBtn">نصب</button>
+        <button type="button" class="btn primary sm" id="pwaInstallBtn" data-i18n="pwaBtn">نصب</button>
         <button type="button" class="btn ghost sm" id="pwaCloseBtn" title="بستن">✕</button>
       </div>
     </div>
   </div>
 
+  <!-- Header -->
   <header>
     <div class="header-left">
-      <div class="logo">
+      <div class="logo-container">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
           <defs>
             <linearGradient id="rjBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -607,133 +554,182 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
         </svg>
       </div>
       <div>
-        <h1>رادیوجوان دانلودر | Rj Downloader</h1>
-        <small>دانلود و پخش مستقیم موزیک و پادکست</small>
+        <h1>رادیوجوان دانلودر | RJ Studio v1.1</h1>
+        <small data-i18n="headerSub">دانلود و پخش آنلاین بدون محدودیت</small>
       </div>
     </div>
-    <button type="button" class="theme-toggle-btn" id="themeToggleBtn" title="تغییر حالت شب و روز">
-      <svg id="themeIcon" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
+    <button type="button" class="theme-toggle-btn" id="themeToggleBtn" title="تغییر تم روز و شب">
+      <i id="themeIcon" class="fa-solid fa-sun"></i>
     </button>
   </header>
 
   <!-- TAB 1: Search & Download -->
   <div class="tab-page active" id="tabSearch">
     <div class="card">
-      <span class="section-label">جستجو و دانلود</span>
+      <span class="section-label" data-i18n="lblSearchTitle">جستجو و دریافت لینک مستقیم</span>
       <div class="field">
-        <label for="rjUrl">لینک یا اسم آهنگ / خواننده / پادکست</label>
+        <label for="rjUrl" data-i18n="lblInputLabel">لینک یا نام آهنگ / خواننده / پادکست</label>
         <div class="field-input-wrap">
-          <input type="text" id="rjUrl" placeholder="مثلاً: Mar-Mari یا هایده یا لینک...">
-          <button class="clear-btn" id="clearBtn" title="پاک کردن">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
-          </button>
+          <input type="text" id="rjUrl" placeholder="مثلاً: Mar-Mari یا هایده یا پیوند rj.app...">
+          <button class="clear-btn" id="clearBtn" title="پاک کردن">✕</button>
         </div>
       </div>
 
       <div class="history-wrap" id="historyChips"></div>
 
       <div class="quality-box">
-        <span class="q-title">کیفیت دانلود:</span>
+        <span class="q-title" data-i18n="lblQuality">کیفیت دانلود:</span>
         <div class="quality-switch" id="qualitySwitch">
-          <button type="button" class="quality-btn" data-quality="320">۳۲۰ (عالی)</button>
-          <button type="button" class="quality-btn active" data-quality="128">۱۲۸ (معمولی)</button>
+          <button type="button" class="quality-btn" data-quality="320">۳۲۰ (Master)</button>
+          <button type="button" class="quality-btn active" data-quality="128">۱۲۸ (Standard)</button>
         </div>
       </div>
 
       <button class="btn primary block" id="fetchBtn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        دریافت اطلاعات / جستجو
+        <i class="fa-solid fa-bolt"></i> <span data-i18n="btnFetch">دریافت اطلاعات و جستجو</span>
       </button>
       <div id="status"></div>
-      <div class="hint">پشتیبانی کامل از <b>نام فارسی/انگلیسی</b>، <b>لینک شوهای پادکست (podcast/show)</b>، <b>صفحه خواننده (artist)</b> و <b>لینک‌های کوتاه (rj.app)</b>.</div>
+      <div class="hint" data-i18n="hintText">پشتیبانی کامل از <b>نام فارسی/انگلیسی</b>، <b>شوهای پادکست</b>، <b>صفحه خواننده</b> و <b>پیوندهای کوتاه</b>.</div>
     </div>
 
     <div id="result">
-      <!-- Single Item -->
       <div class="card" id="singleCard" style="display:none">
-        <span class="section-label">موزیک انتخابی</span>
+        <span class="section-label" data-i18n="lblSingleTrack">موزیک انتخابی</span>
         <div class="single">
-          <img id="sCover" alt="">
+          <img id="sCover" alt="Cover">
           <div class="meta">
-            <span class="badge" id="sBadge"></span>
+            <span class="badge" id="sBadge">آهنگ</span>
             <div class="title" id="sTitle"></div>
             <div class="artist" id="sArtist"></div>
             <div class="dur" id="sDur"></div>
           </div>
         </div>
         <div class="single-actions">
-          <button type="button" class="btn-play-sm" id="sPlayBtn" title="پیش‌گوش دادن"></button>
-          <button class="btn primary" id="sDownload">⬇️ دانلود</button>
-          <button class="btn-action" id="sSendTg" title="ارسال به ربات تلگرام">📲</button>
-          <button class="btn-action" id="sCopyLink" title="کپی لینک">🔗</button>
-          <button class="btn-action" id="sLyrics" title="متن ترانه">📄</button>
-          <button class="btn-action" id="sFav" title="ذخیره">❤️</button>
+          <button type="button" class="btn-play-sm" id="sPlayBtn" title="پخش آنلاین"><i class="fa-solid fa-play"></i></button>
+          <button class="btn primary" id="sDownload"><i class="fa-solid fa-download"></i> <span data-i18n="btnDownload">دانلود فایل</span></button>
+          <button class="btn-action" id="sSendTg" title="ارسال به ربات تلگرام"><i class="fa-solid fa-paper-plane"></i></button>
+          <button class="btn-action" id="sCopyLink" title="کپی لینک مستقیم"><i class="fa-solid fa-link"></i></button>
+          <button class="btn-action" id="sLyrics" title="متن ترانه"><i class="fa-solid fa-align-right"></i></button>
+          <button class="btn-action" id="sFav" title="نشان کردن"><i class="fa-solid fa-heart"></i></button>
         </div>
       </div>
 
-      <!-- Playlist / Podcast Show / Artist Archive / Search Results -->
       <div class="card" id="plCard" style="display:none">
         <div id="featuredBoxContainer" style="display:none;"></div>
 
         <div class="pl-head" id="plHead">
-          <img id="plCover" alt="">
+          <img id="plCover" alt="Collection Cover">
           <div class="meta">
             <div class="title" id="plTitle"></div>
             <div class="sub" id="plSub"></div>
           </div>
         </div>
         <div class="pl-actions" id="plActions">
-          <button type="button" class="btn ghost sm" id="plSelectAll">انتخاب همه</button>
-          <button type="button" class="btn ghost sm" id="plSelectNone">هیچ‌کدام</button>
-          <button type="button" class="btn primary sm" id="plDlZip">⬇️ دانلود ZIP انتخابی</button>
+          <button type="button" class="btn ghost sm" id="plSelectAll" data-i18n="btnSelectAll">انتخاب همه</button>
+          <button type="button" class="btn ghost sm" id="plSelectNone" data-i18n="btnSelectNone">هیچ‌کدام</button>
+          <button type="button" class="btn primary sm" id="plDlZip"><i class="fa-solid fa-file-zipper"></i> <span data-i18n="btnDlZip">دانلود انتخابی (ZIP)</span></button>
         </div>
         <div class="dl-progress" id="dlProgress">
           <span class="lbl" id="dlLbl">۰ / ۰</span>
           <div class="track"><div class="fill" id="dlFill"></div></div>
-          <button type="button" class="btn ghost sm" id="dlCancel">لغو</button>
+          <button type="button" class="btn ghost sm" id="dlCancel" data-i18n="btnCancel">لغو</button>
         </div>
         <div class="tracks" id="plTracks"></div>
       </div>
     </div>
   </div>
 
-  <!-- TAB 2: Trending Items -->
+  <!-- TAB 2: Trending -->
   <div class="tab-page" id="tabTrending">
     <div class="card">
       <span class="section-label">
-        <span>🔥 آهنگ‌های داغ و منتخب</span>
-        <small id="songsCount" style="color:var(--muted);"></small>
+        <span data-i18n="lblTrendingSongs">🔥 داغ‌ترین تک‌آهنگ‌های هفته</span>
+        <small id="songsCount" style="color:var(--muted); font-weight:700;"></small>
       </span>
       <div class="tracks" id="songsTracks"></div>
-      <button class="btn ghost block" id="songsLoadMore">بارگذاری موارد بیشتر</button>
+      <button class="btn ghost block" id="songsLoadMore" data-i18n="btnLoadMore">بارگذاری موارد بیشتر</button>
     </div>
     <div class="card">
       <span class="section-label">
-        <span>🎙 جدیدترین پادکست‌ها</span>
-        <small id="podcastsCount" style="color:var(--muted);"></small>
+        <span data-i18n="lblTrendingPodcasts">🎙 تازه‌ترین قسمت‌های پادکست</span>
+        <small id="podcastsCount" style="color:var(--muted); font-weight:700;"></small>
       </span>
       <div class="tracks" id="podcastsTracks"></div>
-      <button class="btn ghost block" id="podcastsLoadMore">بارگذاری موارد بیشتر</button>
+      <button class="btn ghost block" id="podcastsLoadMore" data-i18n="btnLoadMore">بارگذاری موارد بیشتر</button>
     </div>
   </div>
 
   <!-- TAB 3: Favorites -->
   <div class="tab-page" id="tabFavs">
     <div class="card">
-      <span class="section-label">❤️ آهنگ‌های نشان‌شده</span>
+      <span class="section-label" data-i18n="lblFavTitle">❤️ آرشیو قطعات نشان‌شده</span>
       <div class="tracks" id="favTracks"></div>
     </div>
   </div>
 
-  <div class="app-footer">
-    <div>ساخته شده توسط مصطفی ·
-      <a href="https://github.com/mostafa5804/rjdownloader" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.11-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.75 2.69 1.25 3.34.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.47.11-3.06 0 0 .97-.31 3.18 1.18.92-.26 1.91-.38 2.9-.39.98.01 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.77.12 3.06.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.39-5.25 5.67.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
-        GitHub
-      </a>
+  <!-- TAB 4: Settings -->
+  <div class="tab-page" id="tabSettings">
+    <div class="card">
+      <span class="section-label" data-i18n="lblSettingsTitle">تنظیمات سامانه</span>
+      <div class="settings-group">
+        <div class="setting-item">
+          <div class="setting-info">
+            <b data-i18n="setQualityTitle">کیفیت پیش‌فرض دانلود</b>
+            <span data-i18n="setQualityDesc">کیفیت پیش‌فرشتی که برای فایل‌های صوتی بارگیری می‌شود.</span>
+          </div>
+          <select id="cfgQualitySelect" class="setting-ctrl">
+            <option value="128">۱۲۸ (Standard)</option>
+            <option value="320">۳۲۰ (Master)</option>
+          </select>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <b data-i18n="setThemeTitle">پوسته ظاهری</b>
+            <span data-i18n="setThemeDesc">حالت تاریک، روشن یا هماهنگ با سیستم‌عامل.</span>
+          </div>
+          <select id="cfgThemeSelect" class="setting-ctrl">
+            <option value="dark">تاریک (Dark)</option>
+            <option value="light">روشن (Light)</option>
+            <option value="system">سیستم (Auto)</option>
+          </select>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <b data-i18n="setLangTitle">زبان برنامه</b>
+            <span data-i18n="setLangDesc">زبان محیط کاربری سامانه (فارسی / انگلیسی).</span>
+          </div>
+          <select id="cfgLangSelect" class="setting-ctrl">
+            <option value="fa">فارسی (Persian)</option>
+            <option value="en">English (US)</option>
+          </select>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <b data-i18n="setHistoryTitle">تاریخچه جستجو</b>
+            <span data-i18n="setHistoryDesc">پاک کردن عبارات ثبت شده در حافظه دستگاه.</span>
+          </div>
+          <button type="button" class="btn ghost sm" style="color:var(--danger);" onclick="clearSearchHistoryManual()">
+            <i class="fa-solid fa-trash"></i> <span data-i18n="btnClearHistory">پاک‌سازی</span>
+          </button>
+        </div>
+      </div>
     </div>
-    <div style="margin-top: 6px; font-size: 0.7rem; color: var(--muted); display: inline-flex; align-items: center; gap: 4px;">
-      <span>🚗</span> پشتیبانی اختصاصی از اندروید اتو (Android Auto)
+  </div>
+
+  <div class="app-footer">
+    <div>
+      ساخته شده توسط مصطفی
+      <span>·</span>
+      <a href="https://github.com/mostafa5804/rjdownloader" target="_blank" rel="noopener">
+        <i class="fa-brands fa-github"></i> گیت‌هاب وب
+      </a>
+      <span>·</span>
+      <a href="https://github.com/mostafa5804/rjdl-android" target="_blank" rel="noopener">
+        <i class="fa-brands fa-android"></i> نسخه اندروید (v1.1)
+      </a>
     </div>
   </div>
 </div>
@@ -745,12 +741,12 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
       <h3 id="lyricsTitle">متن ترانه</h3>
       <button type="button" class="btn ghost sm" id="closeLyrics">✕</button>
     </div>
-    <div class="lyrics-body" id="lyricsBody">در حال دریافت متن ترانه...</div>
-    <button class="btn primary block" id="copyLyricsBtn">📋 کپی متن ترانه</button>
+    <div class="lyrics-body" id="lyricsBody">در حال دریافت لیریکس ترانه...</div>
+    <button class="btn primary block" id="copyLyricsBtn"><i class="fa-solid fa-copy"></i> <span data-i18n="btnCopyLyrics">کپی کردن متن ترانه</span></button>
   </div>
 </div>
 
-<!-- Sticky Mini Player (LTR Standard) -->
+<!-- Sticky Capsule Mini Player -->
 <div class="bottom-player" id="bottomPlayer">
   <div class="bp-content">
     <div class="bp-main">
@@ -760,14 +756,10 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
         <div class="bp-artist" id="bpArtist">—</div>
       </div>
       <div class="bp-controls">
-        <button type="button" class="bp-btn-ctrl" id="bpPrevBtn" title="Previous">
-          <svg viewBox="0 0 24 24"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2.5"/></svg>
-        </button>
-        <button type="button" class="btn-play-sm" id="bpPlayBtn" title="Play / Pause"></button>
-        <button type="button" class="bp-btn-ctrl" id="bpNextBtn" title="Next">
-          <svg viewBox="0 0 24 24"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2.5"/></svg>
-        </button>
-        <button type="button" class="bp-btn-ctrl" id="bpMuteBtn" title="Mute / Unmute"></button>
+        <button type="button" class="bp-btn-ctrl" id="bpPrevBtn" title="Previous"><i class="fa-solid fa-backward-step"></i></button>
+        <button type="button" class="btn-play-sm" id="bpPlayBtn" title="Play / Pause"><i class="fa-solid fa-play"></i></button>
+        <button type="button" class="bp-btn-ctrl" id="bpNextBtn" title="Next"><i class="fa-solid fa-forward-step"></i></button>
+        <button type="button" class="bp-btn-ctrl" id="bpMuteBtn" title="Mute / Unmute"><i class="fa-solid fa-volume-high"></i></button>
         <button type="button" class="bp-btn-ctrl" id="bpCloseBtn" title="Close">✕</button>
       </div>
     </div>
@@ -779,24 +771,20 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
   </div>
 </div>
 
-<!-- FULLSCREEN EXPANDED PLAYER SHEET (LTR & Universal English Control) -->
+<!-- Full-Screen Studio Player -->
 <div class="full-player-sheet" id="fullPlayerSheet">
   <div class="fp-top-bar">
-    <button type="button" class="fp-icon-btn" id="fpCloseBtn" title="Close">
-      <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
-    </button>
+    <button type="button" class="fp-icon-btn" id="fpCloseBtn" title="Close"><i class="fa-solid fa-chevron-down"></i></button>
     <div class="fp-header-title">
       <span class="fp-header-sub">NOW PLAYING</span>
       <span class="fp-header-badge" id="fpQualityBadge">128 KBPS</span>
     </div>
-    <button type="button" class="fp-icon-btn" id="fpFavBtn" title="Favorite">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-    </button>
+    <button type="button" class="fp-icon-btn" id="fpFavBtn" title="Favorite"><i class="fa-solid fa-heart"></i></button>
   </div>
 
   <div class="fp-art-container">
     <div class="fp-art-glow" id="fpArtGlow"></div>
-    <img id="fpCover" class="fp-cover-img" src="" alt="">
+    <img id="fpCover" class="fp-cover-img" src="" alt="Album Artwork">
   </div>
 
   <div class="fp-info-section">
@@ -815,59 +803,47 @@ header small { display: block; color: var(--muted); font-size: 0.75rem; margin-t
   </div>
 
   <div class="fp-main-controls">
-    <button type="button" class="fp-ctrl-btn" id="fpShuffleBtn" title="Shuffle Mode">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
-    </button>
-    <button type="button" class="fp-ctrl-btn" id="fpPrevBtn" title="Previous">
-      <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2.5"/></svg>
-    </button>
-    <button type="button" class="fp-ctrl-play" id="fpPlayBtn" title="Play / Pause"></button>
-    <button type="button" class="fp-ctrl-btn" id="fpNextBtn" title="Next">
-      <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2.5"/></svg>
-    </button>
+    <button type="button" class="fp-ctrl-btn" id="fpShuffleBtn" title="Shuffle Mode"><i class="fa-solid fa-shuffle"></i></button>
+    <button type="button" class="fp-ctrl-btn" id="fpPrevBtn" title="Previous"><i class="fa-solid fa-backward-step"></i></button>
+    <button type="button" class="fp-ctrl-play" id="fpPlayBtn" title="Play / Pause"><i class="fa-solid fa-play"></i></button>
+    <button type="button" class="fp-ctrl-btn" id="fpNextBtn" title="Next"><i class="fa-solid fa-forward-step"></i></button>
     <button type="button" class="fp-ctrl-btn" id="fpRepeatBtn" title="Repeat Mode">
       <span class="fp-badge-repeat" id="fpRepeatBadge">1</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+      <i class="fa-solid fa-repeat"></i>
     </button>
   </div>
 
-  <!-- VOLUME SLIDER & MUTE ROW -->
   <div class="fp-volume-section">
-    <button type="button" class="fp-vol-btn" id="fpMuteBtn" title="Mute / Unmute"></button>
+    <button type="button" class="fp-vol-btn" id="fpMuteBtn" title="Mute"><i class="fa-solid fa-volume-high"></i></button>
     <div class="fp-vol-slider-wrap">
       <input type="range" id="fpVolume" min="0" max="1" step="0.01" value="1">
     </div>
   </div>
 
   <div class="fp-actions-grid">
-    <button type="button" class="fp-action-pill" id="fpLyricsBtn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-      <span>Lyrics</span>
-    </button>
-    <button type="button" class="fp-action-pill" id="fpCopyBtn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-      <span>Copy Link</span>
-    </button>
-    <button type="button" class="fp-action-pill primary" id="fpDownloadBtn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
-      <span>Download</span>
-    </button>
+    <button type="button" class="fp-action-pill" id="fpLyricsBtn"><i class="fa-solid fa-align-right"></i><span>Lyrics</span></button>
+    <button type="button" class="fp-action-pill" id="fpCopyBtn"><i class="fa-solid fa-link"></i><span>Copy Link</span></button>
+    <button type="button" class="fp-action-pill primary" id="fpDownloadBtn"><i class="fa-solid fa-download"></i><span>Download</span></button>
   </div>
 </div>
 
-<!-- Bottom Navigation Bar -->
+<!-- Bottom Navigation Dock -->
 <div class="bottom-nav">
   <button class="nav-item active" id="navBtnSearch">
-    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-    <span>جستجو</span>
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span data-i18n="navSearch">جستجو</span>
   </button>
   <button class="nav-item" id="navBtnTrending">
-    <svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3z"/></svg>
-    <span>داغ‌ترین‌ها</span>
+    <i class="fa-solid fa-fire"></i>
+    <span data-i18n="navTrending">داغ‌ترین‌ها</span>
   </button>
   <button class="nav-item" id="navBtnFavs">
-    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-    <span>نشان‌شده‌ها</span>
+    <i class="fa-solid fa-heart"></i>
+    <span data-i18n="navFavs">نشان‌شده‌ها</span>
+  </button>
+  <button class="nav-item" id="navBtnSettings">
+    <i class="fa-solid fa-gear"></i>
+    <span data-i18n="navSettings">تنظیمات</span>
   </button>
 </div>
 
@@ -880,24 +856,129 @@ const CF_WORKER_URL = 'https://player.foadtoonak.workers.dev';
 const DEFAULT_COVER = 'https://image.qwenlm.ai/public_source/e65c539b-21b0-4d51-a3dc-04fdb44f3766/1b687daa5-7a77-44b3-9c54-a87811103bb5.png';
 const FA_DIGITS = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
 
-/* راه‌اندازی مینی‌اپ تلگرام */
+/* Internationalization Dictionary (i18n) */
+const i18n = {
+  fa: {
+    headerSub: "دانلود و پخش آنلاین بدون محدودیت",
+    lblSearchTitle: "جستجو و دریافت لینک مستقیم",
+    lblInputLabel: "لینک یا نام آهنگ / خواننده / پادکست",
+    placeholderInput: "مثلاً: Mar-Mari یا هایده یا پیوند rj.app...",
+    lblQuality: "کیفیت دانلود:",
+    btnFetch: "دریافت اطلاعات و جستجو",
+    hintText: "پشتیبانی کامل از <b>نام فارسی/انگلیسی</b>، <b>شوهای پادکست</b>، <b>صفحه خواننده</b> و <b>پیوندهای کوتاه</b>.",
+    lblSingleTrack: "موزیک انتخابی",
+    badgeSong: "آهنگ",
+    badgePodcast: "پادکست",
+    btnDownload: "دانلود فایل",
+    btnSelectAll: "انتخاب همه",
+    btnSelectNone: "هیچ‌کدام",
+    btnDlZip: "دانلود انتخابی (ZIP)",
+    btnCancel: "لغو",
+    lblTrendingSongs: "🔥 داغ‌ترین تک‌آهنگ‌های هفته",
+    lblTrendingPodcasts: "🎙 تازه‌ترین قسمت‌های پادکست",
+    btnLoadMore: "بارگذاری موارد بیشتر",
+    lblFavTitle: "❤️ آرشیو قطعات نشان‌شده",
+    lblSettingsTitle: "تنظیمات سامانه",
+    setQualityTitle: "کیفیت پیش‌فرض دانلود",
+    setQualityDesc: "کیفیت پیش‌فرشتی که برای فایل‌های صوتی بارگیری می‌شود.",
+    setThemeTitle: "پوسته ظاهری",
+    setThemeDesc: "حالت تاریک، روشن یا هماهنگ با سیستم‌عامل.",
+    setLangTitle: "زبان برنامه",
+    setLangDesc: "زبان محیط کاربری سامانه (فارسی / انگلیسی).",
+    setHistoryTitle: "تاریخچه جستجو",
+    setHistoryDesc: "پاک کردن عبارات ثبت شده در حافظه دستگاه.",
+    btnClearHistory: "پاک‌سازی",
+    btnCopyLyrics: "کپی کردن متن ترانه",
+    navSearch: "جستجو",
+    navTrending: "داغ‌ترین‌ها",
+    navFavs: "نشان‌شده‌ها",
+    navSettings: "تنظیمات",
+    emptyFavs: "هنوز هیچ اثری نشان نشده است ❤️",
+    toastQuality: "کیفیت روی",
+    toastTheme: "پوسته ظاهری تغییر یافت",
+    toastLang: "زبان سامانه روی فارسی تنظیم شد",
+    toastHistory: "تاریخچه جستجو کاملاً پاک‌سازی شد 🗑️",
+    toastDownloading: "دانلود آغاز شد"
+  },
+  en: {
+    headerSub: "Unlimited Online Streaming & Downloading",
+    lblSearchTitle: "Search & Direct Link Fetcher",
+    lblInputLabel: "URL or Track Name / Artist / Podcast",
+    placeholderInput: "e.g., Mar-Mari, Hayedeh or rj.app link...",
+    lblQuality: "Download Quality:",
+    btnFetch: "Fetch Details & Search",
+    hintText: "Full support for <b>Persian/English names</b>, <b>Podcast shows</b>, <b>Artist pages</b> & <b>Short links</b>.",
+    lblSingleTrack: "Selected Track",
+    badgeSong: "Song",
+    badgePodcast: "Podcast",
+    btnDownload: "Download File",
+    btnSelectAll: "Select All",
+    btnSelectNone: "Deselect All",
+    btnDlZip: "Download Selected (ZIP)",
+    btnCancel: "Cancel",
+    lblTrendingSongs: "🔥 Trending Singles of the Week",
+    lblTrendingPodcasts: "🎙 Latest Podcast Episodes",
+    btnLoadMore: "Load More",
+    lblFavTitle: "❤️ Favorite Saved Tracks",
+    lblSettingsTitle: "System Settings",
+    setQualityTitle: "Default Download Quality",
+    setQualityDesc: "Preferred audio stream bitrate for downloads.",
+    setThemeTitle: "App Theme",
+    setThemeDesc: "Dark, Light, or System match mode.",
+    setLangTitle: "Language",
+    setLangDesc: "User interface language (Persian / English).",
+    setHistoryTitle: "Search History",
+    setHistoryDesc: "Clear recent search queries from device storage.",
+    btnClearHistory: "Clear",
+    btnCopyLyrics: "Copy Lyrics Text",
+    navSearch: "Search",
+    navTrending: "Trending",
+    navFavs: "Favorites",
+    navSettings: "Settings",
+    emptyFavs: "No favorite tracks saved yet ❤️",
+    toastQuality: "Quality set to",
+    toastTheme: "Theme updated successfully",
+    toastLang: "Language changed to English",
+    toastHistory: "Search history cleared completely 🗑️",
+    toastDownloading: "Download started"
+  }
+};
+
+let currentLang = localStorage.getItem('mosi_lang') || 'fa';
+
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('mosi_lang', lang);
+  const html = $('#htmlRoot');
+  html.setAttribute('lang', lang);
+  html.setAttribute('dir', lang === 'fa' ? 'rtl' : 'ltr');
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (i18n[lang][key]) {
+      el.innerHTML = i18n[lang][key];
+    }
+  });
+
+  const input = $('#rjUrl');
+  if (input) input.placeholder = lang === 'fa' ? i18n.fa.placeholderInput : i18n.en.placeholderInput;
+
+  const cfgLang = $('#cfgLangSelect');
+  if (cfgLang) cfgLang.value = lang;
+}
+
+/* Telegram WebApp Initializer */
 if (window.Telegram?.WebApp) {
   const tg = window.Telegram.WebApp;
   tg.ready();
   tg.expand();
 }
 
-const PLAY_ICON = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>';
-const PAUSE_ICON = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+const PLAY_ICON = '<i class="fa-solid fa-play"></i>';
+const PAUSE_ICON = '<i class="fa-solid fa-pause"></i>';
+const SPINNER_ICON = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
 
-const SUN_ICON = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="currentColor"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
-const MOON_ICON = '<svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z" fill="currentColor"/></svg>';
-
-const VOL_HIGH_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>';
-const VOL_LOW_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>';
-const VOL_MUTE_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
-
-let selectedQuality= '128';
+let selectedQuality = localStorage.getItem('mosi_quality') || '128';
 let currentQueue = [];
 let currentQueueIndex = -1;
 let currentPlaylistTracks = [];
@@ -906,7 +987,10 @@ let isShuffle = false;
 let repeatMode = 'off';
 let lastVolume = 1;
 
-function toFa(n) { return String(n).replace(/[0-9]/g, d => FA_DIGITS[d]); }
+function toFa(n) {
+  if (currentLang !== 'fa') return String(n);
+  return String(n).replace(/[0-9]/g, d => FA_DIGITS[d]);
+}
 function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
 
 function fmtTime(s) {
@@ -915,7 +999,11 @@ function fmtTime(s) {
   const m = Math.floor(s / 60), ss = s % 60;
   return String(m).padStart(2, '0') + ':' + String(ss).padStart(2, '0');
 }
-function proxyUrl(url) { if (!url) return ''; if (url.startsWith('data:') || url.startsWith('blob:')) return url; return `${CF_WORKER_URL}/?kind=file&url=${encodeURIComponent(url)}`; }
+function proxyUrl(url) {
+  if (!url) return '';
+  if (url.startsWith('data:') || url.startsWith('blob:')) return url;
+  return `${CF_WORKER_URL}/?kind=file&url=${encodeURIComponent(url)}`;
+}
 
 function triggerBlobDownload(blob, filename) {
   const url = URL.createObjectURL(blob);
@@ -928,7 +1016,7 @@ function triggerBlobDownload(blob, filename) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-/* PWA Install Logic */
+/* PWA Installation Lifecycle */
 const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
 const isDismissed = localStorage.getItem('mosi_pwa_dismissed') === 'true';
 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -947,7 +1035,7 @@ if (!isStandalone && !isDismissed) {
   });
 
   if (isIOS) {
-    pwaDesc.textContent = 'دکمه Share (اشتراک) و سپس Add to Home Screen را بزنید.';
+    pwaDesc.textContent = 'دکمه Share در پایین سافاری و سپس Add to Home Screen را بزنید.';
     pwaInstallBtn.textContent = 'راهنما';
     pwaPopup.style.display = 'block';
   }
@@ -960,7 +1048,7 @@ pwaInstallBtn.onclick = async () => {
     if (outcome === 'accepted') pwaPopup.style.display = 'none';
     deferredPrompt = null;
   } else if (isIOS) {
-    toast('در سافاری آیفون: دکمه Share (پایین مرورگر) ➔ سپس Add to Home Screen را بزنید.', 'ok', 6000);
+    toast('در مرورگر سافاری: دکمه Share را زده و Add to Home Screen را انتخاب کنید.', 'ok', 6000);
   }
 };
 
@@ -969,50 +1057,90 @@ pwaCloseBtn.onclick = () => {
   localStorage.setItem('mosi_pwa_dismissed', 'true');
 };
 
-/* Dark / Light Theme System */
+/* Unified Theme Engine */
 function initTheme() {
-  const saved = localStorage.getItem('mosi_theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const isDark = saved === 'dark' || (!saved && prefersDark);
-  applyTheme(isDark);
+  const saved = localStorage.getItem('mosi_theme') || 'dark';
+  applyTheme(saved);
 }
-function applyTheme(isDark) {
+
+function applyTheme(mode) {
+  let isDark = true;
+  if (mode === 'light') isDark = false;
+  else if (mode === 'system') isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
   document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-  $('#themeMeta').content = isDark ? '#0b0f19' : '#ebf0f7';
-  $('#themeIcon').outerHTML = isDark ? SUN_ICON : MOON_ICON;
-  localStorage.setItem('mosi_theme', isDark ? 'dark' : 'light');
+  $('#themeMeta').content = isDark ? '#090D16' : '#F1F5F9';
+  const icon = $('#themeIcon');
+  if (icon) {
+    icon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+  }
+  localStorage.setItem('mosi_theme', mode);
+  const cfgTheme = $('#cfgThemeSelect');
+  if (cfgTheme) cfgTheme.value = mode;
 }
+
 $('#themeToggleBtn').onclick = () => {
-  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-  applyTheme(!isDark);
+  const current = localStorage.getItem('mosi_theme') || 'dark';
+  const next = current === 'dark' ? 'light' : 'dark';
+  applyTheme(next);
+  toast(next === 'light' ? 'تم روشن فعال شد ☀️' : 'تم تیتانیوم دارک فعال شد 🌙', 'ok', 1600);
 };
 initTheme();
+setLanguage(currentLang);
 
 function toast(msg, type = 'ok', ms = 3200) {
   const el = document.createElement('div');
   el.className = 'toast ' + type;
   el.textContent = (type === 'err' ? '⛔ ' : type === 'warn' ? '⚠️ ' : '✅ ') + msg;
   $('#toasts').appendChild(el);
-  setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 300); }, ms);
+  setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 280); }, ms);
 }
+
 function setStatus(msg, type) {
   const el = $('#status');
   el.textContent = msg || '';
   el.className = msg ? ('show' + (type ? ' ' + type : '')) : '';
 }
 
-/* Quality Switch Handlers */
+function syncQualityUI(q) {
+  selectedQuality = q;
+  localStorage.setItem('mosi_quality', q);
+  document.querySelectorAll('#qualitySwitch .quality-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.quality === q);
+  });
+  $('#fpQualityBadge').textContent = `${q} KBPS`;
+  const cfgQ = $('#cfgQualitySelect');
+  if (cfgQ) cfgQ.value = q;
+}
+
 document.querySelectorAll('#qualitySwitch .quality-btn').forEach(btn => {
   btn.addEventListener('click', () => {
-    document.querySelectorAll('#qualitySwitch .quality-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    selectedQuality = btn.dataset.quality;
-    $('#fpQualityBadge').textContent = `${selectedQuality} KBPS`;
-    toast(`کیفیت روی ${toFa(selectedQuality)} تنظیم شد`, 'ok', 1800);
+    syncQualityUI(btn.dataset.quality);
+    toast(`${i18n[currentLang].toastQuality} ${toFa(selectedQuality)}`, 'ok', 1800);
   });
 });
 
-/* Search History & Favorites LocalStorage */
+$('#cfgQualitySelect').onchange = e => {
+  syncQualityUI(e.target.value);
+  toast(`${i18n[currentLang].toastQuality} ${toFa(e.target.value)}`, 'ok');
+};
+
+$('#cfgThemeSelect').onchange = e => {
+  applyTheme(e.target.value);
+  toast(i18n[currentLang].toastTheme, 'ok');
+};
+
+$('#cfgLangSelect').onchange = e => {
+  setLanguage(e.target.value);
+  toast(i18n[currentLang].toastLang, 'ok');
+};
+
+function clearSearchHistoryManual() {
+  localStorage.removeItem('mosi_history');
+  renderHistory();
+  toast(i18n[currentLang].toastHistory, 'ok');
+}
+
 function getHistory() { try { return JSON.parse(localStorage.getItem('mosi_history') || '[]'); } catch(e) { return []; } }
 function addHistory(q) {
   if (!q || q.startsWith('http')) return;
@@ -1025,7 +1153,7 @@ function renderHistory() {
   const h = getHistory();
   const wrap = $('#historyChips');
   if (!h.length) { wrap.innerHTML = ''; return; }
-  wrap.innerHTML = h.map(x => `<span class="history-chip" data-q="${esc(x)}">🔍 ${esc(x)}</span>`).join('');
+  wrap.innerHTML = h.map(x => `<span class="history-chip" data-q="${esc(x)}"><i class="fa-solid fa-magnifying-glass" style="font-size:10px;"></i> ${esc(x)}</span>`).join('');
 }
 $('#historyChips').addEventListener('click', e => {
   const chip = e.target.closest('.history-chip');
@@ -1038,8 +1166,13 @@ function isFav(id) { return getFavs().some(x => (x.permlink || x.id) === id); }
 function toggleFav(item) {
   let favs = getFavs();
   const id = item.permlink || item.id;
-  if (isFav(id)) { favs = favs.filter(x => (x.permlink || x.id) !== id); toast('از نشان‌شده‌ها حذف شد', 'warn'); }
-  else { favs.unshift(item); toast('به نشان‌شده‌ها اضافه شد', 'ok'); }
+  if (isFav(id)) {
+    favs = favs.filter(x => (x.permlink || x.id) !== id);
+    toast(currentLang === 'fa' ? 'از قطعات نشان‌شده حذف شد' : 'Removed from favorites', 'warn');
+  } else {
+    favs.unshift(item);
+    toast(currentLang === 'fa' ? 'به نشان‌شده‌ها اضافه شد' : 'Added to favorites', 'ok');
+  }
   localStorage.setItem('mosi_favs', JSON.stringify(favs));
   renderFavorites();
   if (currentItem && (currentItem.permlink || currentItem.id) === id) {
@@ -1051,13 +1184,12 @@ function renderFavorites() {
   const favs = getFavs();
   const wrap = $('#favTracks');
   if (!favs.length) {
-    wrap.innerHTML = '<div style="padding:24px; text-align:center; color:var(--muted); font-size:0.86rem;">هنوز هیچ آهنگی را نشان نکرده‌اید ❤️</div>';
+    wrap.innerHTML = `<div style="padding:28px; text-align:center; color:var(--muted); font-size:0.86rem; font-weight:700;">${i18n[currentLang].emptyFavs}</div>`;
     return;
   }
   wrap.innerHTML = renderTrackList(favs, 'fav', false);
 }
 
-/* Audio Player Core Engine */
 let currentAudio = new Audio();
 currentAudio.preload = 'auto';
 
@@ -1078,7 +1210,7 @@ const fpPlayBtn = $('#fpPlayBtn');
 const fpProgress = $('#fpProgress');
 
 function stopAudio() {
-  if (currentAudio) { currentAudio.pause(); }
+  if (currentAudio) currentAudio.pause();
   if (currentPlayBtn) { setPlayState(currentPlayBtn, false); currentPlayBtn = null; }
   setPlayState(bpPlayBtn, false);
   setPlayState(fpPlayBtn, false);
@@ -1089,9 +1221,16 @@ function stopAudio() {
 
 function setPlayState(btn, state) {
   if (!btn) return;
-  if (state === 'loading') { btn.innerHTML = '<span class="spin"></span>'; btn.classList.add('playing'); }
-  else if (state === true) { btn.innerHTML = PAUSE_ICON; btn.classList.add('playing'); }
-  else { btn.innerHTML = PLAY_ICON; btn.classList.remove('playing'); }
+  if (state === 'loading') {
+    btn.innerHTML = SPINNER_ICON;
+    btn.classList.add('playing');
+  } else if (state === true) {
+    btn.innerHTML = PAUSE_ICON;
+    btn.classList.add('playing');
+  } else {
+    btn.innerHTML = PLAY_ICON;
+    btn.classList.remove('playing');
+  }
 }
 
 function updateEqualizers() {
@@ -1123,9 +1262,9 @@ function updateVolumeUI() {
   const vol = currentAudio.muted ? 0 : currentAudio.volume;
   $('#fpVolume').value = vol;
 
-  const currentIcon = isMuted ? VOL_MUTE_ICON : (vol < 0.4 ? VOL_LOW_ICON : VOL_HIGH_ICON);
-  $('#bpMuteBtn').innerHTML = isMuted ? VOL_MUTE_ICON : VOL_HIGH_ICON;
-  $('#fpMuteBtn').innerHTML = currentIcon;
+  const volIcon = isMuted ? '<i class="fa-solid fa-volume-xmark"></i>' : (vol < 0.4 ? '<i class="fa-solid fa-volume-low"></i>' : '<i class="fa-solid fa-volume-high"></i>');
+  $('#bpMuteBtn').innerHTML = isMuted ? '<i class="fa-solid fa-volume-xmark"></i>' : '<i class="fa-solid fa-volume-high"></i>';
+  $('#fpMuteBtn').innerHTML = volIcon;
   $('#bpMuteBtn').classList.toggle('active', isMuted);
   $('#fpMuteBtn').classList.toggle('active', isMuted);
 }
@@ -1139,12 +1278,11 @@ function toggleMute() {
     currentAudio.muted = true;
   }
   updateVolumeUI();
-  toast(currentAudio.muted ? 'Muted' : 'Unmuted', 'ok', 1200);
+  toast(currentAudio.muted ? (currentLang === 'fa' ? 'صدا قطع شد' : 'Muted') : (currentLang === 'fa' ? 'صدا وصل شد' : 'Unmuted'), 'ok', 1200);
 }
 
 updateVolumeUI();
 
-// Global Audio Listeners
 currentAudio.addEventListener('timeupdate', () => {
   if (!currentAudio || !currentAudio.duration) return;
   const pct = (currentAudio.currentTime / currentAudio.duration) * 100;
@@ -1168,7 +1306,7 @@ currentAudio.addEventListener('ended', () => {
 });
 
 currentAudio.addEventListener('error', () => {
-  toast('Error loading audio stream', 'err');
+  toast(currentLang === 'fa' ? 'خطا در بارگذاری استریم صوتی' : 'Audio stream load error', 'err');
   setPlayState(currentPlayBtn, false);
   setPlayState(bpPlayBtn, false);
   setPlayState(fpPlayBtn, false);
@@ -1214,14 +1352,14 @@ async function togglePlay(item, btn, queueList = [], qIndex = -1) {
       item.hqUrl = norm.hqUrl; item.lqUrl = norm.lqUrl; item.audioUrl = norm.audioUrl;
       audioUrl = getItemAudioUrl(item);
     } catch(e) {
-      toast('دریافت لینک پخش ناموفق بود', 'err');
+      toast(currentLang === 'fa' ? 'دریافت لینک پخش ناموفق بود' : 'Failed to retrieve playback link', 'err');
       setPlayState(btn, false); setPlayState(bpPlayBtn, false); setPlayState(fpPlayBtn, false);
       return;
     }
   }
 
   if (!audioUrl) {
-    toast('لینک پخش یافت نشد', 'err');
+    toast(currentLang === 'fa' ? 'لینک پخش برای این قطعه یافت نشد' : 'No playback link found', 'err');
     setPlayState(btn, false); setPlayState(bpPlayBtn, false); setPlayState(fpPlayBtn, false);
     return;
   }
@@ -1262,8 +1400,8 @@ async function togglePlay(item, btn, queueList = [], qIndex = -1) {
       navigator.mediaSession.setActionHandler('nexttrack', playNextInQueue);
     }
   }).catch((err) => {
-    console.error('Play error', err);
-    toast('خطا در پخش آنلاین', 'err');
+    console.error('Playback Error', err);
+    toast(currentLang === 'fa' ? 'خطا در پخش استریم' : 'Stream playback error', 'err');
     setPlayState(btn, false); setPlayState(bpPlayBtn, false); setPlayState(fpPlayBtn, false);
   });
 }
@@ -1284,11 +1422,10 @@ function playNextInQueue() {
       nextIdx = 0;
     } else {
       stopAudio();
-      toast('End of playlist reached', 'ok', 2000);
+      toast(currentLang === 'fa' ? 'به پایان صف پخش رسیدید' : 'End of queue reached', 'ok', 2000);
       return;
     }
   }
-
   currentQueueIndex = nextIdx;
   const nextItem = currentQueue[nextIdx];
   togglePlay(nextItem, null, currentQueue, nextIdx);
@@ -1317,17 +1454,15 @@ function playPrevInQueue() {
       return;
     }
   }
-
   currentQueueIndex = prevIdx;
   const prevItem = currentQueue[prevIdx];
   togglePlay(prevItem, null, currentQueue, prevIdx);
 }
 
-/* Shuffle and Repeat Handlers */
 $('#fpShuffleBtn').onclick = () => {
   isShuffle = !isShuffle;
   $('#fpShuffleBtn').classList.toggle('active', isShuffle);
-  toast(isShuffle ? 'Shuffle ON' : 'Shuffle OFF', 'ok', 1400);
+  toast(currentLang === 'fa' ? (isShuffle ? 'پخش تصادفی فعال شد' : 'پخش تصادفی غیرفعال شد') : (isShuffle ? 'Shuffle enabled' : 'Shuffle disabled'), 'ok', 1400);
 };
 
 $('#fpRepeatBtn').onclick = () => {
@@ -1337,36 +1472,34 @@ $('#fpRepeatBtn').onclick = () => {
     repeatMode = 'all';
     btn.classList.add('active');
     badge.classList.remove('show');
-    toast('Repeat All ON', 'ok', 1400);
+    toast(currentLang === 'fa' ? 'تکرار کل لیست فعال شد' : 'Repeat all enabled', 'ok', 1400);
   } else if (repeatMode === 'all') {
     repeatMode = 'one';
     btn.classList.add('active');
     badge.classList.add('show');
-    toast('Repeat One ON', 'ok', 1400);
+    toast(currentLang === 'fa' ? 'تکرار همین قطعه فعال شد' : 'Repeat one enabled', 'ok', 1400);
   } else {
     repeatMode = 'off';
     btn.classList.remove('active');
     badge.classList.remove('show');
-    toast('Repeat OFF', 'ok', 1400);
+    toast(currentLang === 'fa' ? 'تکرار غیرفعال شد' : 'Repeat disabled', 'ok', 1400);
   }
 };
 
-// Mini Player Controls
-$('#bpPlayBtn').onclick = (e) => { e.stopPropagation(); if (currentItem) togglePlay(currentItem, currentPlayBtn); };
-$('#bpNextBtn').onclick = (e) => { e.stopPropagation(); playNextInQueue(); };
-$('#bpPrevBtn').onclick = (e) => { e.stopPropagation(); playPrevInQueue(); };
-$('#bpMuteBtn').onclick = (e) => { e.stopPropagation(); toggleMute(); };
-$('#bpCloseBtn').onclick = (e) => { e.stopPropagation(); stopAudio(); };
+$('#bpPlayBtn').onclick = e => { e.stopPropagation(); if (currentItem) togglePlay(currentItem, currentPlayBtn); };
+$('#bpNextBtn').onclick = e => { e.stopPropagation(); playNextInQueue(); };
+$('#bpPrevBtn').onclick = e => { e.stopPropagation(); playPrevInQueue(); };
+$('#bpMuteBtn').onclick = e => { e.stopPropagation(); toggleMute(); };
+$('#bpCloseBtn').onclick = e => { e.stopPropagation(); stopAudio(); };
 $('#bpMetaArea').onclick = () => { if (currentItem) fullPlayerSheet.classList.add('show'); };
 
-// Full Player Controls
 $('#fpPlayBtn').onclick = () => { if (currentItem) togglePlay(currentItem, currentPlayBtn); };
 $('#fpNextBtn').onclick = playNextInQueue;
 $('#fpPrevBtn').onclick = playPrevInQueue;
 $('#fpCloseBtn').onclick = () => fullPlayerSheet.classList.remove('show');
 
 $('#fpMuteBtn').onclick = toggleMute;
-$('#fpVolume').oninput = (e) => {
+$('#fpVolume').oninput = e => {
   const val = parseFloat(e.target.value);
   currentAudio.volume = val;
   currentAudio.muted = (val === 0);
@@ -1375,7 +1508,7 @@ $('#fpVolume').oninput = (e) => {
   updateVolumeUI();
 };
 
-bpProgress.oninput = (e) => {
+bpProgress.oninput = e => {
   e.stopPropagation();
   if (currentAudio && currentAudio.duration) {
     currentAudio.currentTime = (bpProgress.value / 100) * currentAudio.duration;
@@ -1392,17 +1525,16 @@ $('#fpLyricsBtn').onclick = () => { if (currentItem) openLyrics(currentItem); };
 $('#fpCopyBtn').onclick = () => { if (currentItem) copyDirectLink(currentItem); };
 $('#fpDownloadBtn').onclick = () => { if (currentItem) downloadOne(currentItem, $('#fpDownloadBtn')); };
 
-/* ارسال موزیک به تلگرام */
 async function sendSongToTelegram(item, btn) {
   const tg = window.Telegram?.WebApp;
   const chatId = tg?.initDataUnsafe?.user?.id;
   if (!chatId) {
-    toast('این قابلیت مخصوص اجرا درون ربات تلگرام است', 'warn');
+    toast(currentLang === 'fa' ? 'این قابلیت مخصوص اجرا درون ربات تلگرام است' : 'Feature available inside Telegram bot only', 'warn');
     return;
   }
   tg.HapticFeedback?.impactOccurred('medium');
-  if (btn) { btn.disabled = true; }
-  toast('در حال ارسال فایل به چت تلگرام...', 'ok', 3000);
+  if (btn) btn.disabled = true;
+  toast(currentLang === 'fa' ? 'در حال ارسال فایل صوتی به تلگرام شما...' : 'Sending audio file to Telegram...', 'ok', 3000);
 
   let audioUrl = getItemAudioUrl(item);
   if (!audioUrl) {
@@ -1411,7 +1543,7 @@ async function sendSongToTelegram(item, btn) {
       const norm = normalizeItem(raw);
       item.hqUrl = norm.hqUrl; item.lqUrl = norm.lqUrl; audioUrl = getItemAudioUrl(item);
     } catch(e) {
-      toast('خطا در دریافت لینک فایل', 'err');
+      toast(currentLang === 'fa' ? 'خطا در دریافت لینک دانلود' : 'Error retrieving download link', 'err');
       if (btn) btn.disabled = false;
       return;
     }
@@ -1422,18 +1554,17 @@ async function sendSongToTelegram(item, btn) {
     const data = await res.json();
     if (data.ok) {
       tg.HapticFeedback?.notificationOccurred('success');
-      toast('✅ موزیک با موفقیت به چت شما ارسال شد', 'ok', 4000);
+      toast(currentLang === 'fa' ? '✅ موزیک با موفقیت به چت تلگرام ارسال شد' : '✅ Track successfully sent to Telegram', 'ok', 4000);
     } else {
-      toast('خطا در ارسال فایل توسط تلگرام', 'err');
+      toast(currentLang === 'fa' ? 'خطا در ارسال فایل توسط سرور تلگرام' : 'Telegram server error', 'err');
     }
   } catch(e) {
-    toast('خطا در برقراری ارتباط با سرور', 'err');
+    toast(currentLang === 'fa' ? 'خطا در ارتباط با سرور' : 'Connection error', 'err');
   } finally {
     if (btn) btn.disabled = false;
   }
 }
 
-/* Skeleton Helpers */
 function renderSkeletons(count = 4) {
   return Array.from({ length: count }, () => `
     <div class="skeleton-row">
@@ -1455,7 +1586,6 @@ function renderSkeletons(count = 4) {
   `).join('');
 }
 
-/* Short Link & RJ Fetch Logic */
 function toAbsoluteUrl(raw) {
   const trimmed = raw.trim();
   if (/^https?:\/\//i.test(trimmed)) return trimmed;
@@ -1467,7 +1597,7 @@ function toAbsoluteUrl(raw) {
 function isShortRJLink(raw) { try { return /^rj\.app$/i.test(new URL(toAbsoluteUrl(raw)).hostname); } catch(e) { return false; } }
 async function resolveShortLink(raw) {
   const r = await fetch(`${CF_WORKER_URL}/?kind=resolve&url=${encodeURIComponent(toAbsoluteUrl(raw))}`);
-  if (!r.ok) throw new Error('لینک کوتاه باز نشد');
+  if (!r.ok) throw new Error('Short link resolution failed');
   const d = await r.json(); return d.url;
 }
 
@@ -1493,23 +1623,21 @@ async function rjFetch(kind, id) {
     const json = await r.json();
     if (json && json.success !== false) return json;
   }
-  throw new Error('دریافت اطلاعات از سرور ناموفق بود.');
+  throw new Error('API fetch failed.');
 }
 
 async function searchRJ(query) {
   const qEnc = encodeURIComponent(query);
   const r = await fetch(`${CF_WORKER_URL}/?kind=search&query=${qEnc}`);
-  if (r.ok) {
-    return await r.json();
-  }
+  if (r.ok) return await r.json();
   return null;
 }
 
 async function fetchArtist(name) {
   const r = await fetch(`${CF_WORKER_URL}/?kind=artist&query=${encodeURIComponent(name)}`);
-  if (!r.ok) throw new Error('دریافت اطلاعات هنرمند ناموفق بود');
+  if (!r.ok) throw new Error('Artist fetch failed');
   const data = await r.json();
-  if (!data || data.success === false) throw new Error(data?.msg || 'این هنرمند پیدا نشد');
+  if (!data || data.success === false) throw new Error(data?.msg || 'Artist not found');
   return data;
 }
 
@@ -1527,7 +1655,7 @@ async function fetchPodcastShow(id) {
         if (d && (Array.isArray(d.podcasts) && d.podcasts.length > 0)) return d;
         if (d && d.type === 'show') return d;
       }
-    } catch(e) { console.warn('fetchPodcastShow endpoint failed:', apiUrl, e); }
+    } catch(e) { console.warn('Endpoint error:', e); }
   }
   const sData = await searchRJ(id);
   if (sData && Array.isArray(sData.podcasts) && sData.podcasts.length > 0) {
@@ -1538,7 +1666,7 @@ async function fetchPodcastShow(id) {
       podcasts: sData.podcasts
     };
   }
-  throw new Error('اپیزودهای این شو پادکست پیدا نشد.');
+  throw new Error('Podcast episodes not found.');
 }
 
 function normalizeItem(raw) {
@@ -1550,7 +1678,7 @@ function normalizeItem(raw) {
   let lq = raw.lq_link || (hq && hq.includes('/320/') ? hq.replace('/320/', '/128/') : hq);
   return {
     id: perm || raw.id || null,
-    title: raw.title || raw.song || raw.name || 'بدون‌نام',
+    title: raw.title || raw.song || raw.name || 'Untitled',
     artist: raw.podcast_artist || raw.artist || raw.artist_name || raw.date || '',
     cover: raw.photo_player || raw.photo_large || raw.photo || raw.thumbnail || raw.thumb || DEFAULT_COVER,
     duration: raw.duration != null ? Math.round(raw.duration) : null,
@@ -1561,33 +1689,36 @@ function normalizeItem(raw) {
 }
 
 function suggestFileName(title, artist, quality = '320') {
-  return `${artist ? artist + ' - ' : ''}${title} (${quality}kbps).mp3`.replace(/[\\/:*?"<>|]+/g, ' ').trim();
+  return `${artist ? artist + ' - ' : ''}${title} (${quality}kbps).mp3`.replace(/[\/:*?"<>|]+/g, ' ').trim();
 }
 
 async function downloadOne(item, btn) {
   let downloadUrl = getItemAudioUrl(item);
   if (!downloadUrl) {
-    if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spin"></span>'; }
+    if (btn) { btn.disabled = true; btn.innerHTML = SPINNER_ICON; }
     try {
       const raw = await rjFetch(item.type === 'podcast' ? 'podcast' : 'song', item.permlink || item.id);
       const norm = normalizeItem(raw);
       item.hqUrl = norm.hqUrl; item.lqUrl = norm.lqUrl; downloadUrl = getItemAudioUrl(item);
     } catch(e) {
-      toast('لینک دانلود یافت نشد', 'err');
-      if (btn) { btn.disabled = false; btn.innerHTML = '⬇️'; }
+      toast(currentLang === 'fa' ? 'لینک دانلود یافت نشد' : 'Download link not found', 'err');
+      if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-download"></i>'; }
       return;
     }
   }
 
-  if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spin"></span>'; }
+  if (btn) { btn.disabled = true; btn.innerHTML = SPINNER_ICON; }
   try {
     const r = await fetch(proxyUrl(downloadUrl));
     if (!r.ok) throw new Error();
     const blob = await r.blob();
     triggerBlobDownload(blob, suggestFileName(item.title, item.artist, selectedQuality));
-    toast('دانلود با موفقیت آغاز شد', 'ok');
-  } catch(e) { toast('خطا در دانلود فایل', 'err'); }
-  finally { if (btn) { btn.disabled = false; btn.innerHTML = '⬇️'; } }
+    toast(i18n[currentLang].toastDownloading, 'ok');
+  } catch(e) {
+    toast(currentLang === 'fa' ? 'خطا در دانلود فایل' : 'Download error', 'err');
+  } finally {
+    if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-download"></i>'; }
+  }
 }
 
 async function copyDirectLink(item) {
@@ -1597,20 +1728,21 @@ async function copyDirectLink(item) {
       const raw = await rjFetch(item.type === 'podcast' ? 'podcast' : 'song', item.permlink || item.id);
       const norm = normalizeItem(raw);
       item.hqUrl = norm.hqUrl; item.lqUrl = norm.lqUrl; url = getItemAudioUrl(item);
-    } catch(e) { console.warn('copyDirectLink fallback fetch failed:', e); }
+    } catch(e) { console.warn('Copy fetch error:', e); }
   }
   if (url) {
     navigator.clipboard.writeText(proxyUrl(url));
-    toast('لینک مستقیم در حافظه کپی شد', 'ok');
-  } else { toast('لینک مستقیم در دسترس نیست', 'err'); }
+    toast(currentLang === 'fa' ? 'لینک مستقیم در کلیپ‌بورد کپی شد' : 'Direct link copied to clipboard', 'ok');
+  } else {
+    toast(currentLang === 'fa' ? 'لینک مستقیم در دسترس نیست' : 'Direct link unavailable', 'err');
+  }
 }
 
-/* Bulk ZIP Download */
 let bulkCancel = false;
 let bulkRunning = false;
 async function bulkDownloadZip(items, label) {
-  if (!items.length) { toast('هیچ موردی برای دانلود انتخاب نشده است', 'warn'); return; }
-  if (bulkRunning) { toast('یک دانلود انبوه دیگر در حال اجراست - صبر کنید یا لغوش کنید', 'warn'); return; }
+  if (!items.length) { toast(currentLang === 'fa' ? 'هیچ موردی انتخاب نشده است' : 'No items selected', 'warn'); return; }
+  if (bulkRunning) { toast(currentLang === 'fa' ? 'یک عملیات دانلود فشرده در حال اجراست' : 'Bulk download already running', 'warn'); return; }
   bulkRunning = true;
   bulkCancel = false;
   const zipBtn = $('#plDlZip');
@@ -1651,11 +1783,11 @@ async function bulkDownloadZip(items, label) {
 
   await Promise.all(Array.from({ length: Math.min(CONCURRENCY, items.length) }, worker));
   if (bulkCancel) {
-    toast('دانلود لغو شد', 'warn');
+    toast(currentLang === 'fa' ? 'دانلود لغو شد' : 'Download cancelled', 'warn');
   } else {
     const zblob = await zip.generateAsync({ type: 'blob' });
     triggerBlobDownload(zblob, part > 1 ? `${label}-part${part}.zip` : `${label}.zip`);
-    toast(fails ? `پایان یافت (${toFa(fails)} مورد ناموفق)` : 'دانلود ZIP با موفقیت کامل شد', fails ? 'warn' : 'ok');
+    toast(fails ? (currentLang === 'fa' ? `پایان یافت (${toFa(fails)} ناموفق)` : `Finished with ${fails} failures`) : (currentLang === 'fa' ? 'دانلود فایل ZIP با موفقیت کامل شد' : 'ZIP downloaded successfully'), fails ? 'warn' : 'ok');
   }
   prog.classList.remove('show');
   bulkRunning = false;
@@ -1663,34 +1795,32 @@ async function bulkDownloadZip(items, label) {
 }
 $('#dlCancel').onclick = () => { bulkCancel = true; };
 
-/* Lyrics Modal */
 async function openLyrics(item) {
   $('#lyricsModal').classList.add('show');
-  $('#lyricsTitle').textContent = `متن ترانه: ${item.title}`;
-  $('#lyricsBody').innerHTML = '<span class="spin"></span> در حال دریافت متن ترانه...';
+  $('#lyricsTitle').textContent = (currentLang === 'fa' ? 'متن ترانه: ' : 'Lyrics: ') + item.title;
+  $('#lyricsBody').innerHTML = SPINNER_ICON + ' ' + (currentLang === 'fa' ? 'در حال دریافت لیریکس...' : 'Fetching lyrics...');
 
   let text = item.lyric;
   if (!text) {
     try {
       const raw = await rjFetch(item.type === 'podcast' ? 'podcast' : 'song', item.permlink || item.id || item.title);
       text = raw.lyric || raw.lyrics;
-    } catch(e) { console.warn('openLyrics fallback fetch failed:', e); }
+    } catch(e) { console.warn('Lyrics fetch error:', e); }
   }
 
   if (text) {
     $('#lyricsBody').textContent = text;
     $('#copyLyricsBtn').onclick = () => {
       navigator.clipboard.writeText(text);
-      toast('متن ترانه کپی شد', 'ok');
+      toast(currentLang === 'fa' ? 'متن ترانه در حافظه کپی شد' : 'Lyrics copied to clipboard', 'ok');
     };
   } else {
-    $('#lyricsBody').textContent = 'متن ترانه‌ای برای این اثر ثبت نشده است.';
-    $('#copyLyricsBtn').onclick = () => toast('متنی برای کپی وجود ندارد', 'warn');
+    $('#lyricsBody').textContent = currentLang === 'fa' ? 'متن ترانه‌ای برای این اثر ثبت نشده است.' : 'No lyrics available for this track.';
+    $('#copyLyricsBtn').onclick = () => toast(currentLang === 'fa' ? 'متنی برای کپی وجود ندارد' : 'No lyrics to copy', 'warn');
   }
 }
 $('#closeLyrics').onclick = () => $('#lyricsModal').classList.remove('show');
 
-/* Two-Line Track Rendering */
 function renderTrackList(items, context = 'pl', showCheckboxes = false) {
   return items.map((s, i) => {
     const itemId = s.permlink || s.id;
@@ -1710,11 +1840,11 @@ function renderTrackList(items, context = 'pl', showCheckboxes = false) {
           </div>
         </div>
         <div class="trow-bottom">
-          <button type="button" class="btn-action tdl" title="دانلود">⬇️</button>
-          <button type="button" class="btn-action ttg" title="ارسال به ربات تلگرام">📲</button>
-          <button type="button" class="btn-action tcopy" title="کپی لینک">🔗</button>
-          <button type="button" class="btn-action tlyric" title="متن ترانه">📄</button>
-          <button type="button" class="btn-action fav ${favActive} tfav" title="نشان">❤️</button>
+          <button type="button" class="btn-action tdl" title="دانلود"><i class="fa-solid fa-download"></i></button>
+          <button type="button" class="btn-action ttg" title="ارسال به تلگرام"><i class="fa-solid fa-paper-plane"></i></button>
+          <button type="button" class="btn-action tcopy" title="کپی لینک"><i class="fa-solid fa-link"></i></button>
+          <button type="button" class="btn-action tlyric" title="متن ترانه"><i class="fa-solid fa-align-right"></i></button>
+          <button type="button" class="btn-action fav ${favActive} tfav" title="نشان"><i class="fa-solid fa-heart"></i></button>
         </div>
       </div>
     `;
@@ -1724,7 +1854,7 @@ function renderTrackList(items, context = 'pl', showCheckboxes = false) {
 function renderSingle(kind, item) {
   $('#plCard').style.display = 'none';
   $('#singleCard').style.display = 'block';
-  $('#sBadge').textContent = kind === 'podcast' ? 'پادکست' : 'آهنگ';
+  $('#sBadge').textContent = kind === 'podcast' ? i18n[currentLang].badgePodcast : i18n[currentLang].badgeSong;
   $('#sCover').src = proxyUrl(item.cover);
   $('#sCover').onerror = () => { $('#sCover').src = DEFAULT_COVER; };
   $('#sTitle').textContent = item.title;
@@ -1752,10 +1882,10 @@ function renderPlaylist(pl, isSearch = false, featuredEntity = null) {
       <div class="featured-box ${isArtist ? 'artist-type' : 'show-type'}">
         <img src="${esc(proxyUrl(featuredEntity.photo || DEFAULT_COVER))}" alt="${esc(featuredEntity.name || featuredEntity.title || '')}" onerror="this.src='${DEFAULT_COVER}'">
         <div class="f-meta">
-          <span class="f-badge">${isArtist ? '🎤 صفحه اختصاصی هنرمند' : '🎙 صفحه اختصاصی شو پادکست'}</span>
+          <span class="f-badge">${isArtist ? (currentLang === 'fa' ? '🎤 صفحه اختصاصی هنرمند' : '🎤 Artist Official Page') : (currentLang === 'fa' ? '🎙 صفحه اختصاصی شو پادکست' : '🎙 Podcast Show Page')}</span>
           <div class="f-title">${esc(featuredEntity.name || featuredEntity.title)}</div>
         </div>
-        <button type="button" class="btn primary sm f-btn" id="openFeaturedBtn">مشاهده تمام آثار ➔</button>
+        <button type="button" class="btn primary sm f-btn" id="openFeaturedBtn">${currentLang === 'fa' ? 'مشاهده تمام آثار ➔' : 'View All ➔'}</button>
       </div>
     `;
     fContainer.style.display = 'block';
@@ -1781,14 +1911,13 @@ function renderPlaylist(pl, isSearch = false, featuredEntity = null) {
     $('#plCover').src = proxyUrl(pl.cover);
     $('#plCover').onerror = () => { $('#plCover').src = DEFAULT_COVER; };
     $('#plTitle').textContent = pl.title;
-    $('#plSub').textContent = `${toFa(pl.songs.length)} اثر${pl.creator ? ' · ' + pl.creator : ''}`;
+    $('#plSub').textContent = `${toFa(pl.songs.length)} ${currentLang === 'fa' ? 'اثر' : 'tracks'}${pl.creator ? ' · ' + pl.creator : ''}`;
   }
 
   $('#plTracks').innerHTML = renderTrackList(pl.songs, 'pl', !isSearch);
   updateEqualizers();
 }
 
-/* Track Click Delegations */
 function handleTrackClick(e, getList) {
   const row = e.target.closest('.trow');
   if (!row) return;
@@ -1819,11 +1948,10 @@ $('#plSelectNone').onclick = () => $('#plTracks').querySelectorAll('.trow-cb').f
 $('#plDlZip').onclick = () => {
   const boxes = [...$('#plTracks').querySelectorAll('.trow-cb')];
   const items = boxes.filter(c => c.checked).map(c => currentPlaylistTracks[+c.dataset.i]);
-  const safeName = $('#plTitle').textContent.replace(/[\\/:*?"<>|]+/g, ' ').trim() || 'rj-playlist';
+  const safeName = $('#plTitle').textContent.replace(/[\/:*?"<>|]+/g, ' ').trim() || 'rj-playlist';
   bulkDownloadZip(items, safeName);
 };
 
-/* Trending / Browse State */
 const browseState = {
   songs: { endpoint: 'mp3s', type: 'featured', items: [], page: 1, done: false },
   podcasts: { endpoint: 'podcasts', type: 'featured', items: [], page: 1, done: false }
@@ -1849,16 +1977,21 @@ async function loadBrowseMore(key) {
   }
   try {
     const batch = await fetchBrowse(st.endpoint, st.type, st.page);
-    if (!batch.length) { st.done = true; btn.style.display = 'none'; }
-    else {
+    if (!batch.length) {
+      st.done = true;
+      btn.style.display = 'none';
+    } else {
       st.items.push(...batch.map(normalizeItem));
       st.page++;
       $('#' + key + 'Tracks').innerHTML = renderTrackList(st.items, key, false);
-      $('#' + key + 'Count').textContent = toFa(st.items.length) + ' مورد';
+      $('#' + key + 'Count').textContent = toFa(st.items.length) + (currentLang === 'fa' ? ' مورد' : ' items');
       updateEqualizers();
     }
-  } catch(e) { toast('خطا در دریافت لیست', 'err'); }
-  finally { btn.disabled = false; }
+  } catch(e) {
+    toast(currentLang === 'fa' ? 'خطا در دریافت لیست داغ‌ترین‌ها' : 'Error loading trending list', 'err');
+  } finally {
+    btn.disabled = false;
+  }
 }
 
 ['songs', 'podcasts'].forEach(key => {
@@ -1871,10 +2004,10 @@ function loadTrendingItems() {
   if (!browseState.podcasts.items.length) loadBrowseMore('podcasts');
 }
 
-/* Nav Tabs */
 $('#navBtnSearch').onclick = () => switchTab('Search');
 $('#navBtnTrending').onclick = () => { switchTab('Trending'); loadTrendingItems(); };
 $('#navBtnFavs').onclick = () => { switchTab('Favs'); renderFavorites(); };
+$('#navBtnSettings').onclick = () => switchTab('Settings');
 
 function switchTab(name) {
   document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
@@ -1883,46 +2016,45 @@ function switchTab(name) {
   $(`#tab${name}`).classList.add('active');
 }
 
-/* Process Search / Link Input */
 async function processInput() {
   let raw = $('#rjUrl').value.trim();
   setStatus('');
   $('#result').classList.remove('show');
 
-  if (!raw) { setStatus('لطفاً نام موزیک یا لینک رادیوجوان را وارد کنید', 'warn'); return; }
+  if (!raw) { setStatus(currentLang === 'fa' ? 'لطفاً نام قطعه یا لینک رادیوجوان را وارد کنید' : 'Please enter track name or Radio Javan link', 'warn'); return; }
 
   const btn = $('#fetchBtn');
   btn.disabled = true;
 
   if (isShortRJLink(raw)) {
-    setStatus('در حال باز کردن لینک کوتاه...');
+    setStatus(currentLang === 'fa' ? 'در حال باز کردن لینک کوتاه...' : 'Resolving short link...');
     try { raw = await resolveShortLink(raw); }
-    catch(e) { setStatus('❌ لینک کوتاه باز نشد', 'err'); btn.disabled = false; return; }
+    catch(e) { setStatus(currentLang === 'fa' ? '❌ لینک کوتاه باز نشد' : '❌ Failed to resolve short link', 'err'); btn.disabled = false; return; }
   }
 
   const info = detectRJ(raw);
   if (info) {
-    setStatus('در حال دریافت اطلاعات از رادیوجوان...');
+    setStatus(currentLang === 'fa' ? 'در حال دریافت اطلاعات از رادیوجوان...' : 'Fetching data from Radio Javan...');
     try {
       if (info.kind === 'playlist') {
         const d = await rjFetch('playlist', info.id);
         const songs = (d.items || d.songs || []).map(normalizeItem);
-        renderPlaylist({ title: d.title || 'پلی‌لیست', cover: d.photo_player || d.photo || DEFAULT_COVER, creator: d.created_by || '', songs }, false);
+        renderPlaylist({ title: d.title || 'Playlist', cover: d.photo_player || d.photo || DEFAULT_COVER, creator: d.created_by || '', songs }, false);
       } else if (info.kind === 'podcast_show') {
         const d = await fetchPodcastShow(info.id);
         const songs = (d.podcasts || d.items || []).map(normalizeItem);
-        renderPlaylist({ title: d.title || `شو پادکست ${info.id}`, cover: d.photo_large || d.photo || DEFAULT_COVER, creator: d.podcast_artist || '', songs }, false);
+        renderPlaylist({ title: d.title || `Podcast Show ${info.id}`, cover: d.photo_large || d.photo || DEFAULT_COVER, creator: d.podcast_artist || '', songs }, false);
       } else if (info.kind === 'artist') {
         const d = await fetchArtist(info.id);
         const songs = [...(d.mp3s || []), ...(d.podcasts || [])].map(normalizeItem);
-        if (!songs.length) throw new Error('اثری برای این هنرمند پیدا نشد');
+        if (!songs.length) throw new Error(currentLang === 'fa' ? 'اثری برای این هنرمند پیدا نشد' : 'No tracks found for this artist');
         const artistName = d.name || d.query || info.id.replace(/-/g, ' ');
-        renderPlaylist({ title: `🎤 ${artistName}`, cover: d.photo || DEFAULT_COVER, creator: `${toFa(songs.length)} اثر`, songs }, false);
+        renderPlaylist({ title: `🎤 ${artistName}`, cover: d.photo || DEFAULT_COVER, creator: `${toFa(songs.length)} tracks`, songs }, false);
       } else {
         const d = await rjFetch(info.kind, info.id);
         if (d.type === 'show' || Array.isArray(d.podcasts)) {
           const songs = (d.podcasts || []).map(normalizeItem);
-          renderPlaylist({ title: d.title || 'شو پادکست', cover: d.photo_large || d.photo || DEFAULT_COVER, creator: d.podcast_artist || '', songs }, false);
+          renderPlaylist({ title: d.title || 'Podcast Show', cover: d.photo_large || d.photo || DEFAULT_COVER, creator: d.podcast_artist || '', songs }, false);
         } else {
           renderSingle(info.kind, normalizeItem(d));
         }
@@ -1932,7 +2064,7 @@ async function processInput() {
     } catch(e) { setStatus('❌ ' + e.message, 'err'); }
     finally { btn.disabled = false; }
   } else {
-    setStatus(`در حال جستجوی «${raw}»...`);
+    setStatus(currentLang === 'fa' ? `در حال جستجوی «${raw}»...` : `Searching for "${raw}"...`);
     addHistory(raw);
     $('#result').classList.add('show');
     $('#singleCard').style.display = 'none';
@@ -1956,14 +2088,16 @@ async function processInput() {
       const rawItems = [...(data.podcasts || []), ...(data.mp3s || []), ...(data.songs || [])];
       if (!rawItems.length && !featured) {
         $('#result').classList.remove('show');
-        setStatus('هیچ موردی یافت نشد', 'warn'); btn.disabled = false; return;
+        setStatus(currentLang === 'fa' ? 'هیچ موردی یافت نشد' : 'No results found', 'warn');
+        btn.disabled = false;
+        return;
       }
 
       renderPlaylist({ title: raw, songs: rawItems.map(normalizeItem) }, true, featured);
       setStatus('');
     } catch(e) {
       $('#result').classList.remove('show');
-      setStatus('❌ خطا در جستجو', 'err');
+      setStatus(currentLang === 'fa' ? '❌ خطا در جستجو' : '❌ Search error', 'err');
     } finally {
       btn.disabled = false;
     }
@@ -1977,7 +2111,6 @@ clearBtn.onclick = () => { inputEl.value = ''; clearBtn.classList.remove('show')
 $('#fetchBtn').onclick = processInput;
 inputEl.onkeydown = e => { if (e.key === 'Enter') processInput(); };
 
-/* Service Worker Registration */
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js').catch(err => console.warn('SW registration failed:', err));
