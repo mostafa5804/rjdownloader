@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#090D16" id="themeMeta">
 <meta name="color-scheme" content="light dark">
-<title>رادیوجوان دانلودر | RJ Studio v1.2</title>
+<title>رادیوجوان دانلودر | RJ Studio v1.3</title>
 
 <!-- Fonts & Scripts -->
 <link rel="manifest" href="./manifest.json">
@@ -94,7 +94,7 @@ body {
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  padding-bottom: 90px; /* فضای امن برای منوی پایین */
+  padding-bottom: 90px;
   transition: background-color 0.25s ease, color 0.25s ease;
   background-image:
     radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.08) 0px, transparent 50%),
@@ -347,7 +347,7 @@ header small { display: block; color: var(--muted); font-size: 0.74rem; margin-t
   border-radius: var(--radius-md); margin-bottom: 14px; border: 1px solid var(--line);
 }
 
-/* مینی‌پلیر: کاملاً پنهان در حالت عادی با transform و نمایش فقط موقع پلی شدن */
+/* Sticky Capsule Mini Player */
 .bottom-player {
   position: fixed; bottom: 72px; left: 14px; right: 14px; max-width: 612px; margin: 0 auto;
   z-index: 120; background: var(--surface-glass); backdrop-filter: blur(20px);
@@ -373,6 +373,7 @@ header small { display: block; color: var(--muted); font-size: 0.74rem; margin-t
 .bp-slider-wrap { display: flex; align-items: center; gap: 8px; font-size: 0.72rem; font-weight: 700; color: var(--muted); }
 .bp-slider-wrap input[type=range] { flex: 1; height: 5px; accent-color: var(--primary); cursor: pointer; }
 
+/* Full-Screen Studio Player */
 .full-player-sheet {
   position: fixed; inset: 0; z-index: 400; background: var(--bg); display: flex; flex-direction: column;
   justify-content: space-between; padding: calc(env(safe-area-inset-top, 16px) + 12px) 24px calc(env(safe-area-inset-bottom, 16px) + 20px);
@@ -537,7 +538,7 @@ header small { display: block; color: var(--muted); font-size: 0.74rem; margin-t
         </div>
         <div>
           <h1>رادیوجوان دانلودر | RJ Studio</h1>
-          <small>v1.2 · <span data-i18n="headerSub">دانلود و پخش آنلاین بدون محدودیت</span></small>
+          <small>v1.3 · <span data-i18n="headerSub">دانلود و پخش آنلاین بدون محدودیت</span></small>
         </div>
       </div>
     </div>
@@ -550,7 +551,7 @@ header small { display: block; color: var(--muted); font-size: 0.74rem; margin-t
       <div class="field">
         <label for="rjUrl" data-i18n="lblInputLabel">لینک یا نام آهنگ / خواننده / پادکست</label>
         <div class="field-input-wrap">
-          <input type="text" id="rjUrl" placeholder="مثلاً: Mar-Mari یا هایده یا پیوند rj.app...">
+          <input type="text" id="rjUrl" placeholder="مثلاً: شادمهر عقیلی، Mar-Mari یا پیوند rj.app...">
           <button class="clear-btn" id="clearBtn" title="پاک کردن">✕</button>
         </div>
       </div>
@@ -700,7 +701,7 @@ header small { display: block; color: var(--muted); font-size: 0.74rem; margin-t
       </a>
       <span>·</span>
       <a href="https://github.com/mostafa5804/rjdl-android" target="_blank" rel="noopener">
-        <i class="fa-brands fa-android"></i> نسخه اندروید (v1.2)
+        <i class="fa-brands fa-android"></i> نسخه اندروید (v1.3)
       </a>
     </div>
   </div>
@@ -833,7 +834,7 @@ const i18n = {
     headerSub: "دانلود و پخش آنلاین بدون محدودیت",
     lblSearchTitle: "جستجو و دریافت لینک مستقیم",
     lblInputLabel: "لینک یا نام آهنگ / خواننده / پادکست",
-    placeholderInput: "مثلاً: Mar-Mari یا هایده یا پیوند rj.app...",
+    placeholderInput: "مثلاً: شادمهر عقیلی، Mar-Mari یا پیوند rj.app...",
     btnFetch: "دریافت اطلاعات و جستجو",
     hintText: "پشتیبانی کامل از <b>نام فارسی/انگلیسی</b>، <b>شوهای پادکست</b>، <b>صفحه خواننده</b> و <b>پیوندهای کوتاه</b>.",
     lblSingleTrack: "موزیک انتخابی",
@@ -874,7 +875,7 @@ const i18n = {
     headerSub: "Unlimited Online Streaming & Downloading",
     lblSearchTitle: "Search & Direct Link Fetcher",
     lblInputLabel: "URL or Track Name / Artist / Podcast",
-    placeholderInput: "e.g., Mar-Mari, Hayedeh or rj.app link...",
+    placeholderInput: "e.g., Shadmehr, Mar-Mari or rj.app link...",
     btnFetch: "Fetch Details & Search",
     hintText: "Full support for <b>Persian/English names</b>, <b>Podcast shows</b>, <b>Artist pages</b> & <b>Short links</b>.",
     lblSingleTrack: "Selected Track",
@@ -952,6 +953,8 @@ let currentQueueIndex = -1;
 let currentPlaylistTracks = [];
 
 let isShuffle = false;
+let shuffleOrder = [];
+let shufflePointer = 0;
 let repeatMode = 'off';
 let lastVolume = 1;
 
@@ -1155,6 +1158,21 @@ const fullPlayerSheet = $('#fullPlayerSheet');
 const fpPlayBtn = $('#fpPlayBtn');
 const fpProgress = $('#fpProgress');
 
+function buildShuffleOrder(length, startIdx) {
+  shuffleOrder = Array.from({ length }, (_, i) => i);
+  for (let i = length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffleOrder[i], shuffleOrder[j]] = [shuffleOrder[j], shuffleOrder[i]];
+  }
+  if (startIdx >= 0) {
+    const pos = shuffleOrder.indexOf(startIdx);
+    if (pos > 0) {
+      [shuffleOrder[0], shuffleOrder[pos]] = [shuffleOrder[pos], shuffleOrder[0]];
+    }
+  }
+  shufflePointer = 0;
+}
+
 function stopAudio() {
   if (currentAudio) currentAudio.pause();
   if (currentPlayBtn) { setPlayState(currentPlayBtn, false); currentPlayBtn = null; }
@@ -1163,6 +1181,7 @@ function stopAudio() {
   bottomPlayer.classList.remove('active');
   fullPlayerSheet.classList.remove('show');
   updateEqualizers();
+  if (window.AndroidBridge?.stop) window.AndroidBridge.stop();
 }
 
 function setPlayState(btn, state) {
@@ -1258,15 +1277,40 @@ currentAudio.addEventListener('error', () => {
   setPlayState(fpPlayBtn, false);
 });
 
+// پل ارتباطی کاتلین با وب‌ویو جهت همگام‌سازی موقعیت اسلایدر زمان
+window.syncPlayerState = function(positionMs, durationMs, isPlaying) {
+  if (durationMs > 0) {
+    const posSec = positionMs / 1000;
+    const durSec = durationMs / 1000;
+    const pct = (posSec / durSec) * 100;
+    bpProgress.value = pct;
+    fpProgress.value = pct;
+    const cTime = fmtTime(posSec);
+    const tTime = fmtTime(durSec);
+    $('#bpCurrTime').textContent = cTime;
+    $('#bpTotTime').textContent = tTime;
+    $('#fpCurrTime').textContent = cTime;
+    $('#fpTotTime').textContent = tTime;
+  }
+  if (isPlaying !== undefined) {
+    setPlayState(currentPlayBtn, isPlaying);
+    setPlayState(bpPlayBtn, isPlaying);
+    setPlayState(fpPlayBtn, isPlaying);
+    updateEqualizers();
+  }
+};
+
 async function togglePlay(item, btn, queueList = [], qIndex = -1) {
   if (currentItem && (currentItem.permlink || currentItem.id) === (item.permlink || item.id) && currentAudio.src) {
     if (!currentAudio.paused) {
       currentAudio.pause();
+      if (window.AndroidBridge?.pause) window.AndroidBridge.pause();
       setPlayState(btn || currentPlayBtn, false);
       setPlayState(bpPlayBtn, false);
       setPlayState(fpPlayBtn, false);
     } else {
       currentAudio.play().then(() => {
+        if (window.AndroidBridge?.resume) window.AndroidBridge.resume();
         setPlayState(btn || currentPlayBtn, true);
         setPlayState(bpPlayBtn, true);
         setPlayState(fpPlayBtn, true);
@@ -1284,6 +1328,10 @@ async function togglePlay(item, btn, queueList = [], qIndex = -1) {
   } else if (!currentQueue.length) {
     currentQueue = [item];
     currentQueueIndex = 0;
+  }
+
+  if (isShuffle) {
+    buildShuffleOrder(currentQueue.length, currentQueueIndex);
   }
 
   setPlayState(btn, 'loading');
@@ -1329,6 +1377,15 @@ async function togglePlay(item, btn, queueList = [], qIndex = -1) {
 
   updateVolumeUI();
 
+  // ارسال کل صف به بریج نیتیو اندروید
+  if (window.AndroidBridge?.playQueue) {
+    try {
+      window.AndroidBridge.playQueue(JSON.stringify(currentQueue), currentQueueIndex);
+    } catch (e) {
+      console.warn('Native playQueue error', e);
+    }
+  }
+
   currentAudio.play().then(() => {
     setPlayState(btn, true); setPlayState(bpPlayBtn, true); setPlayState(fpPlayBtn, true);
     bottomPlayer.classList.add('active');
@@ -1354,13 +1411,22 @@ async function togglePlay(item, btn, queueList = [], qIndex = -1) {
 
 function playNextInQueue() {
   if (!currentQueue || !currentQueue.length) return;
-  let nextIdx = currentQueueIndex;
+  let nextIdx;
   if (isShuffle) {
-    if (currentQueue.length > 1) {
-      do {
-        nextIdx = Math.floor(Math.random() * currentQueue.length);
-      } while (nextIdx === currentQueueIndex);
+    if (shuffleOrder.length !== currentQueue.length) {
+      buildShuffleOrder(currentQueue.length, currentQueueIndex);
     }
+    shufflePointer++;
+    if (shufflePointer >= shuffleOrder.length) {
+      if (repeatMode === 'all') {
+        buildShuffleOrder(currentQueue.length, -1);
+      } else {
+        stopAudio();
+        toast(currentLang === 'fa' ? 'به پایان صف پخش رسیدید' : 'End of queue reached', 'ok', 2000);
+        return;
+      }
+    }
+    nextIdx = shuffleOrder[shufflePointer];
   } else {
     if (currentQueueIndex < currentQueue.length - 1) {
       nextIdx = currentQueueIndex + 1;
@@ -1383,12 +1449,17 @@ function playPrevInQueue() {
     currentAudio.currentTime = 0;
     return;
   }
-  let prevIdx = currentQueueIndex;
+  let prevIdx;
   if (isShuffle) {
-    if (currentQueue.length > 1) {
-      do {
-        prevIdx = Math.floor(Math.random() * currentQueue.length);
-      } while (prevIdx === currentQueueIndex);
+    if (shufflePointer > 0) {
+      shufflePointer--;
+      prevIdx = shuffleOrder[shufflePointer];
+    } else if (repeatMode === 'all') {
+      shufflePointer = shuffleOrder.length - 1;
+      prevIdx = shuffleOrder[shufflePointer];
+    } else {
+      if (currentAudio) currentAudio.currentTime = 0;
+      return;
     }
   } else {
     if (currentQueueIndex > 0) {
@@ -1407,8 +1478,11 @@ function playPrevInQueue() {
 
 $('#fpShuffleBtn').onclick = () => {
   isShuffle = !isShuffle;
+  if (isShuffle) {
+    buildShuffleOrder(currentQueue.length, currentQueueIndex);
+  }
   $('#fpShuffleBtn').classList.toggle('active', isShuffle);
-  toast(currentLang === 'fa' ? (isShuffle ? 'پخش تصادفی فعال شد' : 'پخش تصادفی غیرفعال شد') : (isShuffle ? 'Shuffle enabled' : 'Shuffle disabled'), 'ok', 1400);
+  toast(currentLang === 'fa' ? (isShuffle ? 'پخش تصادفی هوشمند فعال شد' : 'پخش تصادفی غیرفعال شد') : (isShuffle ? 'Smart shuffle enabled' : 'Shuffle disabled'), 'ok', 1400);
 };
 
 $('#fpRepeatBtn').onclick = () => {
@@ -1797,7 +1871,7 @@ function renderTrackList(items, context = 'pl', showCheckboxes = false) {
   }).join('');
 }
 
-function renderSingle(kind, item) {
+async function renderSingle(kind, item) {
   $('#plCard').style.display = 'none';
   $('#singleCard').style.display = 'block';
   $('#sBadge').textContent = kind === 'podcast' ? i18n[currentLang].badgePodcast : i18n[currentLang].badgeSong;
@@ -1807,8 +1881,21 @@ function renderSingle(kind, item) {
   $('#sArtist').textContent = item.artist || '—';
   $('#sDur').textContent = item.duration ? fmtTime(item.duration) : '';
 
+  let singleQueue = [item];
+
+  // اگر خواننده مشخص بود، چند قطعه دیگر جهت پر ماندن صف بارگذاری می‌شود
+  if (item.artist && item.artist.trim()) {
+    searchRJ(item.artist).then(relatedData => {
+      if (relatedData) {
+        const related = [...(relatedData.mp3s || []), ...(relatedData.songs || [])].map(normalizeItem);
+        const filtered = related.filter(x => (x.permlink || x.id) !== (item.permlink || item.id));
+        singleQueue = [item, ...filtered.slice(0, 15)];
+      }
+    }).catch(() => {});
+  }
+
   setPlayState($('#sPlayBtn'), false);
-  $('#sPlayBtn').onclick = () => togglePlay(item, $('#sPlayBtn'), [item], 0);
+  $('#sPlayBtn').onclick = () => togglePlay(item, $('#sPlayBtn'), singleQueue, 0);
   $('#sDownload').onclick = () => downloadOne(item, $('#sDownload'));
   $('#sSendTg').onclick = () => sendSongToTelegram(item, $('#sSendTg'));
   $('#sCopyLink').onclick = () => copyDirectLink(item);
@@ -1831,7 +1918,7 @@ function renderPlaylist(pl, isSearch = false, featuredEntity = null) {
           <span class="f-badge">${isArtist ? (currentLang === 'fa' ? '🎤 صفحه اختصاصی هنرمند' : '🎤 Artist Official Page') : (currentLang === 'fa' ? '🎙 صفحه اختصاصی شو پادکست' : '🎙 Podcast Show Page')}</span>
           <div class="f-title">${esc(featuredEntity.name || featuredEntity.title)}</div>
         </div>
-        <button type="button" class="btn primary sm f-btn" id="openFeaturedBtn">${currentLang === 'fa' ? 'مشاهده تمام آثار ➔' : 'View All ➔'}</button>
+        <button type="button" class="btn primary sm f-btn" id="openFeaturedBtn">${currentLang === 'fa' ? 'مشاهده تمام آثار ←' : 'View All ➔'}</button>
       </div>
     `;
     fContainer.style.display = 'block';
@@ -2031,7 +2118,24 @@ async function processInput() {
         featured = { type: 'artist', ...data.artists[0] };
       }
 
-      const rawItems = [...(data.podcasts || []), ...(data.mp3s || []), ...(data.songs || [])];
+      // هدایت خودکار به دیسکوگرافی هنرمند جهت جلوگیری از صف ناقص
+      if (featured && featured.type === 'artist' && featured.name) {
+        try {
+          const artistData = await fetchArtist(featured.name);
+          const fullSongs = [...(artistData.mp3s || []), ...(artistData.podcasts || [])].map(normalizeItem);
+          if (fullSongs.length > 0) {
+            renderPlaylist({ title: `🎤 ${artistData.name || featured.name}`, cover: artistData.photo || featured.photo || DEFAULT_COVER, creator: `${toFa(fullSongs.length)} tracks`, songs: fullSongs }, false, featured);
+            setStatus('');
+            btn.disabled = false;
+            return;
+          }
+        } catch (err) {
+          console.warn('Artist discography fetch skipped:', err);
+        }
+      }
+
+      // اولویت‌بندی صحیح: آهنگ‌ها ابتدا و پادکست‌ها در انتها
+      const rawItems = [...(data.mp3s || []), ...(data.songs || []), ...(data.podcasts || [])];
       if (!rawItems.length && !featured) {
         $('#result').classList.remove('show');
         setStatus(currentLang === 'fa' ? 'هیچ موردی یافت نشد' : 'No results found', 'warn');
