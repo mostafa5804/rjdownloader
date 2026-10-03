@@ -12,7 +12,7 @@
 :root{color-scheme:light;--paper:#f4f0e8;--panel:#f8f5ef;--white:#fffdf9;--ink:#25221e;--sub:#736d63;--muted:#7f776c;--line:#ded7cb;--red:#bf3c2c;--green:#335d4f;--yellow:#edd093;--wash:#ebe4d8;--shadow:0 14px 40px #3026150c;--tap:44px;--r:8px}
 [data-theme=dark]{color-scheme:dark;--paper:#201f1c;--panel:#272520;--white:#302d27;--ink:#f6efe1;--sub:#c0b7a8;--muted:#b1a899;--line:#494238;--red:#ff9279;--green:#294b40;--yellow:#edd093;--wash:#393329;--shadow:none}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.65 Vazirmatn,Tahoma,sans-serif;padding-bottom:116px}
+body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.65 Vazirmatn,Tahoma,sans-serif;padding-bottom:116px;overflow-x:hidden}
 button,input,select{font:inherit;color:inherit}button,a,input,select{-webkit-tap-highlight-color:transparent}button{cursor:pointer;border:0}button:disabled{cursor:default;opacity:.5}a{color:inherit;text-decoration:none}svg{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.sprite{position:absolute;width:0;height:0;overflow:hidden}
 button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--red);outline-offset:3px}button,input,select{touch-action:manipulation}[hidden]{display:none!important}
 .btn,.icon-btn,.text-btn{height:var(--tap);min-height:var(--tap);display:inline-flex;align-items:center;justify-content:center;gap:8px;flex:none;border-radius:var(--r);font-size:13px;font-weight:650;line-height:1.3;transition:background .15s;color:var(--ink);background:transparent}
@@ -23,48 +23,87 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 .brand b{font-size:17px;font-weight:900}.brand small{display:block;font:8px/1.5 sans-serif;letter-spacing:1px;margin-top:2px;color:var(--sub)}
 .rail-nav{display:grid;gap:5px}.rail-nav a{height:48px;padding:0 12px;display:flex;align-items:center;gap:11px;font-weight:650;font-size:13px;border-radius:var(--r)}.rail-nav a:hover{background:var(--wash)}.rail-nav a.active{background:var(--ink);color:var(--paper)}.rail-nav .counter{margin-inline-start:auto;font-size:11px}.rail-history{margin-top:28px;border-top:1px solid var(--line);padding-top:24px}.history-link{display:flex;align-items:center;min-height:44px;width:100%;text-align:start;background:none;font-size:12px;color:var(--sub);padding:0 8px;border-radius:var(--r)}.history-link:hover{color:var(--red);background:var(--wash)}.rail-bottom{margin-top:auto;padding-top:30px;display:flex;gap:8px;align-items:center;color:var(--sub);font-size:11px}.demo-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#10b981;flex:none}
 .content-shell{min-width:0;padding:25px 30px 0}.toolbar{display:flex;align-items:center;gap:16px}.search-field{display:flex;align-items:center;gap:8px;flex:1;min-width:0;border-bottom:1px solid var(--muted);padding-bottom:5px}.search-field>svg{color:var(--sub)}.search-field input{min-width:0;width:100%;border:0;outline:0;background:none;height:44px;font-size:13px}.search-field:focus-within{border-color:var(--red)}.quality-chip{direction:ltr;gap:5px;background:none;padding:0 10px;font-size:12px}.quality-chip span+span{font-size:10px;color:var(--sub)}.mobile-brand{display:none}
-.page-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:22px}.page-head h1{font-size:26px;line-height:1.45;font-weight:850;letter-spacing:-.6px;margin:2px 0 6px}.page-head .eyebrow{color:var(--red);font-size:11px;font-weight:800}.page-head p{margin:0;font-size:12px;color:var(--sub)}.page-head .count{font-size:12px;color:var(--sub);white-space:nowrap}
+
+/* سربرگ بهبودیافته و ضد شکستن کادر */
+.page-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:20px;border-bottom:1px solid var(--line);padding-bottom:14px}
+.page-head-main{min-width:0;flex:1}
+.page-head h1{font-size:22px;line-height:1.45;font-weight:850;letter-spacing:-.4px;margin:2px 0 4px;word-break:break-word;overflow-wrap:anywhere}
+.page-head .eyebrow{color:var(--red);font-size:11px;font-weight:800;display:block;margin-bottom:2px}
+.page-head p{margin:0;font-size:12px;color:var(--sub);word-break:break-word}
+.page-head .count{font-size:12px;color:var(--sub);white-space:nowrap;font-weight:700}
+.url-badge{display:inline-flex;align-items:center;gap:6px;background:var(--wash);padding:3px 8px;border-radius:4px;font-size:11px;color:var(--sub);direction:ltr;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* استایل‌های بخش استقبال صفحه اول */
+.home-hero{background:linear-gradient(135deg,rgba(37,99,235,0.08),rgba(79,70,229,0.04));border:1px dashed var(--line);border-radius:var(--r);padding:24px 20px;margin-bottom:26px;text-align:center}
+.home-hero h2{font-size:18px;margin:0 0 6px;font-weight:850}
+.home-hero p{font-size:12.5px;color:var(--sub);margin:0 0 16px}
+.quick-tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.quick-tag{background:var(--white);border:1px solid var(--line);padding:6px 14px;border-radius:20px;font-size:12px;color:var(--ink);transition:all .15s}
+.quick-tag:hover{border-color:var(--red);color:var(--red);background:var(--wash)}
+
+.home-features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:28px}
+.feature-box{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;gap:12px;align-items:flex-start}
+.feature-box svg{color:var(--red);margin-top:2px}
+.feature-box b{display:block;font-size:13px;margin-bottom:3px}
+.feature-box small{color:var(--sub);font-size:11px;line-height:1.5;display:block}
+
 .segmented-tabs{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:4px;gap:4px;margin-bottom:20px}
 .segmented-tab{flex:1;height:40px;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:750;font-size:13px;border-radius:calc(var(--r) - 2px);background:transparent;color:var(--sub);transition:all .15s}
 .segmented-tab.active{background:var(--white);color:var(--ink);box-shadow:var(--shadow)}
-.artist-sleeve{display:grid;grid-template-columns:minmax(0,1fr) 158px;min-height:195px;background:var(--green);color:#faf1dd;margin-bottom:22px;border-radius:var(--r);overflow:hidden}.sleeve-copy{padding:23px;display:flex;flex-direction:column;align-items:start}.sleeve-copy small{color:#e6dfcc;font-size:11px;font-weight:700}.sleeve-copy h2{font-size:29px;line-height:1.5;margin:5px 0 3px}.sleeve-copy p{font-size:12px;margin:0 0 14px;color:#e6dfcc}.sleeve-copy .btn-row{margin-top:auto}.sleeve-copy .btn{background:none;border-color:#ffffff66;color:white}.sleeve-copy .btn.primary{color:#342a19;background:var(--yellow);border-color:var(--yellow)}
+
+.artist-sleeve{display:grid;grid-template-columns:minmax(0,1fr) 158px;min-height:195px;background:var(--green);color:#faf1dd;margin-bottom:22px;border-radius:var(--r);overflow:hidden}.sleeve-copy{padding:23px;display:flex;flex-direction:column;align-items:start}.sleeve-copy small{color:#e6dfcc;font-size:11px;font-weight:700}.sleeve-copy h2{font-size:26px;line-height:1.4;margin:5px 0 3px}.sleeve-copy p{font-size:12px;margin:0 0 14px;color:#e6dfcc}.sleeve-copy .btn-row{margin-top:auto}.sleeve-copy .btn{background:none;border-color:#ffffff66;color:white}.sleeve-copy .btn.primary{color:#342a19;background:var(--yellow);border-color:var(--yellow)}
 .cover{position:relative;isolation:isolate;overflow:hidden;display:grid;place-items:center;background:var(--panel);aspect-ratio:1;flex:none;border-radius:var(--r)}.cover img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
 .mini-cover{width:48px;height:48px;min-width:48px;border-radius:var(--r);overflow:hidden;position:relative}.mini-cover img{width:100%;height:100%;object-fit:cover}
 .list-head{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;padding:12px 10px;border-bottom:1px solid var(--line)}
-.track-row{display:grid;grid-template-columns:36px minmax(0,1fr) 45px 132px;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:12px 3px;min-height:76px}.track-row.playing .track-title{color:var(--red)}.track-row:hover{background:var(--wash)}
-.track-number{font-size:12px;color:var(--sub);text-align:center}.track-main{display:flex;gap:12px;align-items:center;min-width:0}.track-copy{min-width:0}.track-title{min-height:44px;display:flex;align-items:center;text-align:start;background:none;padding:0;font-size:14px;max-width:100%;font-weight:750;line-height:1.4}
-.track-title span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}.track-copy small{color:var(--sub);font-size:11px;display:block;margin-top:-7px}.track-duration{font-size:11px;color:var(--sub);direction:ltr;text-align:center}.track-actions{display:flex;gap:0}
+.track-row{display:grid;grid-template-columns:36px minmax(0,1fr) 45px 132px;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:10px 3px;min-height:72px}.track-row.playing .track-title{color:var(--red)}.track-row:hover{background:var(--wash)}
+.track-number{font-size:12px;color:var(--sub);text-align:center}.track-main{display:flex;gap:12px;align-items:center;min-width:0}.track-copy{min-width:0}.track-title{min-height:38px;display:flex;align-items:center;text-align:start;background:none;padding:0;font-size:13.5px;max-width:100%;font-weight:750;line-height:1.4}
+.track-title span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}.track-copy small{color:var(--sub);font-size:11px;display:block;margin-top:-6px}.track-duration{font-size:11px;color:var(--sub);direction:ltr;text-align:center}.track-actions{display:flex;gap:0}
 .track-row input[type=checkbox]{width:20px;height:20px;accent-color:var(--red);cursor:pointer;margin:0}.check-wrap{display:grid;place-items:center;width:36px;height:36px}
-.collection-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;background:var(--panel);padding:12px 14px;margin-bottom:12px;border-radius:var(--r);border:1px solid var(--line)}.collection-toolbar small{color:var(--sub);margin-inline-start:auto;font-weight:750}
-.section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:24px 0 12px}.section-title h2{margin:0;font-size:17px;font-weight:800}.section-title small{color:var(--sub);font-size:12px}.load-more{display:flex;width:100%;margin:16px 0 28px;background:none}
-.empty-state{display:flex;align-items:center;flex-direction:column;text-align:center;padding:50px 15px;gap:12px;border-bottom:1px solid var(--line)}.empty-state>svg{width:35px;height:35px;color:var(--sub)}.empty-state h2{font-size:19px;margin:0}.empty-state p{font-size:13px;max-width:370px;color:var(--sub);margin:0}
-.settings{border-top:1px solid var(--line)}.setting{padding:24px 0;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:20px}.setting b{font-size:14px;display:block}.setting p{font-size:12px;color:var(--sub);margin:5px 0 0;max-width:360px}.setting select{height:44px;min-width:150px;padding:0 12px;background:var(--white);border:1px solid var(--line);border-radius:var(--r)}
+.collection-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;background:var(--panel);padding:10px 14px;margin-bottom:12px;border-radius:var(--r);border:1px solid var(--line)}.collection-toolbar small{color:var(--sub);margin-inline-start:auto;font-weight:750}
+.section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:24px 0 12px}.section-title h2{margin:0;font-size:16px;font-weight:800}.section-title small{color:var(--sub);font-size:12px}.load-more{display:flex;width:100%;margin:16px 0 28px;background:none}
+.settings{border-top:1px solid var(--line)}.setting{padding:20px 0;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:20px}.setting b{font-size:14px;display:block}.setting p{font-size:12px;color:var(--sub);margin:4px 0 0;max-width:360px}.setting select{height:42px;min-width:140px;padding:0 12px;background:var(--white);border:1px solid var(--line);border-radius:var(--r)}
 .credits{display:flex;flex-wrap:wrap;gap:6px 17px;align-items:center;margin:32px 0 20px;font-size:11px;color:var(--sub)}.credits a{min-height:44px;display:flex;align-items:center;text-decoration:underline;text-underline-offset:4px}
-.context{padding:30px 22px;background:var(--panel);border-inline-start:1px solid var(--line)}.context-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.context-head p{margin:0}.now-card{background:var(--white);padding:14px;box-shadow:var(--shadow);border-radius:var(--r);border:1px solid var(--line)}.now-meta{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:12px 0}.now-meta b{font-size:15px}.now-meta small{font-size:12px;color:var(--sub);display:block}.context .controls{gap:8px}.context .controls .play-main{height:48px;width:48px;min-width:48px;min-height:48px}
+.context{padding:30px 22px;background:var(--panel);border-inline-start:1px solid var(--line)}.context-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.context-head p{margin:0}.now-card{background:var(--white);padding:14px;box-shadow:var(--shadow);border-radius:var(--r);border:1px solid var(--line)}.now-meta{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:12px 0}.now-meta b{font-size:14.5px}.now-meta small{font-size:12px;color:var(--sub);display:block}.context .controls{gap:8px}.context .controls .play-main{height:48px;width:48px;min-width:48px;min-height:48px}
 .controls{display:flex;justify-content:center;align-items:center;gap:13px;direction:ltr}
 .range{accent-color:var(--red);height:28px;width:100%;cursor:pointer;direction:ltr;margin:0;background:none;appearance:none;-webkit-appearance:none;outline:none}
 .range::-webkit-slider-runnable-track{height:4px;border:0;border-radius:2px;background:linear-gradient(to right,var(--red) var(--fill,0%),var(--line) var(--fill,0%))}
 .range::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--red);margin-top:-5px;border:0}
 .seek-times{display:flex;justify-content:space-between;font-size:11px;direction:ltr;color:var(--sub);font-variant-numeric:tabular-nums}
-.dock{position:fixed;inset-inline:0;bottom:0;z-index:15;min-height:104px;background:#181816;color:#f4ecdd;display:grid;grid-template-columns:minmax(160px,1fr) minmax(260px,1.4fr) minmax(130px,1fr);gap:24px;align-items:center;padding:10px max(22px,calc((100vw - 1540px)/2 + 25px));border-top:2px solid var(--red)}
-.dock button{color:inherit}.dock .dock-song{display:flex;gap:12px;align-items:center;background:none;text-align:start;min-width:0;padding:0}.dock-song b{display:block;font-size:14px}.dock-song small{font-size:11px;color:#c1b8a8}
+
+.dock{position:fixed;inset-inline:0;bottom:0;z-index:15;min-height:96px;background:#181816;color:#f4ecdd;display:grid;grid-template-columns:minmax(160px,1fr) minmax(260px,1.4fr) minmax(130px,1fr);gap:20px;align-items:center;padding:10px max(22px,calc((100vw - 1540px)/2 + 25px));border-top:2px solid var(--red)}
+.dock button{color:inherit}.dock .dock-song{display:flex;gap:12px;align-items:center;background:none;text-align:start;min-width:0;padding:0}.dock-song b{display:block;font-size:13.5px}.dock-song small{font-size:11px;color:#c1b8a8}
 .dock .play-main{background:#f4ecdd;color:#181816;width:44px;height:44px;min-width:44px;min-height:44px}.dock .controls{gap:7px}
 .dock-center .seek{display:grid;grid-template-columns:38px 1fr 38px;align-items:center;gap:8px;font-size:10px;direction:ltr;color:#c1b8a8}.dock-end{display:flex;align-items:center;justify-content:flex-end;gap:2px}.dock-end .range{max-width:75px}.dock.closed{display:none}
-.sheet,.full-player{color:var(--ink);background:var(--paper);border:0;padding:0}.sheet::backdrop,.full-player::backdrop{background:#111110bb;backdrop-filter:blur(4px)}.sheet{width:min(540px,calc(100vw - 26px));max-height:85dvh;border-radius:var(--r);box-shadow:0 25px 100px #0004}.sheet-head{position:sticky;top:0;z-index:1;display:flex;justify-content:space-between;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:16px 20px;background:var(--paper)}.sheet-head h2{font-size:17px;margin:0}.sheet-body{padding:22px}.sheet-body p{color:var(--sub);font-size:13px;line-height:1.9}.sheet .lyrics{white-space:pre-line;font-size:17px;font-weight:500;line-height:2.2;margin:20px 0 28px;text-align:center}
-.full-player{width:100vw;max-width:none;height:100dvh;max-height:none;margin:0;overflow:auto}.fp-head{max-width:1250px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:24px 35px;gap:15px;border-bottom:1px solid var(--line)}.fp-head .center{text-align:center}.fp-head small{display:block;letter-spacing:2px;font-size:10px;color:var(--red);font-weight:800}.fp-head b{font-size:13px;font-weight:500}
-.fp-body{max-width:1150px;margin:0 auto;padding:42px 35px;display:grid;grid-template-columns:minmax(250px,1fr) minmax(0,1fr);align-items:center;gap:65px}.fp-art{padding:14px;background:var(--white);box-shadow:var(--shadow);border-radius:var(--r);border:1px solid var(--line)}.fp-art .cover{width:100%;aspect-ratio:1}.fp-info h1{font-size:34px;line-height:1.4;margin:14px 0 7px}.fp-info .artist-name{font-size:16px;color:var(--sub);margin:0 0 24px}.fp-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:22px}
+
+.sheet,.full-player{color:var(--ink);background:var(--paper);border:0;padding:0}.sheet::backdrop,.full-player::backdrop{background:#111110bb;backdrop-filter:blur(4px)}.sheet{width:min(520px,calc(100vw - 26px));max-height:85dvh;border-radius:var(--r);box-shadow:0 25px 100px #0004}.sheet-head{position:sticky;top:0;z-index:1;display:flex;justify-content:space-between;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:14px 18px;background:var(--paper)}.sheet-head h2{font-size:16px;margin:0}.sheet-body{padding:18px}.sheet-body p{color:var(--sub);font-size:13px;line-height:1.9}
+
+/* پلیر تمام صفحه رفع باگ اسکرول در موبایل */
+.full-player{width:100vw;max-width:100%;height:100dvh;max-height:100dvh;margin:0;overflow-y:auto;overflow-x:hidden}
+.fp-head{max-width:700px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:18px 20px;gap:15px;border-bottom:1px solid var(--line)}
+.fp-head .center{text-align:center}.fp-head small{display:block;letter-spacing:2px;font-size:10px;color:var(--red);font-weight:800}.fp-head b{font-size:13px;font-weight:600}
+.fp-body{max-width:640px;margin:0 auto;padding:24px 20px 40px;display:flex;flex-direction:column;align-items:center;gap:20px}
+.fp-art{width:min(70vw,310px);padding:10px;background:var(--white);box-shadow:var(--shadow);border-radius:var(--r);border:1px solid var(--line)}
+.fp-art .cover{width:100%;aspect-ratio:1}
+.fp-info{width:100%;text-align:center}
+.fp-info h1{font-size:24px;line-height:1.35;margin:10px 0 4px;word-break:break-word}
+.fp-info .artist-name{font-size:14px;color:var(--sub);margin:0 0 18px}
+.fp-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px;width:100%}
+
 .transfer{position:fixed;z-index:40;bottom:118px;left:24px;width:min(380px,calc(100vw - 32px));background:var(--white);border:1px solid var(--line);box-shadow:0 15px 45px #0002;padding:17px;border-top:3px solid var(--red);border-radius:var(--r)}.transfer h3{margin:0;font-size:15px;display:flex;justify-content:space-between;align-items:center}.transfer p{font-size:12px;color:var(--sub);margin:7px 0}.transfer progress{accent-color:var(--red);width:100%;height:10px}
-.toasts{position:fixed;z-index:100;bottom:126px;left:50%;transform:translateX(-50%);width:max-content;max-width:calc(100vw - 32px);pointer-events:none}.toast{padding:13px 18px;background:var(--ink);color:var(--paper);font-size:13px;box-shadow:0 6px 25px #0003;margin-top:7px;border-radius:6px}
-.skeleton{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:15px}.skeleton i{display:block;background:var(--wash);height:42px;width:48px;border-radius:var(--r)}.skeleton span{background:var(--wash);height:14px;width:55%;border-radius:4px}
+.toasts{position:fixed;z-index:100;bottom:126px;left:50%;transform:translateX(-50%);width:max-content;max-width:calc(100vw - 32px);pointer-events:none}.toast{padding:12px 18px;background:var(--ink);color:var(--paper);font-size:12.5px;box-shadow:0 6px 25px #0003;margin-top:7px;border-radius:6px}
+.skeleton{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:15px}.skeleton i{display:block;background:var(--wash);height:42px;width:48px;border-radius:var(--r)}.skeleton span{background:var(--wash);height:14px;width:55%;border-radius:4px}
 .mobile-nav{display:none}
-@media(max-width:1210px){.workspace{grid-template-columns:205px minmax(0,1fr)}.context{display:none}.content-shell{padding-inline:30px}.dock{grid-template-columns:1fr 1.2fr 1fr;gap:12px}}
+
+@media(max-width:1210px){.workspace{grid-template-columns:205px minmax(0,1fr)}.context{display:none}.content-shell{padding-inline:24px}.dock{grid-template-columns:1fr 1.2fr 1fr;gap:12px}}
 @media(max-width:760px){
-body{padding-bottom:170px}.workspace{display:block;min-height:calc(100dvh - 170px)}.rail{display:none}.content-shell{padding:16px 16px 0}.mobile-brand{display:grid;width:44px;height:44px;font-size:22px;flex:none}.toolbar{gap:9px}.quality-chip{display:none}
-.track-row{grid-template-columns:30px minmax(0,1fr) 88px;gap:7px;padding:11px 0}.track-actions{width:88px}.track-actions .row-fav{display:none}.track-duration{display:none}
-.dock{min-height:88px;height:88px;bottom:64px;grid-template-columns:minmax(0,1fr) auto;gap:3px;padding:9px 12px}.dock-center{grid-column:2}.dock-center .seek{display:none}.dock-end{display:none}
+body{padding-bottom:170px}.workspace{display:block;min-height:calc(100dvh - 170px)}.rail{display:none}.content-shell{padding:14px 14px 0}.mobile-brand{display:grid;width:42px;height:42px;font-size:20px;flex:none}.toolbar{gap:9px}.quality-chip{display:none}
+.page-head{flex-direction:column;align-items:flex-start;gap:6px}
+.page-head .count{align-self:flex-end;margin-top:-22px}
+.track-row{grid-template-columns:30px minmax(0,1fr) 88px;gap:7px;padding:10px 0}.track-actions{width:88px}.track-actions .row-fav{display:none}.track-duration{display:none}
+.dock{min-height:84px;height:84px;bottom:64px;grid-template-columns:minmax(0,1fr) auto;gap:3px;padding:9px 12px}.dock-center{grid-column:2}.dock-center .seek{display:none}.dock-end{display:none}
 .mobile-nav{display:grid;grid-template-columns:repeat(4,1fr);height:64px;position:fixed;inset-inline:0;bottom:0;z-index:20;background:var(--panel);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
 .mobile-nav a{min-height:56px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;font-size:10px;color:var(--sub)}.mobile-nav a.active{color:var(--red)}.mobile-nav svg{width:20px;height:20px}
-.fp-head{padding:15px 16px}.fp-body{padding:22px 24px;grid-template-columns:minmax(0,1fr);gap:23px;max-width:480px}.fp-art{width:min(72vw,310px);margin:auto;padding:10px}.fp-info h1{font-size:26px;text-align:center}.fp-info .artist-name{text-align:center}.transfer{bottom:164px;left:16px}.toasts{bottom:174px}
+.transfer{bottom:164px;left:16px}.toasts{bottom:174px}
 }
 </style>
 </head>
@@ -91,6 +130,7 @@ body{padding-bottom:170px}.workspace{display:block;min-height:calc(100dvh - 170p
 <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7m4-7v7"/></symbol>
 <symbol id="i-lyrics" viewBox="0 0 24 24"><path d="M4 5h16M4 10h16M4 15h10M4 20h14"/></symbol>
 <symbol id="i-down" viewBox="0 0 24 24"><path d="m5 9 7 7 7-7"/></symbol>
+<symbol id="i-sparkles" viewBox="0 0 24 24"><path d="m12 3 1.912 5.813a2 2 0 0 0 1.275 1.275L21 12l-5.813 1.912a2 2 0 0 0-1.275 1.275L12 21l-1.912-5.813a2 2 0 0 0-1.275-1.275L3 12l5.813-1.912a2 2 0 0 0 1.275-1.275L12 3Z"/></symbol>
 </defs></svg>
 
 <div class="workspace">
@@ -126,7 +166,7 @@ body{padding-bottom:170px}.workspace{display:block;min-height:calc(100dvh - 170p
 
     <footer class="credits">
       <span>توسعه یافته توسط مصطفی</span>
-      <a href="https://github.com/mostafa5804/rjdownloader" target="_blank" rel="noopener">گیت‌هاب وب</a>
+      <a href="https://github.com/mostafa5804/rjdownloader" target="_blank" rel="noopener">گیت‌‌هاب وب</a>
       <a href="https://github.com/mostafa5804/rjdl-android" target="_blank" rel="noopener">نسخهٔ اندروید</a>
     </footer>
   </div>
@@ -156,9 +196,10 @@ let favorites = JSON.parse(localStorage.getItem('mosi_favs') || '[]');
 let historyList = JSON.parse(localStorage.getItem('mosi_history') || '[]');
 
 let view = 'search';
-let trendingSubView = 'songs'; // 'songs' | 'podcasts'
+let trendingSubView = 'songs';
 let searchQuery = '';
 let searchResults = [];
+let searchResultMeta = null;
 let featuredArtist = null;
 let currentItem = null;
 let queue = [];
@@ -371,18 +412,48 @@ function renderTrackRow(item, index, withCheckbox = true) {
   `;
 }
 
+// ساخت عنوان بهینه و متناسب به جای چاپ آدرس‌های طولانی
+function getSearchResultHeading() {
+  if (!searchQuery) {
+    return { eyebrow: 'جستجو و دریافت مستقیم', title: 'کاوش آثار رادیوجوان', desc: 'نام آهنگ، هنرمند یا پیوند اختصاصی را وارد کنید' };
+  }
+  if (searchResultMeta) {
+    return {
+      eyebrow: searchResultMeta.eyebrow || 'نتیجه پیوند اختصاصی',
+      title: searchResultMeta.title,
+      desc: searchResultMeta.desc || 'آثار استخراج‌شده از نشانی رادیوجوان'
+    };
+  }
+  if (/^https?:\/\//i.test(searchQuery) || searchQuery.includes('rj.app')) {
+    return {
+      eyebrow: 'نتیجه پردازش نشانی',
+      title: 'مجموعه قطعات دریافتی',
+      desc: `<span class="url-badge">${icon('link')} پیوند رادیوجوان</span>`
+    };
+  }
+  return {
+    eyebrow: 'نتایج جستجو',
+    title: `آثار مرتبط با «${searchQuery}»`,
+    desc: 'تک‌آهنگ‌ها، پادکست‌ها و آلبوم‌های یافت‌شده'
+  };
+}
+
 function renderMain() {
   const main = $('#main');
   if (view === 'search') {
+    const isInitialEmpty = !searchQuery && !searchResults.length;
+    const headerInfo = getSearchResultHeading();
+
     main.innerHTML = `
       <div class="page-head">
-        <div>
-          <span class="eyebrow">جستجو و دریافت</span>
-          <h1>${searchQuery ? `نتایج برای «${searchQuery}»` : 'جستجوی آثار رادیوجوان'}</h1>
-          <p>آهنگ‌ها، هنرمندان، پادکست‌ها و پیوندهای مستقیم rj.app</p>
+        <div class="page-head-main">
+          <span class="eyebrow">${headerInfo.eyebrow}</span>
+          <h1>${headerInfo.title}</h1>
+          <p>${headerInfo.desc}</p>
         </div>
-        <span class="count">${toFa(searchResults.length)} مورد</span>
+        ${searchResults.length ? `<span class="count">${toFa(searchResults.length)} اثر</span>` : ''}
       </div>
+
       ${featuredArtist ? `
         <section class="artist-sleeve">
           <div class="sleeve-copy">
@@ -400,6 +471,55 @@ function renderMain() {
           </div>
         </section>
       ` : ''}
+
+      ${isInitialEmpty ? `
+        <!-- صفحه اول پر محتوا قبل از جستجو -->
+        <section class="home-hero">
+          <h2>هنرمند یا آهنگ دلخواهت را جستجو کن</h2>
+          <p>امکان استریم آنلاین، کپی لینک مستقیم و دانلود تک‌تک یا زیپ تمام پلی‌لیست‌ها</p>
+          <div class="quick-tags">
+            <button class="quick-tag" data-q="شادمهر عقیلی">شادمهر عقیلی</button>
+            <button class="quick-tag" data-q="سیروان خسروی">سیروان خسروی</button>
+            <button class="quick-tag" data-q="محسن یگانه">محسن یگانه</button>
+            <button class="quick-tag" data-q="Abo-Atash">پادکست آب و آتش</button>
+            <button class="quick-tag" data-q="رادیو شب">پادکست رادیو شب</button>
+          </div>
+        </section>
+
+        <section class="home-features">
+          <div class="feature-box">
+            ${icon('music')}
+            <div>
+              <b>پشتیبانی از انواع پیوند</b>
+              <small>پشتیبانی کامل از لینک‌های کوتاه rj.app و پلی‌لیست‌های اختصاصی</small>
+            </div>
+          </div>
+          <div class="feature-box">
+            ${icon('download')}
+            <div>
+              <b>دانلود زیپ (ZIP) سبک</b>
+              <small>امکان بسته‌بندی پارت‌بندی‌شده و کم‌مصرف بدون فریز کردن حافظه موبایل</small>
+            </div>
+          </div>
+          <div class="feature-box">
+            ${icon('sparkles')}
+            <div>
+              <b>بالاترین کیفیت ۳۲۰ و ۱۲۸</b>
+              <small>پخش آنی بدون قندشکن همراه با متن کامل ترانه‌ها</small>
+            </div>
+          </div>
+        </section>
+
+        <div class="section-title">
+          <h2>🔥 پیشنهادهای داغ این هفته</h2>
+          <small><a href="#trending" style="color:var(--red);">مشاهده همه ←</a></small>
+        </div>
+        <div class="track-list" id="homeQuickPicks">
+          <div class="skeleton"><i></i><span></span></div>
+          <div class="skeleton"><i></i><span></span></div>
+        </div>
+      ` : ''}
+
       ${searchResults.length ? `
         <div class="collection-toolbar">
           <button class="btn" id="searchSelectAllBtn" aria-label="انتخاب تمام موارد">انتخاب همه</button>
@@ -410,21 +530,25 @@ function renderMain() {
         <div class="track-list">
           ${searchResults.map((item, idx) => renderTrackRow(item, idx, true)).join('')}
         </div>
-      ` : `
+      ` : (searchQuery ? `
         <section class="empty-state">
           ${icon('search')}
-          <h2>اثری برای نمایش وجود ندارد</h2>
-          <p>نام آهنگ یا خواننده مورد نظر خود را در کادر بالا جستجو کنید.</p>
+          <h2>اثری با این مشخصات یافت نشد</h2>
+          <p>لطفاً نام را به فارسی یا لاتین چک کنید یا از لینک مستقیم rj.app استفاده نمایید.</p>
         </section>
-      `}
+      ` : '')}
     `;
+
+    if (isInitialEmpty) {
+      loadHomeQuickPicks();
+    }
   } else if (view === 'favorites') {
     main.innerHTML = `
       <div class="page-head">
-        <div>
+        <div class="page-head-main">
           <span class="eyebrow">کتابخانه</span>
           <h1>قطعات نشان‌شده</h1>
-          <p>آرشیو قطعاتی که برای دسترسی سریع ذخیره کرده‌‌اید</p>
+          <p>آرشیو قطعاتی که برای دسترسی سریع ذخیره کرده‌‌‌‌اید</p>
         </div>
         <span class="count">${toFa(favorites.length)} مورد</span>
       </div>
@@ -449,7 +573,7 @@ function renderMain() {
   } else if (view === 'trending') {
     main.innerHTML = `
       <div class="page-head">
-        <div>
+        <div class="page-head-main">
           <span class="eyebrow">آرشیو روز</span>
           <h1>داغ‌ترین‌های رادیوجوان</h1>
           <p>مرور و دریافت تازه‌ترین آثار برگزیده به تفکیک دسته‌بندی</p>
@@ -498,7 +622,7 @@ function renderMain() {
   } else if (view === 'settings') {
     main.innerHTML = `
       <div class="page-head">
-        <div>
+        <div class="page-head-main">
           <span class="eyebrow">سیستم</span>
           <h1>تنظیمات برنامه</h1>
           <p>شخصی‌سازی کیفیت دانلود و نمای ظاهری</p>
@@ -527,6 +651,24 @@ function renderMain() {
     `;
   }
   renderNav();
+}
+
+async function loadHomeQuickPicks() {
+  const container = $('#homeQuickPicks');
+  if (!container) return;
+  try {
+    let items = browseState.songs.items;
+    if (!items.length) {
+      items = (await fetchBrowseData('mp3s', 'featured', 1)).map(normalizeItem);
+      browseState.songs.items = items;
+    }
+    const sampleItems = items.slice(0, 6);
+    if (sampleItems.length && $('#homeQuickPicks')) {
+      $('#homeQuickPicks').innerHTML = sampleItems.map((item, idx) => renderTrackRow(item, idx, false)).join('');
+    }
+  } catch(e) {
+    if (container) container.innerHTML = '<p class="muted" style="text-align:center;padding:12px;">پیشنهادها در دسترس نیستند</p>';
+  }
 }
 
 async function fetchBrowseData(endpoint, type, page) {
@@ -574,6 +716,7 @@ async function executeSearch(queryStr) {
   searchQuery = queryStr;
   view = 'search';
   featuredArtist = null;
+  searchResultMeta = null;
   selectedTracks.clear();
 
   if (!queryStr.startsWith('http')) {
@@ -582,7 +725,7 @@ async function executeSearch(queryStr) {
   }
 
   $('#main').innerHTML = `
-    <div class="page-head"><h1>در حال دریافت اطلاعات «${queryStr}»...</h1></div>
+    <div class="page-head"><div class="page-head-main"><h1>در حال استخراج و پردازش اطلاعات...</h1></div></div>
     <div class="skeleton"><i></i><span></span></div>
     <div class="skeleton"><i></i><span></span></div>
   `;
@@ -598,19 +741,46 @@ async function executeSearch(queryStr) {
       if (info.kind === 'playlist') {
         const d = await rjFetch('playlist', info.id);
         searchResults = (d.items || d.songs || []).map(normalizeItem);
+        searchResultMeta = {
+          eyebrow: 'پلی‌لیست رادیوجوان',
+          title: d.title || 'پلی‌لیست انتخابی',
+          desc: `گردآورنده: ${d.created_by || 'رادیوجوان'}`
+        };
       } else if (info.kind === 'podcast_show') {
         const d = await rjFetch('podcast', info.id);
         searchResults = (d.podcasts || d.items || []).map(normalizeItem);
+        searchResultMeta = {
+          eyebrow: 'مجموعه پادکست',
+          title: d.title || 'قسمت‌های پادکست',
+          desc: `سازنده: ${d.podcast_artist || 'رادیوجوان'}`
+        };
       } else if (info.kind === 'artist') {
         const d = await fetchArtist(info.id);
         searchResults = [...(d.mp3s || []), ...(d.podcasts || [])].map(normalizeItem);
-        featuredArtist = { name: d.name || d.query || info.id.replace(/-/g, ' '), photo: d.photo || DEFAULT_COVER };
+        const aName = d.name || d.query || info.id.replace(/-/g, ' ');
+        featuredArtist = { name: aName, photo: d.photo || DEFAULT_COVER };
+        searchResultMeta = {
+          eyebrow: 'دیسکوگرافی هنرمند',
+          title: `تمام آثار ${aName}`,
+          desc: 'شامل تک‌آهنگ‌ها و پادکست‌های مرتبط'
+        };
       } else {
         const d = await rjFetch(info.kind, info.id);
         if (d.type === 'show' || Array.isArray(d.podcasts)) {
           searchResults = (d.podcasts || []).map(normalizeItem);
+          searchResultMeta = {
+            eyebrow: 'پادکست اختصاصی',
+            title: d.title || 'شو پادکست',
+            desc: `هنرمند: ${d.podcast_artist || 'رادیوجوان'}`
+          };
         } else {
-          searchResults = [normalizeItem(d)];
+          const norm = normalizeItem(d);
+          searchResults = [norm];
+          searchResultMeta = {
+            eyebrow: 'قطعهٔ انتخابی',
+            title: norm.title,
+            desc: `خواننده: ${norm.artist}`
+          };
         }
       }
     } else {
@@ -800,7 +970,7 @@ function renderFullPlayer() {
         <p class="artist-name">${currentItem.artist}</p>
         <input class="range" type="range" data-seek min="0" max="${dur}" value="${position}" aria-label="موقعیت آهنگ">
         <div class="seek-times"><span data-elapsed>${fmtTime(position)}</span><span>${fmtTime(dur)}</span></div>
-        <div class="controls">
+        <div class="controls" style="margin-top:10px;">
           <button type="button" class="icon-btn" id="fpPrev" aria-label="قطعه قبلی">${icon('prev')}</button>
           <button type="button" class="icon-btn play-main" id="fpPlay" aria-label="${playing ? 'مکث' : 'پخش'}">${icon(playing ? 'pause' : 'play')}</button>
           <button type="button" class="icon-btn" id="fpNext" aria-label="قطعه بعدی">${icon('next')}</button>
@@ -817,7 +987,7 @@ function renderFullPlayer() {
 }
 
 async function downloadSingle(item) {
-  toast('در حال آماده‌سازی دانلود فایل...');
+  toast('در حال آماده‌سازی دریافت فایل...');
   let dlUrl = getItemAudioUrl(item);
   if (!dlUrl) {
     try {
@@ -869,7 +1039,7 @@ async function downloadZipCollection(items) {
   let done = 0;
   let part = 1;
   let totalBytesInPart = 0;
-  const PART_LIMIT_BYTES = 120 * 1024 * 1024; // سقف حافظه امن موبایل
+  const PART_LIMIT_BYTES = 120 * 1024 * 1024;
 
   const updateProgressUI = () => {
     const pct = Math.round((done / items.length) * 100);
@@ -925,7 +1095,7 @@ async function downloadZipCollection(items) {
               a.remove();
               setTimeout(() => URL.revokeObjectURL(partUrl), 1500);
 
-              zip = new JSZip(); // آزادسازی بافر از رم
+              zip = new JSZip();
               totalBytesInPart = 0;
               part++;
             }
@@ -986,7 +1156,7 @@ async function showLyrics(item) {
   }
 
   $('#sheet').querySelector('.sheet-body').innerHTML = text
-    ? `<div style="white-space:pre-line;text-align:center;line-height:2.2;font-size:16px;">${text}</div>`
+    ? `<div style="white-space:pre-line;text-align:center;line-height:2.2;font-size:15.5px;">${text}</div>`
     : `<p style="text-align:center;padding:20px;">متن ترانه‌ای برای این اثر یافت نشد.</p>`;
 }
 
@@ -1023,7 +1193,6 @@ document.addEventListener('click', e => {
     return;
   }
 
-  // سوئیچ تب‌های مجزا در بخش داغ‌ترین‌ها
   if (e.target.closest('#tabSongsBtn')) {
     trendingSubView = 'songs';
     renderMain();
@@ -1042,6 +1211,7 @@ document.addEventListener('click', e => {
     let list = searchResults;
     if (view === 'favorites') list = favorites;
     else if (view === 'trending') list = browseState[trendingSubView].items;
+    else if (view === 'search' && !searchResults.length) list = browseState.songs.items;
     const item = list[idx];
 
     if (act === 'play' && item) {
@@ -1075,7 +1245,6 @@ document.addEventListener('click', e => {
     }
   }
 
-  // دکمه‌های کنترل مدیا پلیر
   if (e.target.closest('#dockPlay') || e.target.closest('#ctxPlay') || e.target.closest('#fpPlay')) togglePlay();
   if (e.target.closest('#dockNext') || e.target.closest('#ctxNext') || e.target.closest('#fpNext')) playNext();
   if (e.target.closest('#dockPrev') || e.target.closest('#ctxPrev') || e.target.closest('#fpPrev')) playPrev();
